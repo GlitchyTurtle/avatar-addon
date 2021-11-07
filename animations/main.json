@@ -1,0 +1,16 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.main": {
+			"timeline": {
+				"0.0": [
+					"/scoreboard players add @a detect_init 0",
+					"/execute @a[scores={detect_init=0}] ~~~ function detect_init",
+					"/scoreboard players add @a[scores={detect_sneakTemp=1..}] detect_sneakTemp -1"
+				]
+			},
+			"animation_length": 0.05,
+			"loop": true
+		}
+	}
+}

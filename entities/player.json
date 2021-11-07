@@ -1,0 +1,447 @@
+{
+	"format_version": "1.16.220",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"start",
+					"main",
+					"left",
+					"sneak",
+					"sprint",
+					"rhx"
+				]
+			},
+			"animations": {
+				"start": "animation.start",
+				"main": "animation.main",
+				"left": "controller.animation.left",
+				"sneak": "controller.animation.sneak",
+				"sprint": "controller.animation.sprint",
+				"rhx": "controller.animation.rhx"
+			}
+		},
+		"component_groups": {
+			"minecraft:add_bad_omen": {
+				"minecraft:spell_effects": {
+					"add_effects": [
+						{
+							"effect": "bad_omen",
+							"duration": 6000,
+							"display_on_screen_animation": true
+						},
+						{
+							"effect": "bad_omen",
+							"duration": 6000,
+							"display_on_screen_animation": true
+						}
+					]
+				},
+				"minecraft:timer": {
+					"time": [
+						0,
+						0,
+						0,
+						0
+					],
+					"looping": false,
+					"time_down_event": {
+						"event": "minecraft:clear_add_bad_omen",
+						"target": "self"
+					}
+				}
+			},
+			"minecraft:clear_bad_omen_spell_effect": {
+				"minecraft:spell_effects": {}
+			},
+			"minecraft:raid_trigger": {
+				"minecraft:raid_trigger": {
+					"triggered_event": {
+						"event": "minecraft:remove_raid_trigger",
+						"target": "self"
+					}
+				},
+				"minecraft:spell_effects": {
+					"remove_effects": "bad_omen"
+				}
+			},
+			"ep:earth": {
+				"minecraft:health": {
+					"max": 40
+				},
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand"
+					]
+				},
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"ep:air": {
+				"minecraft:health": {
+					"max": 20
+				},
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						}
+					]
+				},
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
+				}
+			},
+			"ep:water": {
+				"minecraft:breathable": {
+					"breathes_water": true,
+					"breathes_air": true
+				},
+				"minecraft:health": {
+					"max": 30
+				},
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"ep:fire": {
+				"minecraft:health": {
+					"max": 30
+				},
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
+				},
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"ep:human": {
+				"minecraft:health": {
+					"max": 20
+				},
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
+				},
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"ep:avatar": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						}
+					]
+				},
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand",
+						"minecraft:water",
+						"minecraft:flowing_water"
+					]
+				},
+				"minecraft:health": {
+					"max": 40
+				}
+			}
+		},
+		"components": {
+			"minecraft:experience_reward": {
+				"on_death": "Math.Min(query.player_level * 7, 100)"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:can_climb": {},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 1
+			},
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 0,
+				"max": 4
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": -1,
+				"inhale_time": 3.75,
+				"generates_bubbles": false
+			},
+			"minecraft:nameable": {
+				"always_show": true,
+				"allow_name_tag_renaming": false
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:insomnia": {
+				"days_until_insomnia": 3
+			},
+			"minecraft:rideable": {
+				"seat_count": 2,
+				"family_types": [
+					"parrot_tame"
+				],
+				"pull_in_entities": true,
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 0,
+						"max_rider_count": 0,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							-0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 1,
+						"max_rider_count": 2,
+						"lock_rider_rotation": 0
+					}
+				]
+			},
+			"minecraft:scaffolding_climber": {},
+			"minecraft:health": {
+				"max": 20
+			}
+		},
+		"events": {
+			"minecraft:gain_bad_omen": {
+				"add": {
+					"component_groups": [
+						"minecraft:add_bad_omen",
+						"minecraft:add_bad_omen"
+					]
+				}
+			},
+			"minecraft:clear_add_bad_omen": {
+				"remove": {
+					"component_groups": [
+						"minecraft:add_bad_omen",
+						"minecraft:add_bad_omen"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:clear_bad_omen_spell_effect",
+						"minecraft:clear_bad_omen_spell_effect"
+					]
+				}
+			},
+			"minecraft:trigger_raid": {
+				"add": {
+					"component_groups": [
+						"minecraft:raid_trigger",
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"minecraft:remove_raid_trigger": {
+				"remove": {
+					"component_groups": [
+						"minecraft:raid_trigger",
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"become_earth": {
+				"add": {
+					"component_groups": [
+						"ep:earth"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ep:air",
+						"ep:water",
+						"ep:fire",
+						"ep:human",
+						"ep:avatar"
+					]
+				}
+			},
+			"become_fire": {
+				"add": {
+					"component_groups": [
+						"ep:fire"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ep:air",
+						"ep:water",
+						"ep:earth",
+						"ep:human",
+						"ep:avatar"
+					]
+				}
+			},
+			"become_air": {
+				"add": {
+					"component_groups": [
+						"ep:air"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ep:earth",
+						"ep:water",
+						"ep:fire",
+						"ep:human",
+						"ep:avatar"
+					]
+				}
+			},
+			"become_water": {
+				"add": {
+					"component_groups": [
+						"ep:water"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ep:earth",
+						"ep:air",
+						"ep:fire",
+						"ep:human",
+						"ep:avatar"
+					]
+				}
+			},
+			"become_human": {
+				"remove": {
+					"component_groups": [
+						"ep:earth",
+						"ep:air",
+						"ep:water",
+						"ep:fire",
+						"ep:avatar"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"ep:human"
+					]
+				}
+			},
+			"become_avatar": {
+				"remove": {
+					"component_groups": [
+						"ep:earth",
+						"ep:air",
+						"ep:water",
+						"ep:fire",
+						"ep:human"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"ep:avatar"
+					]
+				}
+			}
+		}
+	}
+}
