@@ -1,0 +1,171 @@
+{
+	"function": {
+		"9a1c93eb_381d_4cf4_ba57_b33e4813ee3f": {
+			"tags": [
+				"selfr"
+			]
+		},
+		"BP/functions/moves/air_blast.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"selfr",
+				"selfshove"
+			]
+		},
+		"BP/functions/become/air.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"air",
+				"water",
+				"fire",
+				"earth",
+				"avatar",
+				"choose"
+			]
+		},
+		"BP/functions/become/avatar.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"fire",
+				"air",
+				"water",
+				"earth",
+				"avatar",
+				"choose"
+			]
+		},
+		"BP/functions/become/earth.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"earth",
+				"air",
+				"water",
+				"fire",
+				"avatar",
+				"choose"
+			]
+		},
+		"BP/functions/become/fire.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"fire",
+				"air",
+				"water",
+				"earth",
+				"avatar",
+				"choose"
+			]
+		},
+		"BP/functions/become/water.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"water",
+				"air",
+				"fire",
+				"earth",
+				"avatar",
+				"choose"
+			]
+		},
+		"BP/functions/moves/fireball.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/air/air_slot_1.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/air/air_slot_2.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/air/air_slot_3.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/air/air_slot_4.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/earth/earth_slot_1.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/earth/earth_slot_2.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/earth/earth_slot_3.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/earth/earth_slot_4.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/fire/fire_slot_1.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/fire/fire_slot_2.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/fire/fire_slot_3.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/fire/fire_slot_4.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/water/water_slot_1.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/water/water_slot_2.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/water/water_slot_3.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/slot_choice/water/water_slot_4.mcfunction": {
+			"custom_commands": []
+		},
+		"BP/functions/assets/slot1choice.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"chooseslot1"
+			]
+		}
+	},
+	"entity": {
+		"BP/entities/player.json": {
+			"events": [
+				"become_earth",
+				"become_fire",
+				"become_air",
+				"become_water",
+				"become_avatar",
+				"become_human"
+			],
+			"bridge_core_tags": [],
+			"identifiers": [
+				"minecraft:player"
+			],
+			"animation_references": [
+				"start",
+				"main",
+				"left",
+				"sneak",
+				"sprint",
+				"rhx",
+				"move"
+			],
+			"families": [
+				"player"
+			],
+			"custom_components": [],
+			"custom_commands": []
+		},
+		"BP/entities/fireball.json": {
+			"events": [
+				"minecraft:explode"
+			],
+			"bridge_core_tags": [],
+			"identifiers": [
+				"minecraft:fireball"
+			],
+			"animation_references": [],
+			"families": [],
+			"custom_commands": [],
+			"custom_components": []
+		}
+	}
+}

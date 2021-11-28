@@ -1,5 +1,6 @@
+//bridge-file-version: #181
 {
-	"format_version": "1.16.220",
+	"format_version": "1.17.0",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:player",
@@ -13,7 +14,8 @@
 					"left",
 					"sneak",
 					"sprint",
-					"rhx"
+					"rhx",
+					"move"
 				]
 			},
 			"animations": {
@@ -22,54 +24,12 @@
 				"left": "controller.animation.left",
 				"sneak": "controller.animation.sneak",
 				"sprint": "controller.animation.sprint",
-				"rhx": "controller.animation.rhx"
+				"rhx": "controller.animation.rhx",
+				"move": "controller.animation.move"
 			}
 		},
 		"component_groups": {
-			"minecraft:add_bad_omen": {
-				"minecraft:spell_effects": {
-					"add_effects": [
-						{
-							"effect": "bad_omen",
-							"duration": 6000,
-							"display_on_screen_animation": true
-						},
-						{
-							"effect": "bad_omen",
-							"duration": 6000,
-							"display_on_screen_animation": true
-						}
-					]
-				},
-				"minecraft:timer": {
-					"time": [
-						0,
-						0,
-						0,
-						0
-					],
-					"looping": false,
-					"time_down_event": {
-						"event": "minecraft:clear_add_bad_omen",
-						"target": "self"
-					}
-				}
-			},
-			"minecraft:clear_bad_omen_spell_effect": {
-				"minecraft:spell_effects": {}
-			},
-			"minecraft:raid_trigger": {
-				"minecraft:raid_trigger": {
-					"triggered_event": {
-						"event": "minecraft:remove_raid_trigger",
-						"target": "self"
-					}
-				},
-				"minecraft:spell_effects": {
-					"remove_effects": "bad_omen"
-				}
-			},
-			"ep:earth": {
+			"a:earth": {
 				"minecraft:health": {
 					"max": 40
 				},
@@ -97,7 +57,7 @@
 					]
 				}
 			},
-			"ep:air": {
+			"a:air": {
 				"minecraft:health": {
 					"max": 20
 				},
@@ -116,7 +76,7 @@
 					"generates_bubbles": false
 				}
 			},
-			"ep:water": {
+			"a:water": {
 				"minecraft:breathable": {
 					"breathes_water": true,
 					"breathes_air": true
@@ -133,7 +93,7 @@
 					]
 				}
 			},
-			"ep:fire": {
+			"a:fire": {
 				"minecraft:health": {
 					"max": 30
 				},
@@ -152,7 +112,7 @@
 					]
 				}
 			},
-			"ep:human": {
+			"a:human": {
 				"minecraft:health": {
 					"max": 20
 				},
@@ -171,7 +131,7 @@
 					]
 				}
 			},
-			"ep:avatar": {
+			"a:avatar": {
 				"minecraft:damage_sensor": {
 					"triggers": [
 						{
@@ -308,137 +268,99 @@
 			}
 		},
 		"events": {
-			"minecraft:gain_bad_omen": {
-				"add": {
-					"component_groups": [
-						"minecraft:add_bad_omen",
-						"minecraft:add_bad_omen"
-					]
-				}
-			},
-			"minecraft:clear_add_bad_omen": {
-				"remove": {
-					"component_groups": [
-						"minecraft:add_bad_omen",
-						"minecraft:add_bad_omen"
-					]
-				},
-				"add": {
-					"component_groups": [
-						"minecraft:clear_bad_omen_spell_effect",
-						"minecraft:clear_bad_omen_spell_effect"
-					]
-				}
-			},
-			"minecraft:trigger_raid": {
-				"add": {
-					"component_groups": [
-						"minecraft:raid_trigger",
-						"minecraft:raid_trigger"
-					]
-				}
-			},
-			"minecraft:remove_raid_trigger": {
-				"remove": {
-					"component_groups": [
-						"minecraft:raid_trigger",
-						"minecraft:raid_trigger"
-					]
-				}
-			},
 			"become_earth": {
 				"add": {
 					"component_groups": [
-						"ep:earth"
+						"a:earth"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"ep:air",
-						"ep:water",
-						"ep:fire",
-						"ep:human",
-						"ep:avatar"
+						"a:air",
+						"a:water",
+						"a:fire",
+						"a:human",
+						"a:avatar"
 					]
 				}
 			},
 			"become_fire": {
 				"add": {
 					"component_groups": [
-						"ep:fire"
+						"a:fire"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"ep:air",
-						"ep:water",
-						"ep:earth",
-						"ep:human",
-						"ep:avatar"
+						"a:air",
+						"a:water",
+						"a:earth",
+						"a:human",
+						"a:avatar"
 					]
 				}
 			},
 			"become_air": {
 				"add": {
 					"component_groups": [
-						"ep:air"
+						"a:air"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"ep:earth",
-						"ep:water",
-						"ep:fire",
-						"ep:human",
-						"ep:avatar"
+						"a:earth",
+						"a:water",
+						"a:fire",
+						"a:human",
+						"a:avatar"
 					]
 				}
 			},
 			"become_water": {
 				"add": {
 					"component_groups": [
-						"ep:water"
+						"a:water"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"ep:earth",
-						"ep:air",
-						"ep:fire",
-						"ep:human",
-						"ep:avatar"
-					]
-				}
-			},
-			"become_human": {
-				"remove": {
-					"component_groups": [
-						"ep:earth",
-						"ep:air",
-						"ep:water",
-						"ep:fire",
-						"ep:avatar"
-					]
-				},
-				"add": {
-					"component_groups": [
-						"ep:human"
+						"a:earth",
+						"a:air",
+						"a:fire",
+						"a:human",
+						"a:avatar"
 					]
 				}
 			},
 			"become_avatar": {
 				"remove": {
 					"component_groups": [
-						"ep:earth",
-						"ep:air",
-						"ep:water",
-						"ep:fire",
-						"ep:human"
+						"a:earth",
+						"a:air",
+						"a:water",
+						"a:fire",
+						"a:human"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"ep:avatar"
+						"a:avatar"
+					]
+				}
+			},
+			"become_human": {
+				"remove": {
+					"component_groups": [
+						"a:earth",
+						"a:air",
+						"a:water",
+						"a:fire",
+						"a:avatar"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"a:human"
 					]
 				}
 			}

@@ -1,4 +1,8 @@
-#bridge-file-version: #5
+#bridge-file-version: #6
+scoreboard players set @s moveslot1 0
+scoreboard players set @s moveslot2 0
+scoreboard players set @s moveslot3 0
+scoreboard players set @s moveslot4 0
 tag @s remove air
 tag @s remove earth
 tag @s remove fire

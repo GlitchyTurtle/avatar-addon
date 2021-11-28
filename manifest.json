@@ -3,7 +3,7 @@
 	"header": {
 		"name": "pack.name",
 		"description": "pack.description",
-		"uuid": "60788199-8711-4f25-b180-d403648c5172",
+		"uuid": "208c7c07-d70e-4af2-bbc1-f9e497ca8f80",
 		"version": [
 			1,
 			0,
@@ -18,7 +18,7 @@
 	"modules": [
 		{
 			"type": "data",
-			"uuid": "6bebbd0c-dd33-49c4-9f6a-a781f5126478",
+			"uuid": "4c2dad11-5998-4f99-88ba-b0f8d7319669",
 			"version": [
 				1,
 				0,
