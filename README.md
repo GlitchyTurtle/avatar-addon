@@ -13,6 +13,12 @@ The moves and abilities of these classes are outlined below, and also in-game.
 Have fun playing! 
  
 # <img src="https://i.imgur.com/YuJiyym.png" border="0" height="30">
+
+Firebending is known for its intense and aggressive attacking style and general lack of adequate defensive moves, although firebenders can modify offensive maneuvers to function as a defense. 
+  
+**Moves:**
+* a
+ 
 # <img src="https://i.imgur.com/1iBENgb.png" border="0" height="30">
 # <img src="https://i.imgur.com/gKmJvMM.png" border="0" height="30">
 # <img src="https://i.imgur.com/A2pSBdE.png" border="0" height="30">
