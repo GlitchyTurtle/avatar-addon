@@ -11,7 +11,11 @@ When you start the pack, run the command `/function choose` to pick your abiliti
   
 The moves and abilities of these classes are outlined below, and also in-game.
 Have fun playing! 
-  
+ 
+# <img src="https://i.imgur.com/YuJiyym.png" border="0" height="30">
+# <img src="https://i.imgur.com/1iBENgb.png" border="0" height="30">
+# <img src="https://i.imgur.com/gKmJvMM.png" border="0" height="30">
+# <img src="https://i.imgur.com/A2pSBdE.png" border="0" height="30">
 
 # Screenshots 
   <img src="https://api.mcpedl.com/storage/submissions/127492/images/avatar-addon-v2-overhaul_2.png" width="1000" />
