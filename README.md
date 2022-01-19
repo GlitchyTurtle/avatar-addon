@@ -1,6 +1,6 @@
 <div align="center">
   
-## <img src="https://i.imgur.com/VikqUO3.png" border="0"  height="120">
+## <img src="https://i.imgur.com/VikqUO3.png" border="0" width="800">
 
 This addon simply adds the four nations bending abilities from the show Avatar the last Airbender, without needing experimental gameplay enabled, so it works on servers, realms, and already modded worlds with virtually no lag. Create realms, and customize the addon to fit your playstyle using the in-game settings. 
  
