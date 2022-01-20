@@ -1,6 +1,6 @@
-#bridge-file-version: #72
+#bridge-file-version: #73
 HIDE 
-summon armor_stand ^ ^ ^-1 k ice_throw
+summon armor_stand ^ ^ ^-1 normal_size ice_throw
 tag @s add ice_throw
 scoreboard players set @s cooldown1 0
 tellraw @s {"rawtext":[{"text":"You used "},{"text":"§bIce Throw"}]}

@@ -1,0 +1,273 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\entities\\move_helper.json",
+	"file_type": "entity",
+	"format_version": 1,
+	"file_uuid": "11d82473_eadc_41a2_b531_a22e1b2a9e86",
+	"file_version": 11,
+	"cache_content": {
+		"children": [
+			{
+				"data": "1.13.0",
+				"key": "format_version"
+			},
+			{
+				"open": {
+					"format_version": "1.13.0",
+					"minecraft:entity": {
+						"description": {
+							"identifier": "a:move_helper",
+							"is_spawnable": false,
+							"is_summonable": true,
+							"is_experimental": false
+						},
+						"components": {
+							"minecraft:type_family": {
+								"family": [
+									"inanimate",
+									"mob",
+									"move_helper"
+								]
+							},
+							"minecraft:collision_box": {
+								"width": 0.5,
+								"height": 0.5
+							},
+							"minecraft:health": {
+								"value": 6,
+								"max": 6
+							},
+							"minecraft:nameable": {
+								"allow_name_tag_renaming": true
+							},
+							"minecraft:persistent": {},
+							"minecraft:physics": {
+								"has_gravity": false
+							},
+							"minecraft:conditional_bandwidth_optimization": {},
+							"minecraft:damage_sensor": {
+								"triggers": [
+									{
+										"deals_damage": false,
+										"cause": "entity_attack"
+									}
+								]
+							}
+						},
+						"events": {},
+						"component_groups": {}
+					}
+				},
+				"key": "minecraft:entity",
+				"children": [
+					{
+						"key": "description",
+						"is_minified": true,
+						"children": {
+							"identifier": "a:move_helper",
+							"is_spawnable": false,
+							"is_summonable": true,
+							"is_experimental": false
+						}
+					},
+					{
+						"open": {
+							"description": {
+								"identifier": "a:move_helper",
+								"is_spawnable": false,
+								"is_summonable": true,
+								"is_experimental": false
+							},
+							"components": {
+								"minecraft:type_family": {
+									"family": [
+										"inanimate",
+										"mob",
+										"move_helper"
+									]
+								},
+								"minecraft:collision_box": {
+									"width": 0.5,
+									"height": 0.5
+								},
+								"minecraft:health": {
+									"value": 6,
+									"max": 6
+								},
+								"minecraft:nameable": {
+									"allow_name_tag_renaming": true
+								},
+								"minecraft:persistent": {},
+								"minecraft:physics": {
+									"has_gravity": false
+								},
+								"minecraft:conditional_bandwidth_optimization": {},
+								"minecraft:damage_sensor": {
+									"triggers": [
+										{
+											"deals_damage": false,
+											"cause": "entity_attack"
+										}
+									]
+								}
+							},
+							"events": {},
+							"component_groups": {}
+						},
+						"key": "components",
+						"children": [
+							{
+								"key": "minecraft:type_family",
+								"is_minified": true,
+								"children": {
+									"family": [
+										"inanimate",
+										"mob",
+										"move_helper"
+									]
+								}
+							},
+							{
+								"key": "minecraft:collision_box",
+								"is_minified": true,
+								"children": {
+									"width": 0.5,
+									"height": 0.5
+								}
+							},
+							{
+								"key": "minecraft:health",
+								"is_minified": true,
+								"children": {
+									"value": 6,
+									"max": 6
+								}
+							},
+							{
+								"key": "minecraft:nameable",
+								"is_minified": true,
+								"children": {
+									"allow_name_tag_renaming": true
+								}
+							},
+							{
+								"key": "minecraft:persistent",
+								"is_minified": true,
+								"children": {}
+							},
+							{
+								"open": {
+									"minecraft:type_family": {
+										"family": [
+											"inanimate",
+											"mob",
+											"move_helper"
+										]
+									},
+									"minecraft:collision_box": {
+										"width": 0.5,
+										"height": 0.5
+									},
+									"minecraft:health": {
+										"value": 6,
+										"max": 6
+									},
+									"minecraft:nameable": {
+										"allow_name_tag_renaming": true
+									},
+									"minecraft:persistent": {},
+									"minecraft:physics": {
+										"has_gravity": false
+									},
+									"minecraft:conditional_bandwidth_optimization": {},
+									"minecraft:damage_sensor": {
+										"triggers": [
+											{
+												"deals_damage": false,
+												"cause": "entity_attack"
+											}
+										]
+									}
+								},
+								"key": "minecraft:physics",
+								"is_minified": true,
+								"children": {
+									"has_gravity": false
+								}
+							},
+							{
+								"key": "minecraft:conditional_bandwidth_optimization",
+								"is_minified": true,
+								"children": {}
+							},
+							{
+								"key": "minecraft:damage_sensor",
+								"is_minified": true,
+								"children": {
+									"triggers": [
+										{
+											"deals_damage": false,
+											"cause": "entity_attack"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"open": {
+							"description": {
+								"identifier": "a:move_helper",
+								"is_spawnable": false,
+								"is_summonable": true,
+								"is_experimental": false
+							},
+							"components": {
+								"minecraft:type_family": {
+									"family": [
+										"inanimate",
+										"mob",
+										"move_helper"
+									]
+								},
+								"minecraft:collision_box": {
+									"width": 0.5,
+									"height": 0.5
+								},
+								"minecraft:health": {
+									"value": 6,
+									"max": 6
+								},
+								"minecraft:nameable": {
+									"allow_name_tag_renaming": true
+								},
+								"minecraft:persistent": {},
+								"minecraft:physics": {
+									"has_gravity": false
+								},
+								"minecraft:conditional_bandwidth_optimization": {},
+								"minecraft:damage_sensor": {
+									"triggers": [
+										{
+											"deals_damage": false,
+											"cause": "entity_attack"
+										}
+									]
+								}
+							},
+							"events": {},
+							"component_groups": {}
+						},
+						"key": "events",
+						"is_minified": true,
+						"children": {}
+					},
+					{
+						"key": "component_groups",
+						"is_minified": true,
+						"children": {}
+					}
+				]
+			}
+		]
+	}
+}

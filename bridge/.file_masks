@@ -1,8 +1,5 @@
 {
-	"BP/entities/player.json": {
-		"data": {}
-	},
-	"BP/entities/fireball.json": {
+	"BP/entities/move_helper.json": {
 		"data": {}
 	}
 }

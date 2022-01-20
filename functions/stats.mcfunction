@@ -1,0 +1,8 @@
+#bridge-file-version: #33
+tellraw @s[tag=air] {"rawtext":[{"selector":"@s"},{"text":" is a level "},{"score":{"name": "@s","objective": "level"}},{"text":" Airbender. They have "},{"score":{"name": "@s","objective": "deaths"}},{"text":" deaths, and "},{"score":{"name": "@s","objective": "kills"}},{"text":" kills. "}]}
+tellraw @s[tag=earth] {"rawtext":[{"selector":"@s"},{"text":" is a level "},{"score":{"name": "@s","objective": "level"}},{"text":" Earthbender. They have "},{"score":{"name": "@s","objective": "deaths"}},{"text":" deaths, and "},{"score":{"name": "@s","objective": "kills"}},{"text":" kills. "}]}
+tellraw @s[tag=fire] {"rawtext":[{"selector":"@s"},{"text":" is a level "},{"score":{"name": "@s","objective": "level"}},{"text":" Firebender. They have "},{"score":{"name": "@s","objective": "deaths"}},{"text":" deaths, and "},{"score":{"name": "@s","objective": "kills"}},{"text":" kills. "}]}
+tellraw @s[tag=water] {"rawtext":[{"selector":"@s"},{"text":" is a level "},{"score":{"name": "@s","objective": "level"}},{"text":" Waterbender. They have "},{"score":{"name": "@s","objective": "deaths"}},{"text":" deaths, and "},{"score":{"name": "@s","objective": "kills"}},{"text":" kills. "}]}
+tellraw @s[tag=avatar] {"rawtext":[{"selector":"@s"},{"text":" is a level "},{"score":{"name": "@s","objective": "level"}},{"text":" Avatar. They have "},{"score":{"name": "@s","objective": "deaths"}},{"text":" deaths, and "},{"score":{"name": "@s","objective": "kills"}},{"text":" kills. "}]}
+ 
+ 

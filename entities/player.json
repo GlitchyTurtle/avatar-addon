@@ -1,4 +1,4 @@
-//bridge-file-version: #181
+//bridge-file-version: #201
 {
 	"format_version": "1.17.0",
 	"minecraft:entity": {
@@ -15,7 +15,10 @@
 					"sneak",
 					"sprint",
 					"rhx",
-					"move"
+					"move",
+					"rhy",
+					"kill",
+					"death"
 				]
 			},
 			"animations": {
@@ -25,7 +28,10 @@
 				"sneak": "controller.animation.sneak",
 				"sprint": "controller.animation.sprint",
 				"rhx": "controller.animation.rhx",
-				"move": "controller.animation.move"
+				"move": "controller.animation.move",
+				"rhy": "controller.animation.rhy",
+				"kill": "controller.animation.kill",
+				"death": "controller.animation.death"
 			}
 		},
 		"component_groups": {
@@ -160,6 +166,16 @@
 				"minecraft:health": {
 					"max": 40
 				}
+			},
+			"normal": {
+				"minecraft:variant": {
+					"value": 452
+				}
+			},
+			"kill": {
+				"minecraft:variant": {
+					"value": 455
+				}
 			}
 		},
 		"components": {
@@ -265,6 +281,65 @@
 			"minecraft:scaffolding_climber": {},
 			"minecraft:health": {
 				"max": 20
+			},
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "moon_intensity",
+									"operator": "equals",
+									"value": 1
+								},
+								{
+									"test": "moon_phase",
+									"operator": "equals",
+									"value": 1
+								}
+							]
+						},
+						"event": "moon_full"
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "moon_intensity",
+									"value": 1,
+									"operator": "not"
+								},
+								{
+									"test": "moon_phase",
+									"value": 1,
+									"operator": "not"
+								}
+							]
+						},
+						"event": "moon_not_full"
+					}
+				]
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "entity_attack",
+						"deals_damage": true,
+						"on_damage": {
+							"event": "kill",
+							"target": "other",
+							"filters": {
+								"all_of": [
+									{
+										"test": "has_damage",
+										"subject": "self",
+										"value": "fatal"
+									}
+								]
+							}
+						}
+					}
+				]
 			}
 		},
 		"events": {
@@ -361,6 +436,44 @@
 				"add": {
 					"component_groups": [
 						"a:human"
+					]
+				}
+			},
+			"moon_full": {
+				"run_command": {
+					"command": [
+						"tag @s add full_moon"
+					]
+				}
+			},
+			"moon_not_full": {
+				"run_command": {
+					"command": [
+						"tag @s remove full_moon"
+					]
+				}
+			},
+			"kill": {
+				"add": {
+					"component_groups": [
+						"kill"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"normal"
+					]
+				}
+			},
+			"removekill": {
+				"remove": {
+					"component_groups": [
+						"kill"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"normal"
 					]
 				}
 			}

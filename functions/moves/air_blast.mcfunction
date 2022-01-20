@@ -1,4 +1,4 @@
-#bridge-file-version: #38
+#bridge-file-version: #42
 HIDE 
 tag @s add selfshove
 scoreboard players set @s cooldown1 0
@@ -28,6 +28,10 @@ execute @s ^^ ^6 execute @e[r=2,tag=!selfshove] ~~~ tp @s ^ ^ ^-0.5 facing @p[ta
 execute @s ^^ ^6 execute @e[r=2,tag=!selfshove] ~~~ tp @s ^ ^ ^-0.5 facing @p[tag=selfshove]
 execute @s ^ ^ ^6 execute @e[r=2,tag=!selfshove] ~~~ tp @s ^ ^ ^-0.5 facing @p[tag=selfshove]
 execute @s ^ ^ ^7 effect @e[r=2] instant_damage 1 0 true
+execute @s[scores={level=0..5}] ^ ^ ^7 effect @e[r=3] wither 2 2 true
+execute @s[scores={level=6..10}] ^ ^ ^7 effect @e[r=3] wither 2 4 true
+execute @s[scores={level=11..99}] ^ ^ ^7 effect @e[r=3] wither 2 6 true
+execute @s[scores={level=100..}] ^ ^ ^7 effect @e[r=3] wither 2 15 true
 scoreboard players set @s cooldown1 0
 tellraw @s {"rawtext":[{"text":"You used "},{"text":"§bAir Blast"}]}
 scoreboard players add @s sub_level 2

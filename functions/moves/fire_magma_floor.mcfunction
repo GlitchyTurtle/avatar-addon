@@ -1,7 +1,8 @@
-#bridge-file-version: #19
+#bridge-file-version: #22
 HIDE 
-effect @s resistance 1 255 true
-structure load magma_floor ~-4 ~-1 ~-4
+effect @s resistance 3 255 true
+particle minecraft:mobflame_single ~ ~ ~
+particle minecraft:egg_destroy_emitter ~ ~ ~
 scoreboard players set @s cooldown 0
-tellraw @s {"rawtext":[{"text":"You used "},{"text":"§bMagma Floor"}]}
+tellraw @s {"rawtext":[{"text":"You used "},{"text":"§bFire Shield"}]}
 scoreboard players add @s sub_level 1

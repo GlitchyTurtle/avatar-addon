@@ -1,4 +1,4 @@
-#bridge-file-version: #55
+#bridge-file-version: #56
 HIDE 
 tag @s add air
 scoreboard players set @s moveslot1 0
@@ -28,6 +28,7 @@ tellraw @s {"rawtext":[{"text":"§bAir Escape §r- Launch all entities near you 
 tellraw @s {"rawtext":[{"text":"§bAir Blast §r- Shoots a focused beam of air that does damage and knockback."}]}
 tellraw @s {"rawtext":[{"text":"§bAir Vanish §r- Allows you to vanish in a cloud of smoke."}]}
 tellraw @s {"rawtext":[{"text":"§bAir Rush §r- Shoots you forward fast."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Shockwave §r- Shoots out a shockwave that does damage."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bPassive:"}]}
 tellraw @s {"rawtext":[{"text":"§bLight Bend §r- After sneaking for a certain time, you will become invisible."}]}

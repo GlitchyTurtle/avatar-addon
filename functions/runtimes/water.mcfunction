@@ -1,4 +1,4 @@
-#bridge-file-version: #153
+#bridge-file-version: #155
 HIDE 
 #Abilities
 execute @s[tag=water,tag=!antimagic,tag=!ice_throw,scores={cooldown1=100,detect_sneak=1,detect_left=1}] ~ ~ ~ function slot_choice/water/water_slot_1
@@ -17,10 +17,13 @@ execute @s[tag=ice_throw] ~ ~ ~ replaceitem entity @e[type=armor_stand,name=ice_
  
 execute @s[tag=water,scores={detect_dsneak=1}] ~ ~ ~ tag @e[r=10,name=ice_throw] add thrown
 execute @e[tag=thrown] ~ ~ ~ effect @s fatal_poison 3 255 true
-execute @e[tag=thrown] ~ ~ ~ effect @e[r=3] wither 1 3 true
+execute @e[tag=thrown] ~ ~ ~ effect @e[r=3] wither 1 4 true
 execute @e[tag=thrown] ~ ~ ~ tp @s ^ ^ ^-1 facing @p[tag=water]
 tag @s remove ice_throw
  
 tp @s[tag=selfrush] ^ ^ ^3 facing @e[tag=!selfrush,c=1,type=!item,type=!xp_orb]
 execute @s[tag=selfrush] ~ ~ ~ execute @e[r=3,tag=!selfrush] ~ ~ ~ tag @a[r=4] remove selfrush
 execute @s[tag=selfrush] ~ ~ ~ particle minecraft:egg_destroy_emitter ~ ~ ~
+ 
+execute @s[tag=full_moon] ~ ~ ~ effect @s strength 20 5 true
+execute @s[tag=full_moon] ~ ~ ~ effect @s resistance 20 2 true

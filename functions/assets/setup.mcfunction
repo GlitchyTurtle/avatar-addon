@@ -1,4 +1,4 @@
-#bridge-file-version: #35
+#bridge-file-version: #40
 HIDE 
 gamerule sendcommandfeedback false
 scoreboard objectives add ground dummy
@@ -14,6 +14,7 @@ scoreboard objectives add moveslot2 dummy
 scoreboard objectives add moveslot3 dummy
 scoreboard objectives add moveslot4 dummy
 scoreboard objectives add chooseslot dummy
+scoreboard objectives add detect_rhy dummy
 scoreboard players add @a cooldown1 0
 scoreboard players add @a charged_attack 0
 scoreboard players add @a earth_sprint 0
@@ -27,11 +28,12 @@ scoreboard players add @a moveslot2 0
 scoreboard players add @a moveslot3 0
 scoreboard players add @a moveslot4 0
 scoreboard players add @a chooseslot 0
+scoreboard players add @a detect_rhy 0
 playsound random.levelup @s ~ ~ ~
 give @s writable_book
 tellraw @s {"rawtext":[{"text":"§r"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
-tellraw @s {"rawtext":[{"text":"§k111§r §l§bAvatar Addon§r §k111§r"}]}
+tellraw @s {"rawtext":[{"text":"§l§bAvatar Addon§r"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bStarting out:"}]}
 tellraw @s {"rawtext":[{"text":"§rTo start, run the command §b/function choose§r and pick what type of bender you will be. Punch to cycle through the choices, and sneak to confirm."}]}

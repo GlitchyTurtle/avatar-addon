@@ -1,6 +1,7 @@
-#bridge-file-version: #20
+#bridge-file-version: #24
 HIDE 
-tag @s add fire_launch
+summon a:scooter
+execute @s[tag=fire] ~ ~ ~ ride @s start_riding @e[r=3,type=a:scooter,c=1] teleport_ride
 scoreboard players set @s cooldown 0
 tellraw @s {"rawtext":[{"text":"You used "},{"text":"§bFire Boosters"}]}
 scoreboard players add @s sub_level 1
