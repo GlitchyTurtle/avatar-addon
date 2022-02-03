@@ -29,6 +29,10 @@ tellraw @s {"rawtext":[{"text":"§bAir Blast §r- Shoots a focused beam of air t
 tellraw @s {"rawtext":[{"text":"§bAir Vanish §r- Allows you to vanish in a cloud of smoke."}]}
 tellraw @s {"rawtext":[{"text":"§bAir Rush §r- Shoots you forward fast."}]}
 tellraw @s {"rawtext":[{"text":"§bAir Shockwave §r- Shoots out a shockwave that does damage."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Blade §r- Shoot out a massive blade of air that you can steer by moving left and right."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Artillery §r- Shoots a blast of air that locks on and targets the closest entity."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Pull §r- The opposite of air push, pulls all nearby entities close to you."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Dodge §r-  Blast youself over 4 blocks to the side to dodge other moves."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bPassive:"}]}
 tellraw @s {"rawtext":[{"text":"§bLight Bend §r- After sneaking for a certain time, you will become invisible."}]}
