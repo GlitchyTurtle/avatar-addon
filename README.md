@@ -8,7 +8,11 @@ This addon simply adds the four nations bending abilities from the show Avatar t
   
 ## <img src="https://i.imgur.com/wcwCiiZ.png" border="0"  height="30">
   
-When you start the pack, run the command `/function choose` to pick your abilities. Don't worry, you can always go back by running the same command again (`/function choose`). If you want a player without command access to choose, enter `/execute [their name] ~~~ function choose`. The options are avatar, fire, earth, water, air, and human (normal vanilla Minecraft, with the ability to learn bending cancels). To pick, punch to cycle through the options, and sneak when you want to confirm you choice. When you pick a bending style, nothing will happen - you need to choose your moves. Each bender will have a different moveset, and as you level up, you get access to more moves. To pick, simply run the command: `/function choose/move_slot_1` with the number at the end going 1-4. To level up, simply go about as normal - using moves will help you level up. 
+When you start the pack, run the command `/function choose` to pick your abilities. Don't worry, you can always go back by running the same command again (`/function choose`). If you want a player without command access to choose, enter `/execute [their name] ~~~ function choose`. The options are avatar, fire, earth, water, air, and human (normal vanilla Minecraft, with the ability to learn bending cancels). 
+  
+To pick, punch to cycle through the options, and sneak when you want to confirm you choice. When you pick a bending style, nothing will happen - you need to choose your moves. Each bender will have a different moveset, and as you level up, you get access to more moves. To pick, simply run the command: `/function choose/move_slot_1` with the number at the end going 1-4. To level up, simply go about as normal - using moves will help you level up. 
+  
+Sometimes, bending can get annoying while just going about your normal tasks, so you can turn it off for a bit by holding arrows in your off-hand, or by dropping an item called `toggle bending`.
   
 The moves and abilities of these classes are outlined below, and also in-game.
 Have fun playing! 
