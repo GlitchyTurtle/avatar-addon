@@ -20,14 +20,14 @@ Have fun playing!
 Airbenders (in this pack, at least) are centered around avoiding and then countering with a powerful counterattack. Your moves are super strong, but you have little health, so speed and dodging is important.
 
 **Slot Choice:**
-- **Slot 1:** Look up and sneak to trigger whatever move you have for slot 1."}]}
-- **Slot 2:** Look down and punch to trigger whatever move you have for slot 2."}]}
-- **Slot 3:** Double sneak (sneak twice quickly) to trigger whatever move you have for slot 3."}]}
-- **Slot 4:** Sneak and punch to trigger whatever move you have for slot 4."}]}
+- **Slot 1:** Look up and sneak to trigger whatever move you have for slot 1.
+- **Slot 2:** Look down and punch to trigger whatever move you have for slot 2.
+- **Slot 3:** Double sneak (sneak twice quickly) to trigger whatever move you have for slot 3.
+- **Slot 4:** Sneak and punch to trigger whatever move you have for slot 4.
 
 **Moves:**
-- **Air Launch:** Launch yourself into the air!"}]}
-- **Airscooter:** Jump on a bubble of air you can control! If you ram into entities, it does damage."}]}
+- **Air Launch:** Launch yourself into the air!
+- **Airscooter:** Jump on a bubble of air you can control! If you ram into entities, it does damage.
 - **Air Escape** Launch all entities near you 20 blocks away.
 - **Air Blast:** Shoots a focused beam of air that does damage and knockback.
 - **Air Vanish:** Allows you to vanish in a cloud of smoke.
