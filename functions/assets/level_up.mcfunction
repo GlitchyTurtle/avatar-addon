@@ -1,9 +1,8 @@
-#bridge-file-version: #21
 HIDE 
 scoreboard players set @s sub_level 0
 playsound random.levelup @s ~ ~ ~
 scoreboard players add @s level 1
-xp 10l @s
+xp 100 @s
 particle minecraft:totem_particle ~ ~ ~
 particle minecraft:totem_particle ~ ~ ~
 particle minecraft:totem_particle ~ ~ ~
