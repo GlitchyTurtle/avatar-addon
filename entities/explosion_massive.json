@@ -1,0 +1,43 @@
+//bridge-file-version: #23
+{
+	"format_version": "1.12.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "a:explosion_massive",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"inanimate"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.1,
+				"height": 0.1
+			},
+			"minecraft:explode": {
+				"fuse_length": 0,
+				"fuse_lit": true,
+				"power": 14,
+				"causes_fire": false,
+				"breaks_blocks": true,
+				"max_resistance": 0.9,
+				"destroy_affected_by_griefing": true,
+				"fire_affected_by_griefing": true
+			},
+			"minecraft:physics": {
+				"has_gravity": false
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		},
+		"events": {}
+	}
+}

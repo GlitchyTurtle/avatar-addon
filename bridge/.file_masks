@@ -1,5 +1,32 @@
 {
 	"BP/entities/move_helper.json": {
 		"data": {}
+	},
+	"BP/entities/player.json": {
+		"data": {}
+	},
+	"BP/manifest.json": {
+		"data": {}
+	},
+	"BP/entities/armor_stand.json": {
+		"data": {}
+	},
+	"BP/animation_controllers/actions.json": {
+		"data": {}
+	},
+	"BP/entities/healing_water.json": {
+		"data": {}
+	},
+	"BP/entities/splash_effect.json": {
+		"data": {}
+	},
+	"BP/entities/explosion_massive.json": {
+		"data": {}
+	},
+	"BP/entities/explosion.json": {
+		"data": {}
+	},
+	"BP/entities/explosion_low.json": {
+		"data": {}
 	}
 }

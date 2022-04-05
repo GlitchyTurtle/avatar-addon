@@ -1,0 +1,289 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\manifest.json",
+	"file_type": "manifest_bp",
+	"format_version": 1,
+	"file_uuid": "4663a72b_93df_41bf_b288_0dca19883432",
+	"file_version": 0,
+	"cache_content": {
+		"children": [
+			{
+				"data": "2",
+				"key": "format_version"
+			},
+			{
+				"key": "header",
+				"is_minified": true,
+				"children": {
+					"name": "pack.name",
+					"description": "pack.description",
+					"uuid": "208c5c07-d70e-4af2-bbc1-f9e497ca8f45",
+					"version": [
+						1,
+						0,
+						0
+					],
+					"min_engine_version": [
+						1,
+						13,
+						0
+					]
+				}
+			},
+			{
+				"open": {
+					"format_version": 2,
+					"header": {
+						"name": "pack.name",
+						"description": "pack.description",
+						"uuid": "208c5c07-d70e-4af2-bbc1-f9e497ca8f45",
+						"version": [
+							1,
+							0,
+							0
+						],
+						"min_engine_version": [
+							1,
+							13,
+							0
+						]
+					},
+					"modules": [
+						{
+							"description": "GameTest Module Minecraft",
+							"type": "javascript",
+							"uuid": "718f8756-efd4-4f2c-8590-9f77c9537fbb",
+							"version": [
+								0,
+								0,
+								1
+							],
+							"entry": "scripts/main.js"
+						}
+					],
+					"dependencies": [
+						{
+							"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+							"version": [
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+							"version": [
+								0,
+								1,
+								0
+							]
+						}
+					]
+				},
+				"key": "modules",
+				"children": [
+					{
+						"open": [
+							{
+								"description": "GameTest Module Minecraft",
+								"type": "javascript",
+								"uuid": "718f8756-efd4-4f2c-8590-9f77c9537fbb",
+								"version": [
+									0,
+									0,
+									1
+								],
+								"entry": "scripts/main.js"
+							}
+						],
+						"children": [
+							{
+								"data": "GameTest Module Minecraft",
+								"key": "description"
+							},
+							{
+								"data": "javascript",
+								"key": "type"
+							},
+							{
+								"data": "718f8756-efd4-4f2c-8590-9f77c9537fbb",
+								"key": "uuid"
+							},
+							{
+								"open": {
+									"description": "GameTest Module Minecraft",
+									"type": "javascript",
+									"uuid": "718f8756-efd4-4f2c-8590-9f77c9537fbb",
+									"version": [
+										0,
+										0,
+										1
+									],
+									"entry": "scripts/main.js"
+								},
+								"key": "version",
+								"is_minified": true,
+								"children": [
+									0,
+									0,
+									1
+								]
+							},
+							{
+								"data": "scripts/main.js",
+								"key": "entry"
+							}
+						]
+					}
+				]
+			},
+			{
+				"open": {
+					"format_version": 2,
+					"header": {
+						"name": "pack.name",
+						"description": "pack.description",
+						"uuid": "208c5c07-d70e-4af2-bbc1-f9e497ca8f45",
+						"version": [
+							1,
+							0,
+							0
+						],
+						"min_engine_version": [
+							1,
+							13,
+							0
+						]
+					},
+					"modules": [
+						{
+							"description": "GameTest Module Minecraft",
+							"type": "javascript",
+							"uuid": "718f8756-efd4-4f2c-8590-9f77c9537fbb",
+							"version": [
+								0,
+								0,
+								1
+							],
+							"entry": "scripts/main.js"
+						}
+					],
+					"dependencies": [
+						{
+							"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+							"version": [
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+							"version": [
+								0,
+								1,
+								0
+							]
+						}
+					]
+				},
+				"key": "dependencies",
+				"children": [
+					{
+						"open": [
+							{
+								"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+								"version": [
+									0,
+									1,
+									0
+								]
+							},
+							{
+								"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+								"version": [
+									0,
+									1,
+									0
+								]
+							}
+						],
+						"children": [
+							{
+								"data": "b26a4d4c-afdf-4690-88f8-931846312678",
+								"key": "uuid"
+							},
+							{
+								"open": {
+									"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+									"version": [
+										0,
+										1,
+										0
+									]
+								},
+								"key": "version",
+								"is_minified": true,
+								"children": [
+									0,
+									1,
+									0
+								]
+							}
+						]
+					},
+					{
+						"open": [
+							{
+								"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+								"version": [
+									0,
+									1,
+									0
+								]
+							},
+							{
+								"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+								"version": [
+									0,
+									1,
+									0
+								]
+							}
+						],
+						"children": [
+							{
+								"open": {
+									"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+									"version": [
+										0,
+										1,
+										0
+									]
+								},
+								"data": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+								"key": "uuid"
+							},
+							{
+								"open": {
+									"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+									"version": [
+										0,
+										1,
+										0
+									]
+								},
+								"key": "version",
+								"is_minified": true,
+								"children": [
+									0,
+									1,
+									0
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

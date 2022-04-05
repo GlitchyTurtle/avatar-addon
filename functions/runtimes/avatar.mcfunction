@@ -1,16 +1,10 @@
-#bridge-file-version: #172
+#bridge-file-version: #179
 HIDE 
 #Abilities
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown=100,detect_dsneak=1,level=1..}] ~ ~ ~ function avatar/remove_bending
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown=100,detect_dsneak=1,level=0}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3You can't do this yet."}]}
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown=100,detect_dsneak=1,level=1..}] ~ ~ ~ execute @e[type=item,name=restore] ~ ~ ~ function avatar/restore_bending
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={detect_dsneak=1,cooldown1=100,ground=1,detect_rhx=!-90,detect_rhx=!80..88}] ~ ~ ~ function earth/earth_pillar
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_left=1,detect_sneak=1,level=1..}] ~ ~ ~ function fire/fire_blast
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown1=100,cooldown=100,detect_left=1,detect_rhx=-90..-80}] ~ ~ ~ function water/ice_cage
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_rhx=70..89,detect_left=1}] ~ ~ ~ function air/air_launch
-execute @s[tag=avatar_state_beam] ~ ~ ~ function avatar/avatar_state_beam_runtime
-execute @s[tag=!avatar_state,tag=avatar,tag=!antimagic,scores={level=10..}] ~ ~ ~ execute @e[type=item,name=enter_avatar_state] ~ ~ ~ tag @p[tag=avatar] add avatar_state
-execute @s[tag=avatar_state,tag=avatar,tag=!antimagic,scores={level=10..}] ~ ~ ~ execute @e[type=item,name=exit_avatar_state] ~ ~ ~ tag @p[tag=avatar] remove avatar_state
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/avatar/avatar_slot_1
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_rhx=70..89,detect_left=1}] ~ ~ ~ function slot_choice/air/air_slot_2
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_dsneak=1}] ~ ~ ~ function slot_choice/air/air_slot_3
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_left=1}] ~ ~ ~ function slot_choice/air/air_slot_4
  
 #Passives
 execute @s[tag=avatar,tag=!antimagic}] ~ ~ ~ detect ~ ~ ~ water 0 effect @s strength 1 1 true
@@ -42,10 +36,6 @@ effect @s[tag=avatar_state] absorption 5 5 true
 effect @s[tag=avatar_state] resistance 10 10 true
 effect @s[tag=avatar_state] strength 10 10 true
 effect @s[tag=avatar_state] speed 2 2 true
-effect @s[tag=avatar_state] regeneration 5 5 true
+effect @s[tag=avatar_state] regeneration 2 5 true
 effect @s[tag=avatar_state] haste 5 5 true
-execute @s[tag=avatar_state] ~ ~ ~ particle minecraft:endrod ~ ~0.2 ~
-execute @s[tag=avatar_state,scores={detect_sneak=1,detect_rhx=!80..89}] ~ ~ ~ tag @s add avatar_state_beam
-execute @s[tag=avatar_state,scores={detect_sneak=0,detect_rhx=!80..89}] ~ ~ ~ tag @s remove avatar_state_beam
-execute @s ~ ~ ~ execute @e[type=item,name=enter_avatar_state] ~ ~ ~ kill @s
-execute @s ~ ~ ~ execute @e[type=item,name=exit_avatar_state] ~ ~ ~ kill @s
+execute @s[tag=avatar_state] ~ ~ ~ function moves/avatar_particle

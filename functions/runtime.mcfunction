@@ -1,4 +1,4 @@
-#bridge-file-version: #383
+#bridge-file-version: #415
 HIDE 
 #Actual Power Runtimes
 execute @a[tag=air,tag=!antimagic] ~ ~ ~ function runtimes/air
@@ -6,20 +6,27 @@ execute @a[tag=earth,tag=!antimagic] ~ ~ ~ function runtimes/earth
 execute @a[tag=water,tag=!antimagic] ~ ~ ~ function runtimes/water
 execute @a[tag=fire,tag=!antimagic] ~ ~ ~ function runtimes/fire
 execute @a[tag=avatar,tag=!antimagic] ~ ~ ~ function runtimes/avatar
-execute @a[tag=chooseslot1,tag=!antimagic] ~ ~ ~ function assets/slot1choice
-execute @a[tag=chooseslot2,tag=!antimagic] ~ ~ ~ function assets/slot2choice
-execute @a[tag=chooseslot3,tag=!antimagic] ~ ~ ~ function assets/slot3choice
-execute @a[tag=chooseslot4,tag=!antimagic] ~ ~ ~ function assets/slot4choice
+execute @a[tag=chooseslot1,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot1choice
+execute @a[tag=chooseslot2,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot2choice
+execute @a[tag=chooseslot3,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot3choice
+execute @a[tag=chooseslot4,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot4choice
+execute @a[tag=chooseslot1,tag=!antimagic,tag=avatar] ~ ~ ~ function assets/avatar_choose
+execute @a[tag=!choose,tag=!air,tag=!earth,tag=!water,tag=!fire,tag=!avatar] ~ ~ ~ function chiblocking/chiblocking_main
+ 
+execute @a[tag=as23ds] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§cYou died while in avatar state."}]}
+execute @a[tag=as23ds] ~ ~ ~ tag @s add antimagic
  
 #Setup
-execute @a[tag=!setup] ~ ~ ~ function assets/setup
+execute @a[tag=!setup,tag=!uninstall] ~ ~ ~ function assets/setup
  
 #Cooldowns & Charges
 execute @a[scores={cooldown1=!100}] ~ ~ ~ scoreboard players add @s cooldown1 1
-execute @a[tag=cooldown1,scores={cooldown1=100}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3Move Cooldown "},{"score":{"name": "@s","objective": "cooldown1"}},{"text":"%"}]}
+execute @a[tag=!chi_blocked,tag=cooldown1,scores={cooldown1=100}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3Move Cooldown "},{"score":{"name": "@s","objective": "cooldown1"}},{"text":"%"}]}
 execute @a[scores={cooldown1=100}] ~ ~ ~ tag @s remove cooldown1
 execute @a[scores={cooldown1=!100}] ~ ~ ~ tag @s add cooldown1
-execute @a[tag=cooldown1] ~~~ titleraw @s actionbar {"rawtext":[{"text":"§3Move Cooldown "},{"score":{"name": "@s","objective": "cooldown1"}},{"text":"%"}]}
+execute @a[tag=!chi_blocked,tag=cooldown1] ~~~ titleraw @s actionbar {"rawtext":[{"text":"§3Move Cooldown "},{"score":{"name": "@s","objective": "cooldown1"}},{"text":"%"}]}
+execute @a[tag=chi_blocked,tag=cooldown1,tag=!avatar_state] ~~~ titleraw @s actionbar {"rawtext":[{"text":"§3You have been chi blocked. You will get your bending back in a minute."}]}
+execute @a[tag=chi_blocked,tag=cooldown1,tag=!avatar_state] ~~~ effect @s slowness 1 1 true
  
 #Gounded Check
 execute @a ~ ~ ~ detect ~ ~-1 ~ air 0 scoreboard players set @s ground 0
@@ -38,29 +45,8 @@ execute @a ~ ~ ~ detect ~ ~-1 ~ dirt 0 scoreboard players set @s ground 1
 execute @a ~ ~ ~ detect ~ ~-1 ~ sandstone 0 scoreboard players set @s ground 1
  
 #Choose
-execute @a[tag=choose,scores={choose=!26,detect_left=1,detect_sneak=0}] ~ ~ ~ scoreboard players add @s choose 5
-execute @a[tag=choose,scores={choose=!26,detect_left=1}] ~ ~ ~ scoreboard players set @s detect_left 0
-execute @a[tag=choose,scores={choose=0..5}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6[Fire] §3[Earth] [Water] [Air] [Avatar] [Human]"}]}
-execute @a[tag=choose,scores={choose=6..10}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Fire] §6[Earth] §3[Water] [Air] [Avatar] [Human]"}]}
-execute @a[tag=choose,scores={choose=11..15}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Fire] [Earth] §6[Water] §3[Air] [Avatar] [Human]"}]}
-execute @a[tag=choose,scores={choose=16..20}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Fire] [Earth] [Water] §6[Air] §3[Avatar] [Human]"}]}
-execute @a[tag=choose,scores={choose=21..25}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Fire] [Earth] [Water] [Air] §6[Avatar] §3[Human]"}]}
-execute @a[tag=choose,scores={choose=26..30}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Fire] [Earth] [Water] [Air] [Avatar] §6[Human]"}]}
-execute @a[tag=choose,scores={choose=31..}] ~ ~ ~ scoreboard players set @s choose 5
+execute @a[tag=choose] ~~~ function assets/choose
  
-execute @a[tag=choose,scores={choose=0..5,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Fire"}]}
-execute @a[tag=choose,scores={choose=6..10,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Earth"}]}
-execute @a[tag=choose,scores={choose=11..15,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Water"}]}
-execute @a[tag=choose,scores={choose=16..20,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Air"}]}
-execute @a[tag=choose,scores={choose=21..25,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Avatar"}]}
-execute @a[tag=choose,scores={choose=26..30,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Human"}]}
- 
-execute @a[tag=choose,scores={choose=0..5,detect_sneak=1}] ~ ~ ~ function become/fire
-execute @a[tag=choose,scores={choose=6..10,detect_sneak=1}] ~ ~ ~ function become/earth
-execute @a[tag=choose,scores={choose=11..15,detect_sneak=1}] ~ ~ ~ function become/water
-execute @a[tag=choose,scores={choose=16..20,detect_sneak=1}] ~ ~ ~ function become/air
-execute @a[tag=choose,scores={choose=21..25,detect_sneak=1}] ~ ~ ~ function become/avatar
-execute @a[tag=choose,scores={choose=26..30,detect_sneak=1}] ~ ~ ~ function become/human
  
 execute @e[tag=!giving_item,type=item,name="choose bending"] ~ ~ ~ tag @p add choose
 execute @e[tag=!giving_item,type=item,name="choose bending"] ~ ~ ~ execute @p ~ ~ ~ particle minecraft:egg_destroy_emitter ~ ~ ~
@@ -97,3 +83,10 @@ execute @a[tag=chooseslot1] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot2] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot3] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot4] ~ ~ ~ scoreboard players set @s cooldown1 100
+ 
+scoreboard players add @a detect_init 0
+execute @a[scores={detect_init=0}] ~~~ function detect_init
+scoreboard players add @a[scores={detect_sneakTemp=1..}] detect_sneakTemp -1
+ 
+#Settings
+execute @a[scores={cds=1}] ~~~ scoreboard players set @s cooldown1 100

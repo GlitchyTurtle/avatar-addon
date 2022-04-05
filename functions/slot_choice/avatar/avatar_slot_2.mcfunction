@@ -1,0 +1,47 @@
+#bridge-file-version: #3
+execute @s[tag=avatar,scores={moveslot2=1}] ~ ~ ~ function moves/air_blast
+execute @s[tag=avatar,scores={moveslot2=2}] ~ ~ ~ function moves/air_launch
+execute @s[tag=avatar,scores={moveslot2=3}] ~ ~ ~ function moves/air_scooter
+execute @s[tag=avatar,scores={moveslot2=4}] ~ ~ ~ function moves/air_push
+execute @s[tag=avatar,scores={moveslot2=5}] ~ ~ ~ function moves/air_vanish
+execute @s[tag=avatar,scores={moveslot2=6}] ~ ~ ~ function moves/air_rush
+execute @s[tag=avatar,scores={moveslot2=7}] ~ ~ ~ function moves/air_shockwave
+execute @s[tag=avatar,scores={moveslot2=8}] ~ ~ ~ function moves/air_tornado
+execute @s[tag=avatar,scores={moveslot2=9}] ~ ~ ~ function moves/air_seeking_blast
+execute @s[tag=avatar,scores={moveslot2=10}] ~ ~ ~ function moves/air_pull
+execute @s[tag=avatar,scores={moveslot2=11}] ~ ~ ~ function moves/air_dodge
+execute @s[tag=avatar,scores={moveslot2=12}] ~ ~ ~ function moves/earth_headbutt
+execute @s[tag=avatar,scores={moveslot2=13}] ~ ~ ~ function moves/earth_pillar
+execute @s[tag=avatar,scores={moveslot2=14}] ~ ~ ~ function moves/earth_shove
+execute @s[tag=avatar,scores={moveslot2=15}] ~ ~ ~ function moves/earth_lift
+execute @s[tag=avatar,scores={moveslot2=16}] ~ ~ ~ function moves/earth_shield
+execute @s[tag=avatar,scores={moveslot2=17}] ~ ~ ~ function moves/earth_spikes
+execute @s[tag=avatar,scores={moveslot2=18}] ~ ~ ~ function moves/earth_burrow
+execute @s[tag=avatar,scores={moveslot2=19}] ~ ~ ~ function moves/earth_throw
+execute @s[tag=avatar,scores={moveslot2=20}] ~ ~ ~ function moves/earth_search
+execute @s[tag=avatar,scores={moveslot2=21}] ~ ~ ~ function moves/earth_builder
+execute @s[tag=avatar,scores={moveslot2=22}] ~ ~ ~ function moves/earth_hook
+execute @s[tag=avatar,scores={moveslot2=23}] ~ ~ ~ function moves/water_flood
+execute @s[tag=avatar,scores={moveslot2=24}] ~ ~ ~ function moves/water_ice_cage
+execute @s[tag=avatar,scores={moveslot2=25}] ~ ~ ~ function moves/water_ice_throw
+execute @s[tag=avatar,scores={moveslot2=26}] ~ ~ ~ function moves/water_spear
+execute @s[tag=avatar,scores={moveslot2=27}] ~ ~ ~ function moves/water_spike
+execute @s[tag=avatar,scores={moveslot2=28}] ~ ~ ~ function moves/water_rush
+execute @s[tag=avatar,scores={moveslot2=29}] ~ ~ ~ function moves/water_fountain
+execute @s[tag=avatar,scores={moveslot2=30}] ~ ~ ~ function moves/water_healing
+execute @s[tag=avatar,scores={moveslot2=31}] ~ ~ ~ function moves/water_life_drain
+execute @s[tag=avatar,scores={moveslot2=32}] ~ ~ ~ function moves/water_splash
+execute @s[tag=avatar,scores={moveslot2=33}] ~ ~ ~ function moves/water_wake
+execute @s[tag=fire,scores={moveslot2=34}] ~ ~ ~ function moves/fire_blast
+execute @s[tag=fire,scores={moveslot2=35}] ~ ~ ~ function moves/fire_circle
+execute @s[tag=fire,scores={moveslot2=36}] ~ ~ ~ function moves/fire_sprint
+execute @s[tag=fire,scores={moveslot2=37}] ~ ~ ~ function moves/fire_launch
+execute @s[tag=fire,scores={moveslot2=38}] ~ ~ ~ function moves/fire_lightning
+execute @s[tag=fire,scores={moveslot2=39}] ~ ~ ~ function moves/fire_magma_floor
+execute @s[tag=fire,scores={moveslot2=40}] ~ ~ ~ function moves/moves/fire_fireball
+execute @s[tag=fire,scores={moveslot2=41}] ~ ~ ~ function moves/fire_jump
+execute @s[tag=fire,scores={moveslot2=42}] ~ ~ ~ function moves/fire_final
+execute @s[tag=fire,scores={moveslot2=43}] ~ ~ ~ function moves/fire_smite
+execute @s[tag=fire,scores={moveslot2=44}] ~ ~ ~ function moves/fire_seeking_blast
+execute @s[scores={moveslot2=0,cooldown1=100}] ~ ~ ~ tellraw @s {"rawtext":[{"text":"§cYou dont have a move set, use /function useful_tools (slot 2)"}]}
+scoreboard players set @s cooldown1 0

@@ -1,0 +1,8 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\slot_choice\\earth\\earth_slot_4.mcfunction",
+	"file_type": "function",
+	"format_version": 0,
+	"file_uuid": "fc52f43f_70c8_4f9f_b924_bf4ae6913318",
+	"file_version": 36,
+	"cache_content": "HIDE \nexecute @s[tag=earth,scores={moveslot4=1}] ~ ~ ~ function moves/earth_headbutt\nexecute @s[tag=earth,scores={moveslot4=2}] ~ ~ ~ function moves/earth_pillar\nexecute @s[tag=earth,scores={moveslot4=3}] ~ ~ ~ function moves/earth_shove\nexecute @s[tag=earth,scores={moveslot4=4}] ~ ~ ~ function moves/earth_lift\nexecute @s[tag=earth,scores={moveslot4=5}] ~ ~ ~ function moves/earth_shield\nexecute @s[tag=earth,scores={moveslot4=6}] ~ ~ ~ function moves/earth_spikes\nexecute @s[tag=earth,scores={moveslot4=7}] ~ ~ ~ function moves/earth_burrow\nexecute @s[tag=earth,scores={moveslot4=8}] ~ ~ ~ function moves/earth_throw\nexecute @s[tag=earth,scores={moveslot4=9}] ~ ~ ~ function moves/earth_search\nexecute @s[tag=earth,scores={moveslot4=10}] ~ ~ ~ function moves/earth_builder\nexecute @s[tag=earth,scores={moveslot4=11}] ~ ~ ~ function moves/earth_hook\nexecute @s[scores={moveslot4=0,cooldown1=100}] ~ ~ ~ tellraw @s {\"rawtext\":[{\"text\":\"§cYou dont have a move set, use /function useful_tools (slot 4)\"}]}\nscoreboard players set @s cooldown1 0"
+}

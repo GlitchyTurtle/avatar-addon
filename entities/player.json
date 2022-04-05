@@ -1,4 +1,4 @@
-//bridge-file-version: #201
+//bridge-file-version: #323
 {
 	"format_version": "1.17.0",
 	"minecraft:entity": {
@@ -9,29 +9,27 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"start",
-					"main",
 					"left",
 					"sneak",
 					"sprint",
 					"rhx",
 					"move",
-					"rhy",
-					"kill",
-					"death"
+					"death",
+					"offhand",
+					"runcommand",
+					"runcmdtwo"
 				]
 			},
 			"animations": {
-				"start": "animation.start",
-				"main": "animation.main",
 				"left": "controller.animation.left",
 				"sneak": "controller.animation.sneak",
 				"sprint": "controller.animation.sprint",
 				"rhx": "controller.animation.rhx",
 				"move": "controller.animation.move",
-				"rhy": "controller.animation.rhy",
-				"kill": "controller.animation.kill",
-				"death": "controller.animation.death"
+				"death": "controller.animation.death",
+				"offhand": "controller.animation.offhand",
+				"runcommand": "controller.animation.runcommand",
+				"runcmdtwo": "controller.animation.runcmdtwo"
 			}
 		},
 		"component_groups": {
@@ -167,6 +165,21 @@
 					"max": 40
 				}
 			},
+			"a:reset_variant": {
+				"minecraft:mark_variant": {
+					"value": 0
+				}
+			},
+			"a:full_moon": {
+				"minecraft:mark_variant": {
+					"value": 2
+				}
+			},
+			"a:not_full_moon": {
+				"minecraft:mark_variant": {
+					"value": 1
+				}
+			},
 			"normal": {
 				"minecraft:variant": {
 					"value": 452
@@ -175,6 +188,16 @@
 			"kill": {
 				"minecraft:variant": {
 					"value": 455
+				}
+			},
+			"a:interrupted": {
+				"minecraft:skin_id": {
+					"value": 1
+				}
+			},
+			"a:skinid_reset": {
+				"minecraft:skin_id": {
+					"value": 0
 				}
 			}
 		},
@@ -289,13 +312,12 @@
 							"all_of": [
 								{
 									"test": "moon_intensity",
-									"operator": "equals",
 									"value": 1
 								},
 								{
 									"test": "moon_phase",
-									"operator": "equals",
-									"value": 1
+									"operator": "==",
+									"value": 0
 								}
 							]
 						},
@@ -303,16 +325,21 @@
 					},
 					{
 						"filters": {
-							"all_of": [
+							"any_of": [
 								{
 									"test": "moon_intensity",
 									"value": 1,
-									"operator": "not"
+									"operator": "!="
 								},
 								{
 									"test": "moon_phase",
-									"value": 1,
-									"operator": "not"
+									"value": 0,
+									"operator": "!="
+								},
+								{
+									"test": "is_daytime",
+									"value": true,
+									"operator": "=="
 								}
 							]
 						},
@@ -320,26 +347,12 @@
 					}
 				]
 			},
-			"minecraft:damage_sensor": {
-				"triggers": [
-					{
-						"cause": "entity_attack",
-						"deals_damage": true,
-						"on_damage": {
-							"event": "kill",
-							"target": "other",
-							"filters": {
-								"all_of": [
-									{
-										"test": "has_damage",
-										"subject": "self",
-										"value": "fatal"
-									}
-								]
-							}
-						}
-					}
-				]
+			"minecraft:on_hurt_by_player": {
+				"event": "interrupted"
+			},
+			"minecraft:on_death": {
+				"event": "kill",
+				"target": "other"
 			}
 		},
 		"events": {
@@ -440,28 +453,63 @@
 				}
 			},
 			"moon_full": {
-				"run_command": {
-					"command": [
-						"tag @s add full_moon"
-					]
-				}
-			},
-			"moon_not_full": {
-				"run_command": {
-					"command": [
-						"tag @s remove full_moon"
-					]
-				}
-			},
-			"kill": {
 				"add": {
 					"component_groups": [
-						"kill"
+						"a:full_moon"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"normal"
+						"a:not_full_moon"
+					]
+				}
+			},
+			"moon_not_full": {
+				"add": {
+					"component_groups": [
+						"a:not_full_moon"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:full_moon"
+					]
+				}
+			},
+			"reset_variant": {
+				"add": {
+					"component_groups": [
+						"a:reset_variant"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:full_moon",
+						"a:not_full_moon"
+					]
+				}
+			},
+			"interrupted": {
+				"add": {
+					"component_groups": [
+						"a:interrupted"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:skinid_reset"
+					]
+				}
+			},
+			"reset_skinid": {
+				"add": {
+					"component_groups": [
+						"a:skinid_reset"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:interrupted"
 					]
 				}
 			},
@@ -472,6 +520,18 @@
 					]
 				},
 				"add": {
+					"component_groups": [
+						"normal"
+					]
+				}
+			},
+			"kill": {
+				"add": {
+					"component_groups": [
+						"kill"
+					]
+				},
+				"remove": {
 					"component_groups": [
 						"normal"
 					]

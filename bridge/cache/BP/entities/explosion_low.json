@@ -1,0 +1,274 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\entities\\explosion_low.json",
+	"file_type": "entity",
+	"format_version": 1,
+	"file_uuid": "98e263b5_8026_4047_9a40_9555b3c9fc50",
+	"file_version": 21,
+	"cache_content": {
+		"children": [
+			{
+				"data": "1.12.0",
+				"key": "format_version"
+			},
+			{
+				"open": {
+					"format_version": "1.12.0",
+					"minecraft:entity": {
+						"description": {
+							"identifier": "a:explosion_low",
+							"is_spawnable": false,
+							"is_summonable": true,
+							"is_experimental": false
+						},
+						"component_groups": {},
+						"components": {
+							"minecraft:type_family": {
+								"family": [
+									"inanimate"
+								]
+							},
+							"minecraft:collision_box": {
+								"width": 0.1,
+								"height": 0.1
+							},
+							"minecraft:explode": {
+								"fuse_length": 0,
+								"fuse_lit": true,
+								"power": 0.2,
+								"causes_fire": true,
+								"breaks_blocks": true,
+								"max_resistance": 0.9,
+								"destroy_affected_by_griefing": true,
+								"fire_affected_by_griefing": true
+							},
+							"minecraft:physics": {
+								"has_gravity": false
+							},
+							"minecraft:pushable": {
+								"is_pushable": false,
+								"is_pushable_by_piston": true
+							},
+							"minecraft:conditional_bandwidth_optimization": {}
+						},
+						"events": {}
+					}
+				},
+				"key": "minecraft:entity",
+				"children": [
+					{
+						"key": "description",
+						"is_minified": true,
+						"children": {
+							"identifier": "a:explosion_low",
+							"is_spawnable": false,
+							"is_summonable": true,
+							"is_experimental": false
+						}
+					},
+					{
+						"open": {
+							"description": {
+								"identifier": "a:explosion_low",
+								"is_spawnable": false,
+								"is_summonable": true,
+								"is_experimental": false
+							},
+							"component_groups": {},
+							"components": {
+								"minecraft:type_family": {
+									"family": [
+										"inanimate"
+									]
+								},
+								"minecraft:collision_box": {
+									"width": 0.1,
+									"height": 0.1
+								},
+								"minecraft:explode": {
+									"fuse_length": 0,
+									"fuse_lit": true,
+									"power": 0.2,
+									"causes_fire": true,
+									"breaks_blocks": true,
+									"max_resistance": 0.9,
+									"destroy_affected_by_griefing": true,
+									"fire_affected_by_griefing": true
+								},
+								"minecraft:physics": {
+									"has_gravity": false
+								},
+								"minecraft:pushable": {
+									"is_pushable": false,
+									"is_pushable_by_piston": true
+								},
+								"minecraft:conditional_bandwidth_optimization": {}
+							},
+							"events": {}
+						},
+						"key": "component_groups",
+						"is_minified": true,
+						"children": {}
+					},
+					{
+						"open": {
+							"description": {
+								"identifier": "a:explosion_low",
+								"is_spawnable": false,
+								"is_summonable": true,
+								"is_experimental": false
+							},
+							"component_groups": {},
+							"components": {
+								"minecraft:type_family": {
+									"family": [
+										"inanimate"
+									]
+								},
+								"minecraft:collision_box": {
+									"width": 0.1,
+									"height": 0.1
+								},
+								"minecraft:explode": {
+									"fuse_length": 0,
+									"fuse_lit": true,
+									"power": 0.2,
+									"causes_fire": true,
+									"breaks_blocks": true,
+									"max_resistance": 0.9,
+									"destroy_affected_by_griefing": true,
+									"fire_affected_by_griefing": true
+								},
+								"minecraft:physics": {
+									"has_gravity": false
+								},
+								"minecraft:pushable": {
+									"is_pushable": false,
+									"is_pushable_by_piston": true
+								},
+								"minecraft:conditional_bandwidth_optimization": {}
+							},
+							"events": {}
+						},
+						"key": "components",
+						"children": [
+							{
+								"key": "minecraft:type_family",
+								"is_minified": true,
+								"children": {
+									"family": [
+										"inanimate"
+									]
+								}
+							},
+							{
+								"key": "minecraft:collision_box",
+								"is_minified": true,
+								"children": {
+									"width": 0.1,
+									"height": 0.1
+								}
+							},
+							{
+								"open": {
+									"minecraft:type_family": {
+										"family": [
+											"inanimate"
+										]
+									},
+									"minecraft:collision_box": {
+										"width": 0.1,
+										"height": 0.1
+									},
+									"minecraft:explode": {
+										"fuse_length": 0,
+										"fuse_lit": true,
+										"power": 0.2,
+										"causes_fire": true,
+										"breaks_blocks": true,
+										"max_resistance": 0.9,
+										"destroy_affected_by_griefing": true,
+										"fire_affected_by_griefing": true
+									},
+									"minecraft:physics": {
+										"has_gravity": false
+									},
+									"minecraft:pushable": {
+										"is_pushable": false,
+										"is_pushable_by_piston": true
+									},
+									"minecraft:conditional_bandwidth_optimization": {}
+								},
+								"key": "minecraft:explode",
+								"is_minified": true,
+								"children": {
+									"fuse_length": 0,
+									"fuse_lit": true,
+									"power": 0.2,
+									"causes_fire": true,
+									"breaks_blocks": true,
+									"max_resistance": 0.9,
+									"destroy_affected_by_griefing": true,
+									"fire_affected_by_griefing": true
+								}
+							},
+							{
+								"open": {
+									"minecraft:type_family": {
+										"family": [
+											"inanimate"
+										]
+									},
+									"minecraft:collision_box": {
+										"width": 0.1,
+										"height": 0.1
+									},
+									"minecraft:explode": {
+										"fuse_length": 0,
+										"fuse_lit": true,
+										"power": 0.2,
+										"causes_fire": true,
+										"breaks_blocks": true,
+										"max_resistance": 0.9,
+										"destroy_affected_by_griefing": true,
+										"fire_affected_by_griefing": true
+									},
+									"minecraft:physics": {
+										"has_gravity": false
+									},
+									"minecraft:pushable": {
+										"is_pushable": false,
+										"is_pushable_by_piston": true
+									},
+									"minecraft:conditional_bandwidth_optimization": {}
+								},
+								"key": "minecraft:physics",
+								"is_minified": true,
+								"children": {
+									"has_gravity": false
+								}
+							},
+							{
+								"key": "minecraft:pushable",
+								"is_minified": true,
+								"children": {
+									"is_pushable": false,
+									"is_pushable_by_piston": true
+								}
+							},
+							{
+								"key": "minecraft:conditional_bandwidth_optimization",
+								"is_minified": true,
+								"children": {}
+							}
+						]
+					},
+					{
+						"key": "events",
+						"is_minified": true,
+						"children": {}
+					}
+				]
+			}
+		]
+	}
+}

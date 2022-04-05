@@ -1,0 +1,8 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\slot_choice\\water\\water_slot_2.mcfunction",
+	"file_type": "function",
+	"format_version": 0,
+	"file_uuid": "000796d4_8703_419d_bdc3_3c1baf2be096",
+	"file_version": 14,
+	"cache_content": "HIDE \nexecute @s[tag=water,scores={moveslot2=1}] ~ ~ ~ function moves/water_flood\nexecute @s[tag=water,scores={moveslot2=2}] ~ ~ ~ function moves/water_ice_cage\nexecute @s[tag=water,scores={moveslot2=3}] ~ ~ ~ function moves/water_ice_throw\nexecute @s[tag=water,scores={moveslot2=4}] ~ ~ ~ function moves/water_spear\nexecute @s[tag=water,scores={moveslot2=5}] ~ ~ ~ function moves/water_spike\nexecute @s[tag=water,scores={moveslot2=6}] ~ ~ ~ function moves/water_rush\nexecute @s[tag=water,scores={moveslot2=7}] ~ ~ ~ function moves/water_fountain\nexecute @s[tag=water,scores={moveslot2=8}] ~ ~ ~ function moves/water_healing\nexecute @s[tag=water,scores={moveslot2=9}] ~ ~ ~ function moves/water_life_drain\nexecute @s[tag=water,scores={moveslot2=10}] ~ ~ ~ function moves/water_splash\nexecute @s[tag=water,scores={moveslot2=11}] ~ ~ ~ function moves/water_wake\nexecute @s[scores={moveslot2=0,cooldown1=100}] ~ ~ ~ tellraw @s {\"rawtext\":[{\"text\":\"§cYou dont have a move set, use /function useful_tools (slot 2)\"}]}\nscoreboard players set @s cooldown1 0"
+}
