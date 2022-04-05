@@ -7,7 +7,7 @@ execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_dsneak=1}] ~ ~
 execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_left=1}] ~ ~ ~ slot_choice/avatar/avatar_slot_4
  
 #Passives
-execute @s[tag=avatar,tag=!antimagic}] ~ ~ ~ detect ~ ~ ~ water 0 effect @s strength 1 1 true
+execute @s[tag=avatar,tag=!antimagic] ~ ~ ~ detect ~ ~ ~ water 0 effect @s strength 1 1 true
 execute @s[tag=avatar,tag=!antimagic,scores={detect_sprint=1,ground=1,earth_sprint=!100}] ~ ~ ~ scoreboard players add @s earth_sprint 1
 execute @s[tag=avatar,tag=!antimagic,scores={earth_sprint=100,ground=1}] ~ ~ ~ effect @s speed 1 2 true
 execute @s[tag=avatar,tag=!antimagic,scores={earth_sprint=100,ground=0}] ~ ~ ~ effect @s speed 0 0 true
