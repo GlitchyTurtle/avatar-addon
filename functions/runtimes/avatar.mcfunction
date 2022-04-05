@@ -2,9 +2,9 @@
 HIDE 
 #Abilities
 execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/avatar/avatar_slot_1
-execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_rhx=70..89,detect_left=1}] ~ ~ ~ function slot_choice/air/air_slot_2
-execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_dsneak=1}] ~ ~ ~ function slot_choice/air/air_slot_3
-execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_left=1}] ~ ~ ~ function slot_choice/air/air_slot_4
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_rhx=70..89,detect_left=1}] ~ ~ ~ slot_choice/avatar/avatar_slot_2
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_dsneak=1}] ~ ~ ~ slot_choice/avatar/avatar_slot_3
+execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_left=1}] ~ ~ ~ slot_choice/avatar/avatar_slot_4
  
 #Passives
 execute @s[tag=avatar,tag=!antimagic}] ~ ~ ~ detect ~ ~ ~ water 0 effect @s strength 1 1 true
