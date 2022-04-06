@@ -1,4 +1,4 @@
-//bridge-file-version: #323
+//bridge-file-version: #327
 {
 	"format_version": "1.17.0",
 	"minecraft:entity": {
@@ -17,7 +17,8 @@
 					"death",
 					"offhand",
 					"runcommand",
-					"runcmdtwo"
+					"runcmdtwo",
+					"kill"
 				]
 			},
 			"animations": {
@@ -29,7 +30,8 @@
 				"death": "controller.animation.death",
 				"offhand": "controller.animation.offhand",
 				"runcommand": "controller.animation.runcommand",
-				"runcmdtwo": "controller.animation.runcmdtwo"
+				"runcmdtwo": "controller.animation.runcmdtwo",
+				"kill": "controller.animation.kill"
 			}
 		},
 		"component_groups": {
@@ -57,6 +59,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": true
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				}
@@ -70,6 +89,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": false
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				},
@@ -93,6 +129,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": true
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				}
@@ -112,6 +165,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": true
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				}
@@ -131,6 +201,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": true
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				}
@@ -141,6 +228,23 @@
 						{
 							"cause": "fall",
 							"deals_damage": false
+						},
+						{
+							"cause": "entity_attack",
+							"deals_damage": true,
+							"on_damage": {
+								"event": "kill",
+								"target": "other",
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										}
+									]
+								}
+							}
 						}
 					]
 				},
@@ -350,9 +454,26 @@
 			"minecraft:on_hurt_by_player": {
 				"event": "interrupted"
 			},
-			"minecraft:on_death": {
-				"event": "kill",
-				"target": "other"
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "entity_attack",
+						"deals_damage": true,
+						"on_damage": {
+							"event": "kill",
+							"target": "other",
+							"filters": {
+								"all_of": [
+									{
+										"test": "has_damage",
+										"subject": "self",
+										"value": "fatal"
+									}
+								]
+							}
+						}
+					}
+				]
 			}
 		},
 		"events": {

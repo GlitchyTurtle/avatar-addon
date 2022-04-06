@@ -1,4 +1,4 @@
-#bridge-file-version: #285
+#bridge-file-version: #286
 HIDE 
 #Abilities
 execute @s[tag=air,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/air/air_slot_1
@@ -27,7 +27,7 @@ execute @s[scores={detect_rhx=20..90}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] 
 execute @s[scores={detect_rhx=-19..19}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ event entity @s no_gravity
 execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ execute @p[tag=air] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3Using Airscooter"}]}
  
-execute @s[scores={level=0..5}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ damage @e[r=3,tag=!air,type=!a:scooter] 1 none #effect @e[r=3,tag=!air,type=!a:scooter] wither 2 2 true
+execute @s[scores={level=0..5}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ damage @e[r=3,tag=!air,type=!a:scooter] 1 none
 execute @s[scores={level=6..10}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ damage @e[r=3,tag=!air,type=!a:scooter] 2 none
 execute @s[scores={level=11..99}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ damage @e[r=3,tag=!air,type=!a:scooter] 4 none
 execute @s[scores={level=100..}] ~ ~ ~ execute @e[type=a:scooter,r=6,c=1] ~ ~ ~ damage @e[r=3,tag=!air,type=!a:scooter] 10 none

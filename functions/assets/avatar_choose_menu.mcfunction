@@ -1,6 +1,6 @@
-#bridge-file-version: #5
+#bridge-file-version: #6
 HIDE 
-execute @s[scores={chooseslot=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Punch to view options, or sneak to leave empty]"}]}
+execute @s[scores={chooseslot=0}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Punch to view options, or sneak to leave empty]"}]}
 execute @s[scores={chooseslot=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6[Air Blast] §3[Air Launch] [Air Scooter] [Air Push] [Air Vanish] [Air Rush]"}]}
 execute @s[scores={chooseslot=2}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Air Blast] §6[Air Launch] §3[Air Scooter] [Air Push] [Air Vanish] [Air Rush]"}]}
 execute @s[scores={chooseslot=3}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§3[Air Blast] [Air Launch] §6[Air Scooter] §3[Air Push] [Air Vanish] [Air Rush]"}]}

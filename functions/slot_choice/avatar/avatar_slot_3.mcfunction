@@ -1,4 +1,4 @@
-#bridge-file-version: #3
+#bridge-file-version: #4
 execute @s[tag=avatar,scores={moveslot3=1}] ~ ~ ~ function moves/air_blast
 execute @s[tag=avatar,scores={moveslot3=2}] ~ ~ ~ function moves/air_launch
 execute @s[tag=avatar,scores={moveslot3=3}] ~ ~ ~ function moves/air_scooter
@@ -32,16 +32,16 @@ execute @s[tag=avatar,scores={moveslot3=30}] ~ ~ ~ function moves/water_healing
 execute @s[tag=avatar,scores={moveslot3=31}] ~ ~ ~ function moves/water_life_drain
 execute @s[tag=avatar,scores={moveslot3=32}] ~ ~ ~ function moves/water_splash
 execute @s[tag=avatar,scores={moveslot3=33}] ~ ~ ~ function moves/water_wake
-execute @s[tag=fire,scores={moveslot3=34}] ~ ~ ~ function moves/fire_blast
-execute @s[tag=fire,scores={moveslot3=35}] ~ ~ ~ function moves/fire_circle
-execute @s[tag=fire,scores={moveslot3=36}] ~ ~ ~ function moves/fire_sprint
-execute @s[tag=fire,scores={moveslot3=37}] ~ ~ ~ function moves/fire_launch
-execute @s[tag=fire,scores={moveslot3=38}] ~ ~ ~ function moves/fire_lightning
-execute @s[tag=fire,scores={moveslot3=39}] ~ ~ ~ function moves/fire_magma_floor
-execute @s[tag=fire,scores={moveslot3=40}] ~ ~ ~ function moves/moves/fire_fireball
-execute @s[tag=fire,scores={moveslot3=41}] ~ ~ ~ function moves/fire_jump
-execute @s[tag=fire,scores={moveslot3=42}] ~ ~ ~ function moves/fire_final
-execute @s[tag=fire,scores={moveslot3=43}] ~ ~ ~ function moves/fire_smite
-execute @s[tag=fire,scores={moveslot3=44}] ~ ~ ~ function moves/fire_seeking_blast
+execute @s[tag=avatar,scores={moveslot3=34}] ~ ~ ~ function moves/fire_blast
+execute @s[tag=avatar,scores={moveslot3=35}] ~ ~ ~ function moves/fire_circle
+execute @s[tag=avatar,scores={moveslot3=36}] ~ ~ ~ function moves/fire_sprint
+execute @s[tag=avatar,scores={moveslot3=37}] ~ ~ ~ function moves/fire_launch
+execute @s[tag=avatar,scores={moveslot3=38}] ~ ~ ~ function moves/fire_lightning
+execute @s[tag=avatar,scores={moveslot3=39}] ~ ~ ~ function moves/fire_magma_floor
+execute @s[tag=avatar,scores={moveslot3=40}] ~ ~ ~ function moves/moves/fire_fireball
+execute @s[tag=avatar,scores={moveslot3=41}] ~ ~ ~ function moves/fire_jump
+execute @s[tag=avatar,scores={moveslot3=42}] ~ ~ ~ function moves/fire_final
+execute @s[tag=avatar,scores={moveslot3=43}] ~ ~ ~ function moves/fire_smite
+execute @s[tag=avatar,scores={moveslot3=44}] ~ ~ ~ function moves/fire_seeking_blast
 execute @s[scores={moveslot3=0,cooldown1=100}] ~ ~ ~ tellraw @s {"rawtext":[{"text":"§cYou dont have a move set, use /function useful_tools (slot 3)"}]}
 scoreboard players set @s cooldown1 0

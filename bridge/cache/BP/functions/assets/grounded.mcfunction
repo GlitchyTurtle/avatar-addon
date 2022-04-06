@@ -1,0 +1,8 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\assets\\grounded.mcfunction",
+	"file_type": "function",
+	"format_version": 0,
+	"file_uuid": "d03925d2_7c11_48fd_a229_c45347482702",
+	"file_version": 1,
+	"cache_content": "HIDE\r\n#Gounded Check\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ air 0 scoreboard players set @s ground 0\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ structure_void 0 scoreboard players set @s ground 0\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ water 0 scoreboard players set @s ground 0\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ flowing_water 0 scoreboard players set @s ground 0\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ grass 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ sand 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ stone 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ obsidian 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ stone 1 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ stone 3 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ stone 5 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ gravel 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ dirt 0 scoreboard players set @s ground 1\r\nexecute @a ~ ~ ~ detect ~ ~-1 ~ sandstone 0 scoreboard players set @s ground 1"
+}

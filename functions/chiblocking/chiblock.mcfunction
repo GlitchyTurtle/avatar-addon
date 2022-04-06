@@ -1,4 +1,4 @@
-#bridge-file-version: #1
+#bridge-file-version: #23
 HIDE 
 execute @s[scores={combo=6..,level=0..19}] ~~~ execute @p[rm=0.1,r=10,tag=human] ~~~ function chiblocking/chi_cooldown10
 execute @s[scores={combo=6..,level=20..29}] ~~~ execute @p[rm=0.1,r=10,tag=human] ~~~ function chiblocking/chi_cooldown20

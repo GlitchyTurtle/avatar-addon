@@ -1,4 +1,4 @@
-#bridge-file-version: #38
+#bridge-file-version: #42
 HIDE 
 execute @s[scores={combo=1..5}] ~~~ titleraw @s actionbar {"rawtext":[{"text":"§3Hits needed to Block Chi: "},{"score":{"name": "@s","objective": "combo"}},{"text":"/6"}]}
  

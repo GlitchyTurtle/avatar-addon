@@ -1,9 +1,12 @@
 {
 	"function": {
-		"BP/functions/assets/choose_menu.mcfunction": {
-			"custom_commands": []
+		"BP/functions/runtime.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"antimagic"
+			]
 		},
-		"BP/functions/runtimes/earth.mcfunction": {
+		"BP/functions/runtimes/avatar.mcfunction": {
 			"custom_commands": [],
 			"tags": [
 				"headbutt",
@@ -11,30 +14,37 @@
 				"thrown",
 				"earth_throw",
 				"builder_mode",
-				"earth_scaffold"
+				"earth_scaffold",
+				"fire_sprint",
+				"ice_throw",
+				"selfrush",
+				"air_invis",
+				"airrush",
+				"shockwave"
 			]
 		},
-		"BP/functions/slot_choice/earth/earth_slot_1.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/earth/earth_slot_4.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/earth/earth_slot_3.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/earth/earth_slot_2.mcfunction": {
-			"custom_commands": []
-		},
-		"1afb7dcd_09b0_4295_80c6_cd3ba5ca66de": {},
-		"14afefb3_b008_44f4_a309_b484fa86a294": {},
-		"BP/functions/assets/disable_and_enable_bending.mcfunction": {
+		"BP/functions/assets/avatar_choose1.mcfunction": {
 			"custom_commands": [],
 			"tags": [
-				"bendingtransfer",
-				"nobending",
-				"bending",
-				"antimagic"
+				"chooseslot1"
+			]
+		},
+		"BP/functions/assets/avatar_choose2.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"chooseslot2"
+			]
+		},
+		"BP/functions/assets/avatar_choose3.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"chooseslot3"
+			]
+		},
+		"BP/functions/assets/avatar_choose4.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"chooseslot4"
 			]
 		},
 		"BP/functions/runtimes/air.mcfunction": {
@@ -45,263 +55,25 @@
 				"shockwave"
 			]
 		},
-		"BP/functions/choose/slot_1.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot1",
-				"chooseslot4",
-				"chooseslot2",
-				"chooseslot3"
-			]
-		},
-		"BP/functions/choose/slot_2.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot2",
-				"chooseslot1",
-				"chooseslot4",
-				"chooseslot3"
-			]
-		},
-		"BP/functions/choose/slot_3.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot3",
-				"chooseslot1",
-				"chooseslot2",
-				"chooseslot4"
-			]
-		},
-		"BP/functions/choose/slot_4.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot4",
-				"chooseslot1",
-				"chooseslot2",
-				"chooseslot3"
-			]
-		},
-		"BP/functions/choose.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"air",
-				"earth",
-				"fire",
-				"water",
-				"avatar",
-				"can_earth_burrow",
-				"can_earth_headbutt",
-				"choosesubtype",
-				"choose"
-			]
-		},
-		"BP/functions/runtime.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"antimagic",
-				"cooldown1",
-				"choose",
-				"chooseslot1",
-				"chooseslot2",
-				"chooseslot3",
-				"chooseslot4"
-			]
-		},
-		"BP/functions/stats.mcfunction": {
+		"BP/functions/assets/avatar_choose_menu.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/toggle_bending.mcfunction": {
+		"BP/functions/slot_choice/avatar/avatar_slot_4.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/moves/earth_search.mcfunction": {
+		"BP/functions/slot_choice/avatar/avatar_slot_3.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/become/movelist_air.mcfunction": {
+		"BP/functions/slot_choice/avatar/avatar_slot_1.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/become/air.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"air",
-				"water",
-				"fire",
-				"earth",
-				"avatar",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/become/movelist_fire.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/become/fire.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"fire",
-				"air",
-				"water",
-				"earth",
-				"avatar",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/become/movelist_water.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/become/water.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"water",
-				"air",
-				"fire",
-				"earth",
-				"avatar",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/become/movelist_avatar.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/become/avatar.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"fire",
-				"air",
-				"water",
-				"earth",
-				"avatar",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/become/movelist_earth.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/become/earth.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"earth",
-				"air",
-				"water",
-				"fire",
-				"avatar",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/moves/avatar_particle.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/runtimes/avatar.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"element_spin"
-			]
-		},
-		"BP/functions/moves/earth_hook.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"earth_scaffold"
-			]
-		},
-		"BP/functions/moves/earth_builder.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"builder_mode"
-			]
-		},
-		"BP/functions/runtimes/water.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"thrown",
-				"ice_throw",
-				"selfrush"
-			]
-		},
-		"BP/functions/moves/air_blast.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfshove"
-			]
-		},
-		"BP/functions/moves/water_spike.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfwater"
-			]
-		},
-		"BP/functions/moves/water_spear.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/water_rush.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfrush"
-			]
-		},
-		"BP/functions/moves/water_ice_throw.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"ice_throw"
-			]
-		},
-		"BP/functions/moves/water_ice_cage.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfice"
-			]
-		},
-		"BP/functions/moves/water_flood.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfflood"
-			]
-		},
-		"BP/functions/moves/fire_sprint.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"fire_sprint"
-			]
-		},
-		"BP/functions/moves/fire_magma_floor.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/fire_lightning.mcfunction": {
+		"BP/functions/slot_choice/avatar/avatar_slot_2.mcfunction": {
 			"custom_commands": []
 		},
 		"BP/functions/moves/fire_launch.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/moves/fire_fireball.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/fire_circle.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/fire_blast.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/earth_throw.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"earth_throw"
-			]
-		},
-		"BP/functions/moves/earth_spikes.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/earth_shove.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfearth"
-			]
-		},
-		"BP/functions/moves/earth_shield.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/earth_pillar.mcfunction": {
+		"BP/functions/moves/air_scooter.mcfunction": {
 			"custom_commands": []
 		},
 		"BP/functions/moves/earth_lift.mcfunction": {
@@ -310,209 +82,48 @@
 				"drop_back_down"
 			]
 		},
-		"BP/functions/moves/earth_headbutt.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"headbutt"
-			]
-		},
-		"BP/functions/moves/earth_burrow.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"burrow"
-			]
-		},
-		"BP/functions/moves/earth_big_spike.mcfunction": {
+		"BP/functions/assets/grounded.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/moves/air_vanish.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/air_tornado.mcfunction": {
+		"BP/functions/assets/item_commands.mcfunction": {
 			"custom_commands": [],
 			"tags": [
-				"tornado"
-			]
-		},
-		"BP/functions/moves/air_shockwave.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"shockwave"
-			]
-		},
-		"BP/functions/moves/air_seeking_blast.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"seeking"
-			]
-		},
-		"BP/functions/moves/air_scooter.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/air_rush.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"airrush"
-			]
-		},
-		"BP/functions/moves/air_push.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfpush"
-			]
-		},
-		"BP/functions/moves/air_pull.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfpull"
-			]
-		},
-		"BP/functions/moves/air_launch.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/air_dodge.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/toggle_movemessage.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"msgtransfer",
-				"nomsg",
-				"msgm",
-				"chatmsgoff"
-			]
-		},
-		"BP/functions/toggle_movemessage.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/setup.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"setup"
-			],
-			"scoreboards": [
-				"detect_init",
-				"detect_left",
-				"detect_right",
-				"detect_jump",
-				"detect_sneak",
-				"detect_dsneak",
-				"detect_dsneakSet",
-				"detect_sneakTemp",
-				"detect_rhx",
-				"deaths",
-				"kills",
-				"ground",
-				"cooldown1",
-				"charged_attack",
-				"earth_sprint",
-				"air_invis",
-				"sub_level",
-				"level",
-				"combo",
 				"choose",
-				"moveslot1",
-				"moveslot2",
-				"moveslot3",
-				"moveslot4",
-				"chooseslot",
-				"detect_rhy",
-				"cds",
-				"aas"
-			]
-		},
-		"BP/functions/movelist.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/stats.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/water_fountain.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/water_healing.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfwater"
-			]
-		},
-		"BP/functions/moves/water_life_drain.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfwater"
-			]
-		},
-		"BP/functions/moves/water_splash.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"selfpush"
-			]
-		},
-		"BP/functions/moves/water_wake.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/water/water_slot_1.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/water/water_slot_2.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/water/water_slot_3.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/water/water_slot_4.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/uninstall.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"air",
-				"water",
-				"earth",
-				"fire",
-				"avatar",
-				"avatar_state",
-				"bending",
-				"nomsg",
-				"nobending",
-				"bendingtransfer",
 				"antimagic",
-				"can_earth_headbutt",
-				"can_earth_burrow",
-				"airrush",
-				"air_invis",
-				"builder_mode",
-				"choose",
 				"chooseslot1",
 				"chooseslot2",
 				"chooseslot3",
-				"chooseslot4",
-				"choosesubtype",
-				"cooldown1",
-				"burrow",
-				"tornado",
-				"thrown",
-				"earth_throw",
-				"earth_scaffold",
-				"selfpush",
-				"selfshove",
-				"selfwater",
-				"full_moon",
-				"fire_sprint",
-				"element_spin",
-				"as23ds",
-				"chatmsgoff",
-				"human"
+				"chooseslot4"
 			]
 		},
-		"BP/functions/chiblocking/interrupted.mcfunction": {
+		"BP/functions/assets/cooldown.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"cooldown1"
+			]
+		},
+		"BP/functions/assets/eafwa_runtime.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/chiblocking/on_hit.mcfunction": {
-			"custom_commands": []
+		"BP/functions/assets/slot1choice.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"chooseslot1"
+			]
 		},
-		"BP/functions/chiblocking/chiblocking_main.mcfunction": {
-			"custom_commands": []
+		"BP/functions/chiblocking/chi_cooldown10.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"antimagic",
+				"chi_blocked"
+			]
+		},
+		"BP/functions/chiblocking/chi_cooldown20.mcfunction": {
+			"custom_commands": [],
+			"tags": [
+				"antimagic",
+				"chi_blocked"
+			]
 		},
 		"BP/functions/chiblocking/chi_cooldown60.mcfunction": {
 			"custom_commands": [],
@@ -542,139 +153,14 @@
 				"chi_blocked"
 			]
 		},
-		"BP/functions/chiblocking/chi_cooldown20.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"antimagic",
-				"chi_blocked"
-			]
-		},
-		"BP/functions/chiblocking/chi_cooldown10.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"antimagic",
-				"chi_blocked"
-			]
-		},
-		"BP/functions/become/human.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"avatar",
-				"fire",
-				"air",
-				"water",
-				"earth",
-				"human",
-				"choose"
-			]
-		},
-		"BP/functions/moves/fire_smite.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/fire_seeking_blast.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"seeking"
-			]
-		},
-		"BP/functions/runtimes/fire.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"fire_sprint"
-			]
-		},
-		"BP/functions/moves/fire_final.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/moves/fire_jump.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/fire/fire_slot_1.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/fire/fire_slot_2.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/fire/fire_slot_3.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/fire/fire_slot_4.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/slot1choice.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot1"
-			]
-		},
-		"BP/functions/assets/slot2choice.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot2"
-			]
-		},
-		"BP/functions/assets/slot3choice.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot3"
-			]
-		},
-		"BP/functions/assets/slot4choice.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot4"
-			]
-		},
-		"BP/functions/settings/cooldowns.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/settings/avatar.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/choose.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/assets/avatar_choose.mcfunction": {
-			"custom_commands": [],
-			"tags": [
-				"chooseslot1"
-			]
-		},
-		"BP/functions/assets/avatar_choose_menu.mcfunction": {
-			"custom_commands": []
-		},
 		"BP/functions/chiblocking/chiblock.mcfunction": {
 			"custom_commands": []
 		},
-		"BP/functions/slot_choice/avatar/avatar_slot_1.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/avatar/avatar_slot_2.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/avatar/avatar_slot_3.mcfunction": {
-			"custom_commands": []
-		},
-		"BP/functions/slot_choice/avatar/avatar_slot_4.mcfunction": {
+		"BP/functions/chiblocking/chiblocking_main.mcfunction": {
 			"custom_commands": []
 		}
 	},
 	"entity": {
-		"BP/entities/move_helper.json": {
-			"events": [],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:move_helper"
-			],
-			"animation_references": [],
-			"families": [
-				"inanimate",
-				"mob",
-				"move_helper"
-			],
-			"custom_commands": [],
-			"custom_components": []
-		},
 		"BP/entities/player.json": {
 			"events": [
 				"become_earth",
@@ -704,114 +190,14 @@
 				"death",
 				"offhand",
 				"runcommand",
-				"runcmdtwo"
+				"runcmdtwo",
+				"kill"
 			],
 			"families": [
 				"player"
 			],
-			"custom_components": [],
-			"custom_commands": []
-		},
-		"BP/entities/armor_stand.json": {
-			"events": [
-				"huge_size",
-				"normal_size",
-				"despawn"
-			],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"minecraft:armor_stand"
-			],
-			"animation_references": [],
-			"families": [
-				"armor_stand",
-				"inanimate",
-				"mob"
-			],
 			"custom_commands": [],
 			"custom_components": []
-		},
-		"BP/entities/healing_water.json": {
-			"events": [
-				"despawn"
-			],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:splash_effect"
-			],
-			"animation_references": [],
-			"families": [],
-			"custom_commands": [],
-			"custom_components": []
-		},
-		"BP/entities/splash_effect.json": {
-			"events": [
-				"despawn"
-			],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:splash_effect"
-			],
-			"animation_references": [],
-			"families": [],
-			"custom_commands": [],
-			"custom_components": []
-		},
-		"BP/entities/explosion_massive.json": {
-			"events": [],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:explosion_massive"
-			],
-			"animation_references": [],
-			"families": [
-				"inanimate"
-			],
-			"custom_commands": [],
-			"custom_components": []
-		},
-		"BP/entities/explosion.json": {
-			"events": [],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:explosion"
-			],
-			"animation_references": [],
-			"families": [
-				"inanimate"
-			],
-			"custom_commands": [],
-			"custom_components": []
-		},
-		"BP/entities/explosion_low.json": {
-			"events": [],
-			"bridge_core_tags": [],
-			"identifiers": [
-				"a:explosion_low"
-			],
-			"animation_references": [],
-			"families": [
-				"inanimate"
-			],
-			"custom_commands": [],
-			"custom_components": []
-		}
-	},
-	"animation_controller": {
-		"BP/animation_controllers/actions.json": {
-			"ids": [
-				"controller.animation.left",
-				"controller.animation.sneak",
-				"controller.animation.sprint",
-				"controller.animation.rhx",
-				"controller.animation.move",
-				"controller.animation.death",
-				"controller.animation.offhand",
-				"controller.animation.runcommand",
-				"controller.animation.runcmdtwo",
-				"controller.animation.kill"
-			],
-			"custom_commands": []
 		}
 	}
 }

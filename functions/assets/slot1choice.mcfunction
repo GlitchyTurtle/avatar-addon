@@ -1,4 +1,4 @@
-#bridge-file-version: #122
+#bridge-file-version: #125
 HIDE 
 #Normal
 execute @s[tag=!avatar,tag=chooseslot1,scores={chooseslot=!61,detect_left=1,detect_sneak=0}] ~ ~ ~ scoreboard players add @s chooseslot 5

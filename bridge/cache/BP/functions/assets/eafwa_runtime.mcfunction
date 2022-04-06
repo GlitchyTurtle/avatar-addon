@@ -1,0 +1,8 @@
+{
+	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\assets\\eafwa_runtime.mcfunction",
+	"file_type": "function",
+	"format_version": 0,
+	"file_uuid": "140ea840_0071_411c_b838_10b17b6253de",
+	"file_version": 2,
+	"cache_content": "HIDE\r\n#Actual Power Runtimes\r\nexecute @a[tag=air,tag=!antimagic] ~ ~ ~ function runtimes/air\r\nexecute @a[tag=earth,tag=!antimagic] ~ ~ ~ function runtimes/earth\r\nexecute @a[tag=water,tag=!antimagic] ~ ~ ~ function runtimes/water\r\nexecute @a[tag=fire,tag=!antimagic] ~ ~ ~ function runtimes/fire\r\nexecute @a[tag=avatar,tag=!antimagic] ~ ~ ~ function runtimes/avatar\r\nexecute @a[tag=chooseslot1,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot1choice\r\nexecute @a[tag=chooseslot2,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot2choice\r\nexecute @a[tag=chooseslot3,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot3choice\r\nexecute @a[tag=chooseslot4,tag=!antimagic,tag=!avatar] ~ ~ ~ function assets/slot4choice\r\nexecute @a[tag=chooseslot1,tag=!antimagic,tag=avatar] ~ ~ ~ function assets/avatar_choose1\r\nexecute @a[tag=chooseslot2,tag=!antimagic,tag=avatar] ~ ~ ~ function assets/avatar_choose2\r\nexecute @a[tag=chooseslot3,tag=!antimagic,tag=avatar] ~ ~ ~ function assets/avatar_choose3\r\nexecute @a[tag=chooseslot4,tag=!antimagic,tag=avatar] ~ ~ ~ function assets/avatar_choose4\r\nexecute @a[tag=!choose,tag=!air,tag=!earth,tag=!water,tag=!fire,tag=!avatar] ~ ~ ~ function chiblocking/chiblocking_main"
+}
