@@ -19,8 +19,8 @@ tellraw @s {"rawtext":[{"text":"§bWater Rush §r- Speed toward the nearest enti
 tellraw @s {"rawtext":[{"text":"§bWater Fountain §r- Look up and punch to launch nearby mobs into the air."}]}
 tellraw @s {"rawtext":[{"text":"§bWater Healing §r- Create a large healing radius around you."}]}
 tellraw @s {"rawtext":[{"text":"§bWater Life Drain §r- Instantly heals and feeds you at the cost of the entities and grass near you. You must stand on grass to use."}]}
-tellraw @s {"rawtext":[{"text":"§bSplash §r- Pushes all nearby mobs and players away without leaving any water behind.""}]}
-tellraw @s {"rawtext":[{"text":"§bWater Wake §r- Pushes all nearby mobs and players away without leaving any water behind.""}]}
+tellraw @s {"rawtext":[{"text":"§bSplash §r- Pushes all nearby mobs and players away without leaving any water behind."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Wake §r- Pushes all nearby mobs and players away without leaving any water behind."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bPassive:"}]}
 tellraw @s {"rawtext":[{"text":"§bWater Strength §r- When in or touching water, you will get a strength effect."}]}
