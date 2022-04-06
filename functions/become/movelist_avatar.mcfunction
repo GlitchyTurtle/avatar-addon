@@ -1,26 +1,62 @@
-#bridge-file-version: #32
 HIDE 
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bAvatar§r"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
-tellraw @s {"rawtext":[{"text":"§l§bStarter Abilities:"}]}
-tellraw @s {"rawtext":[{"text":"§bAir Launch §r- Launch yourself into the air by looking at the ground and punching!"}]}
-tellraw @s {"rawtext":[{"text":"§bEarth Pillar §r- Double sneak, and you will lift the earth under you 4 blocks up."}]}
-tellraw @s {"rawtext":[{"text":"§bIce Cage §r- Look up and punch to freeze nearby (4 blocks away) mobs and players in an ice cage. It can destroy blocks, so be carefull."}]}
+tellraw @s {"rawtext":[{"text":"§l§bSlot Choice:"}]}
+tellraw @s {"rawtext":[{"text":"§bSlot 1 §r- Look up and sneak to trigger whatever move you have for slot 1."}]}
+tellraw @s {"rawtext":[{"text":"§bSlot 2 §r- Look down and punch to trigger whatever move you have for slot 2."}]}
+tellraw @s {"rawtext":[{"text":"§bSlot 3 §r- Double sneak (sneak twice quickly) to trigger whatever move you have for slot 3."}]}
+tellraw @s {"rawtext":[{"text":"§bSlot 4 §r- Sneak and punch to trigger whatever move you have for slot 4."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
-tellraw @s {"rawtext":[{"text":"§l§bLevel 1 Abilities:"}]}
-tellraw @s {"rawtext":[{"text":"§bBending Wipe §r- Removes the bending of the nearest player in 20 blocks. Double sneak to charge this move."}]}
-tellraw @s {"rawtext":[{"text":"§bBending Restore §r- Restores the bending of the nearest player in 20 blocks. Double sneak and drop an item named restore"}]}
-tellraw @s {"rawtext":[{"text":"§bFire Blast §r- Shoots lava 5 blocks in front of you! To use, sneak then punch."}]}
-tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
-tellraw @s {"rawtext":[{"text":"§l§bAvatar State:"}]}
-tellraw @s {"rawtext":[{"text":"§bHow to enter/exit §r- After getting to level 10, drop an item named: §benter_avatar_state§r, or §bexit_avatar_state§r."}]}
-tellraw @s {"rawtext":[{"text":"§bEnergy Beam §r- Shoots a beam of pure energy when you  sneak in avatar state. Range of 20 blocks, instant kill."}]}
-tellraw @s {"rawtext":[{"text":"§bEnergy Shield §r- Circles you with a beam of pure energy when you  sneak and look down in avatar state. No one can come near you."}]}
+tellraw @s {"rawtext":[{"text":"§l§bAbilities:"}]}
+tellraw @s {"rawtext":[{"text":"§bAir Launch §r- Launch yourself into the air!"}]}
+tellraw @s {"rawtext":[{"text":"§bAirscooter §r- Jump on a bubble of air you can control! If you ram into entities, it does damage."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Escape §r- Launch all entities near you 20 blocks away."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Blast §r- Shoots a focused beam of air that does damage and knockback."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Vanish §r- Allows you to vanish in a cloud of smoke."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Rush §r- Shoots you forward fast."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Shockwave §r- Shoots out a shockwave that does damage."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Blade §r- Shoot out a massive blade of air that you can steer by moving left and right."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Artillery §r- Shoots a blast of air that locks on and targets the closest entity."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Pull §r- The opposite of air push, pulls all nearby entities close to you."}]}
+tellraw @s {"rawtext":[{"text":"§bAir Dodge §r-  Blast youself over 4 blocks to the side to dodge other moves."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Pillar §r- Lift the earth under you 4 blocks up."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Lift §r- Lifts a huge chunk of earth up with you."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Shove §r- Places blocks and does lots of damage to nearby players.. Can also stop you from taking damage."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Headbutt §r-  Speed forward with a powerful attack that does damage and breaks blocks."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Shield §r- Put up a small fortress of dirt complete with torches."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Spikes §r- Spikes will sprout out of the ground in front of you."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Burrow §r- You will burrow 2 blocks under the ground."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Throw §r- Lets you throw a huge chunk of earth that explodes on impact."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Search §r- Check for diamonds up to 100 blocks under you."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Focus Build §r- Helps you build quickly without using blocks, just aim at the ground."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Scaffold §r- Automatically places dirt under you as you move."}]}
+tellraw @s {"rawtext":[{"text":"§bFlood §r- Floods a nearby area, and does a small bit of damage to players."}]}
+tellraw @s {"rawtext":[{"text":"§bIce Cage §r- Freezes nearby (4 blocks away) mobs and players in an ice cage. It can break blocks, so be careful."}]}
+tellraw @s {"rawtext":[{"text":"§bIce Throw §r- Summons a piece of ice you can aim by looking around and double sneak to fire."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Spear §r- Shoots a water beam that does 3 hearts of damage to anyone 5 blocks away."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Spike §r- Shoot a spike under nearby mobs that will launch them into the air."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Rush §r- Speed toward the nearest entity, it will stop you 3 blocks away."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Fountain §r- Look up and punch to launch nearby mobs into the air."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Healing §r- Create a large healing radius around you."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Life Drain §r- Instantly heals and feeds you at the cost of the entities and grass near you. You must stand on grass to use."}]}
+tellraw @s {"rawtext":[{"text":"§bSplash §r- Pushes all nearby mobs and players away without leaving any water behind."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Wake §r- Pushes all nearby mobs and players away without leaving any water behind."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Blast §r- Shoots lava 5 blocks in front of you!"}]}
+tellraw @s {"rawtext":[{"text":"§bFire Sprint §r- Give yourself speed and leave a fire trail untill the cooldown is over."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Circle §r- Set the area around you on fire in the shape of a circle."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Boosters §r- Lets you fly by shooting out fire."}]}
+tellraw @s {"rawtext":[{"text":"§bLightning §r- Makes lightning strike 5 blocks out where you look."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Shield §r- Makes you invulnerable for a few seconds, can be used to negate fall damage."}]}
+tellraw @s {"rawtext":[{"text":"§bFireball §r- Shoot the same kind of fireball that ghasts do."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Boosted Jump §r- Jump higher than ever before."}]}
+tellraw @s {"rawtext":[{"text":"§bLast Ditch Effort §r- Punch a massive combustive impact into the ground, killing you and all nearby entities. Hopefully you never use it."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Smite §r- Hits all entities in a radius of 10 with lightning, but hurts you too."}]}
+tellraw @s {"rawtext":[{"text":"§bFire Finder §r- Shoots a blast of fire that locks on and targets the closest entity and hits with a combustive impact."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bPassive:"}]}
 tellraw @s {"rawtext":[{"text":"§bLight Bend §r- After sneaking for a certain time, you will become invisible."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bImmunity and Health:"}]}
-tellraw @s {"rawtext":[{"text":"§bHealth §r- Your health is the above average 20 hearts."}]}
-tellraw @s {"rawtext":[{"text":"§bImmunity §r- You are immune to any kind of fall damage, fire damage, water damage, and suffocation damage."}]}
+tellraw @s {"rawtext":[{"text":"§bHealth §r- Your health is the normal 10 hearts."}]}
+tellraw @s {"rawtext":[{"text":"§bImmunity §r- You are immune to any kind of fall damage, including fall damage wearing an elytra (not wall hits though)."}]}
