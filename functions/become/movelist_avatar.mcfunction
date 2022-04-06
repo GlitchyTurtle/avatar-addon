@@ -56,7 +56,11 @@ tellraw @s {"rawtext":[{"text":"§bFire Finder §r- Shoots a blast of fire that 
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bPassive:"}]}
 tellraw @s {"rawtext":[{"text":"§bLight Bend §r- After sneaking for a certain time, you will become invisible."}]}
+tellraw @s {"rawtext":[{"text":"§bEarth Sprint §r- When you sprint on earthly blocks for a certain time, you will be effected with speed."}]}
+tellraw @s {"rawtext":[{"text":"§bWater Strength §r- When in or touching water, you will get a strength effect."}]}
+tellraw @s {"rawtext":[{"text":"§bFast Fire §r- When in or touching fire or lava, you will get a speed effect."}]}
+tellraw @s {"rawtext":[{"text":"§bBonus §r- On full moons, your moves become more powerful, and you have extra resistance and strength."}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bImmunity and Health:"}]}
-tellraw @s {"rawtext":[{"text":"§bHealth §r- Your health is the normal 10 hearts."}]}
-tellraw @s {"rawtext":[{"text":"§bImmunity §r- You are immune to any kind of fall damage, including fall damage wearing an elytra (not wall hits though)."}]}
+tellraw @s {"rawtext":[{"text":"§bHealth §r- Your health is the above average 20 hearts."}]}
+tellraw @s {"rawtext":[{"text":"§bImmunity §r- You are immune to any kind of fall damage, fire damage, ground damage and water damage."}]}
