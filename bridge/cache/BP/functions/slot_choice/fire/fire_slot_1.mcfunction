@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\slot_choice\\fire\\fire_slot_1.mcfunction",
-	"file_type": "function",
-	"format_version": 0,
-	"file_uuid": "c79a652b_f7ac_4caa_8654_2bd5a4404804",
-	"file_version": 11,
-	"cache_content": "HIDE \nexecute @s[tag=fire,scores={moveslot1=1}] ~ ~ ~ function moves/fire_blast\nexecute @s[tag=fire,scores={moveslot1=2}] ~ ~ ~ function moves/fire_circle\nexecute @s[tag=fire,scores={moveslot1=3}] ~ ~ ~ function moves/fire_sprint\nexecute @s[tag=fire,scores={moveslot1=4}] ~ ~ ~ function moves/fire_launch\nexecute @s[tag=fire,scores={moveslot1=5}] ~ ~ ~ function moves/fire_lightning\nexecute @s[tag=fire,scores={moveslot1=6}] ~ ~ ~ function moves/fire_magma_floor\nexecute @s[tag=fire,scores={moveslot1=7}] ~ ~ ~ function moves/moves/fire_fireball\nexecute @s[tag=fire,scores={moveslot1=8}] ~ ~ ~ function moves/fire_jump\nexecute @s[tag=fire,scores={moveslot1=9}] ~ ~ ~ function moves/fire_final\nexecute @s[tag=fire,scores={moveslot1=10}] ~ ~ ~ function moves/fire_smite\nexecute @s[tag=fire,scores={moveslot1=11}] ~ ~ ~ function moves/fire_seeking_blast\nexecute @s[scores={moveslot1=0,cooldown1=100}] ~ ~ ~ tellraw @s {\"rawtext\":[{\"text\":\"§cYou dont have a move set, use /function useful_tools (slot 1)\"}]}\nscoreboard players set @s cooldown1 0"
-}

@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\scripts\\commands\\util\\movelist.js",
-	"file_type": "script",
-	"format_version": 0,
-	"file_uuid": "9ba045d0_20da_4316_8510_f9b4256220be",
-	"file_version": 23,
-	"cache_content": "import * as Minecraft from \"mojang-minecraft\";\r\n\r\nconst World = Minecraft.World;\r\nconst Commands = Minecraft.Commands;\r\n\r\nconst command = {\r\n    name: 'movelist',\r\n    description: 'lists your possible moves and slots',\r\n    usage: '!movelist',\r\n    category: 'util',\r\n    args: [],\r\n    execute(chat, args) {\r\n        Commands.run(`/execute @a[tag=air,name=\"${chat.sender.name}\"] ~ ~ ~ function become/movelist_air`, World.getDimension(\"overworld\"));\r\n        Commands.run(`/execute @a[tag=fire,name=\"${chat.sender.name}\"] ~ ~ ~ function become/movelist_fire`, World.getDimension(\"overworld\"));\r\n        Commands.run(`/execute @a[tag=water,name=\"${chat.sender.name}\"] ~ ~ ~ function become/movelist_water`, World.getDimension(\"overworld\"));\r\n        Commands.run(`/execute @a[tag=earth,name=\"${chat.sender.name}\"] ~ ~ ~ function become/movelist_earth`, World.getDimension(\"overworld\"));\r\n        Commands.run(`/execute @a[tag=avatar,name=\"${chat.sender.name}\"] ~ ~ ~ function become/movelist_avatar`, World.getDimension(\"overworld\"));\r\n    }\r\n}\r\n\r\nexport default command"
-}

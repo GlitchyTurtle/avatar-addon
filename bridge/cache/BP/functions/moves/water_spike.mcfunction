@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\moves\\water_spike.mcfunction",
-	"file_type": "function",
-	"format_version": 0,
-	"file_uuid": "2d152522_9123_47f7_bae7_818ee3a23a1f",
-	"file_version": 62,
-	"cache_content": "HIDE \ntag @s add selfwater\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~ ~4 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-1 ~ ~ ~ ~3 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~1 ~ ~ ~ ~3 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~-1 ~ ~3 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~1 ~ ~3 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-1 ~1 ~1 ~1 ~ ~-1 ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~ ~1 ~2 ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~ ~1 ~-2 ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~-2 ~1 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~2 ~1 ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~2 ~ ~-1 ~ ~ ~1 ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-2 ~ ~-1 ~ ~ ~1 ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-1 ~ ~-2 ~1 ~ ~ ice 0 keep\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-1 ~ ~2 ~1 ~ ~ ice 0 keep\neffect @e[r=10,tag=!selfwater] levitation 1 25 true\nexecute @e[r=10,tag=!selfwater] ~ ~ ~ tp @s ~ ~5 ~\nscoreboard players set @s cooldown 0\ntellraw @s[tag=!chatmsgoff] {\"rawtext\":[{\"text\":\"You used \"},{\"text\":\"§bIce Spike\"}]}\nscoreboard players add @s sub_level 1\ntag @s remove selfwater\nplaysound bucket.fill_water"
-}

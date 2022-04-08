@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\runtime.mcfunction",
-	"file_type": "function",
-	"format_version": 0,
-	"file_uuid": "c531b294_7bae_4663_a60d_22269facc05c",
-	"file_version": 424,
-	"cache_content": "HIDE\r\nfunction assets/eafwa_runtime\r\nfunction assets/cooldown\r\nfunction assets/grounded\r\nfunction assets/item_commands\r\n#Setup\r\nexecute @a[tag=!setup,tag=!uninstall] ~ ~ ~ function assets/setup\r\nexecute @a[tag=as23ds] ~ ~ ~ titleraw @s actionbar {\"rawtext\":[{\"text\":\"§cYou died while in avatar state.\"}]}\r\nexecute @a[tag=as23ds] ~ ~ ~ tag @s add antimagic\r\n#Leveling systems\r\nexecute @a[scores={level=0..5,sub_level=20..}] ~ ~ ~ function assets/level_up\r\nexecute @a[scores={level=6..10,sub_level=30..}] ~ ~ ~ function assets/level_up\r\nexecute @a[scores={level=11..15,sub_level=40..}] ~ ~ ~ function assets/level_up\r\nexecute @a[scores={level=50..,sub_level=80..}] ~ ~ ~ function assets/level_up\r\n#Mobile\r\nexecute @a ~ ~ ~ execute @e[r=10,type=item,name=\"Rabbit's Foot\"] ~ ~ ~ replaceitem entity @p slot.hotbar 8 rabbit_foot\r\nexecute @a ~ ~ ~ execute @e[r=10,type=item,name=\"Rabbit's Foot\"] ~ ~ ~ kill @s\r\n#Settings\r\nscoreboard players add @a detect_init 0\r\nexecute @a[scores={detect_init=0}] ~~~ function detect_init\r\nscoreboard players add @a[scores={detect_sneakTemp=1..}] detect_sneakTemp -1\r\nexecute @a[scores={cds=1}] ~~~ scoreboard players set @s cooldown1 100\r\nscoreboard players operation @a aas = avatar:config aas\r\nscoreboard players operation @a cds = avatar:config cds"
-}

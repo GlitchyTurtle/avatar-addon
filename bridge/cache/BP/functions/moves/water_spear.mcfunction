@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\moves\\water_spear.mcfunction",
-	"file_type": "function",
-	"format_version": 0,
-	"file_uuid": "85771253_8e4a_42cc_b109_dbdb743ebf40",
-	"file_version": 16,
-	"cache_content": "HIDE \nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^0.5\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^1\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^1.5\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^2\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^2.5\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^3\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^3.5\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^4\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^4.5\nexecute @s ~ ~1.5 ~ particle minecraft:water_wake_particle ^ ^ ^5\nexecute @s[scores={level=0..5}] ^ ^ ^5 damage @e[r=2] 1 none\nexecute @s[scores={level=6..10}] ^ ^ ^5 damage @e[r=2] 2 none\nexecute @s[scores={level=11..99}] ^ ^ ^5 damage @e[r=2] 4 none\nexecute @s[scores={level=100..}] ^ ^ ^5 damage @e[r=2] 10 none\nexecute @s[tag=full_moon] ^ ^ ^5 damage @e[r=5] 19 none\nscoreboard players set @s cooldown1 0\ntellraw @s[tag=!chatmsgoff] {\"rawtext\":[{\"text\":\"You used \"},{\"text\":\"§bWater Spear\"}]}\nscoreboard players add @s sub_level 2\nplaysound mob.turtle.swim @a[r=3] ~ ~ ~ 0.9 1"
-}

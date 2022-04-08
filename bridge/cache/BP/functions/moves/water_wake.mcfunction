@@ -1,8 +1,0 @@
-{
-	"file_path": "C:\\Users\\gross\\AppData\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\development_behavior_packs\\Avatar Addon 2!\\functions\\moves\\water_wake.mcfunction",
-	"file_type": "function",
-	"format_version": 0,
-	"file_uuid": "d90ed88d_fe39_4aa3_8d82_0bbffc573ce7",
-	"file_version": 62,
-	"cache_content": "HIDE \nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nexecute @s ~ ~ ~ tp @s ^0.5 ^ ^ true\nexecute @s ~ ~ ~ particle minecraft:water_splash_particle_manual ~ ~ ~\nscoreboard players set @s cooldown1 0\ntellraw @s[tag=!chatmsgoff] {\"rawtext\":[{\"text\":\"You used \"},{\"text\":\"§bWater Wake\"}]}\nscoreboard players add @s sub_level 2"
-}
