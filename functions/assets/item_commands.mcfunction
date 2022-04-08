@@ -25,3 +25,14 @@ execute @a[tag=chooseslot1] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot2] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot3] ~ ~ ~ scoreboard players set @s cooldown1 100
 execute @a[tag=chooseslot4] ~ ~ ~ scoreboard players set @s cooldown1 100
+#Movelist
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="movelist"] ~ ~ ~ execute @p ~ ~ ~ function assets/movelist
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="movelist"] ~ ~ ~ kill @s
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="Movelist"] ~ ~ ~ execute @p ~ ~ ~ function assets/movelist
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="Movelist"] ~ ~ ~ kill @s
+#Useful tools
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="useful tools"] ~ ~ ~ execute @p ~ ~ ~ function useful_tools
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="useful tools"] ~ ~ ~ kill @s
+#Stats
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="stats"] ~ ~ ~ execute @p ~ ~ ~ function stats
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="stats"] ~ ~ ~ kill @s
