@@ -35,3 +35,6 @@ execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="useful tools"]
 #Stats
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="stats"] ~ ~ ~ execute @p ~ ~ ~ function stats
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="stats"] ~ ~ ~ kill @s
+#Help
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="help"] ~ ~ ~ execute @p ~ ~ ~ function help
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="help"] ~ ~ ~ kill @s
