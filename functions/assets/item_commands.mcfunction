@@ -1,4 +1,3 @@
-#bridge-file-version: #2
 HIDE 
 #Choose
 execute @a[tag=choose] ~~~ function assets/choose
