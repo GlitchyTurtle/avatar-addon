@@ -20,10 +20,6 @@ execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,tag=!cho
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="choose slot 3"] ~ ~ ~ kill @s
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,tag=!chooseslot1,tag=!chooseslot2,tag=!chooseslot3,tag=!chooseslot4,r=10,type=item,name="choose slot 4"] ~ ~ ~ execute @p ~ ~ ~ tag @s add chooseslot4
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="choose slot 4"] ~ ~ ~ kill @s
-execute @a[tag=chooseslot1] ~ ~ ~ scoreboard players set @s cooldown1 100
-execute @a[tag=chooseslot2] ~ ~ ~ scoreboard players set @s cooldown1 100
-execute @a[tag=chooseslot3] ~ ~ ~ scoreboard players set @s cooldown1 100
-execute @a[tag=chooseslot4] ~ ~ ~ scoreboard players set @s cooldown1 100
 #Movelist
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="movelist"] ~ ~ ~ execute @p ~ ~ ~ function assets/movelist
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="movelist"] ~ ~ ~ kill @s
