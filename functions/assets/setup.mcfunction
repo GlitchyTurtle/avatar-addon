@@ -90,3 +90,4 @@ tellraw @s {"rawtext":[{"text":"§bPlaytester #4 §r- Jamez - https://www.youtub
 tellraw @s {"rawtext":[{"text":"§bCreator §r- GlitchyTurtle32 - https://www.youtube.com/channel/UCZ3E2lCjK3D1N-dcci3edwg"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 title @s actionbar §3Check the chat window please.
+execute @s ~~~ function useful_tools
