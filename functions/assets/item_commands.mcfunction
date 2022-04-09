@@ -27,8 +27,6 @@ execute @a[tag=chooseslot4] ~ ~ ~ scoreboard players set @s cooldown1 100
 #Movelist
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="movelist"] ~ ~ ~ execute @p ~ ~ ~ function assets/movelist
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="movelist"] ~ ~ ~ kill @s
-execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="Movelist"] ~ ~ ~ execute @p ~ ~ ~ function assets/movelist
-execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="Movelist"] ~ ~ ~ kill @s
 #Useful tools
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="useful tools"] ~ ~ ~ execute @p ~ ~ ~ function useful_tools
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="useful tools"] ~ ~ ~ kill @s
@@ -38,3 +36,6 @@ execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="stats"] ~ ~ ~ 
 #Help
 execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="help"] ~ ~ ~ execute @p ~ ~ ~ function help
 execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="help"] ~ ~ ~ kill @s
+#Movemsg
+execute @a ~ ~ ~ execute @e[tag=!giving_item,tag=!choose,tag=!antimagic,r=10,type=item,name="movemsg"] ~ ~ ~ execute @p ~ ~ ~ function toggle_movemessage
+execute @a ~ ~ ~ execute @e[tag=!giving_item,r=10,type=item,name="movemsg"] ~ ~ ~ kill @s
