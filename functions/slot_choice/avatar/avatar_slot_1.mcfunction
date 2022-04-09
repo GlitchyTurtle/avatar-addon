@@ -1,4 +1,4 @@
-#bridge-file-version: #3
+HIDE
 execute @s[tag=avatar,scores={moveslot1=1}] ~ ~ ~ function moves/air_blast
 execute @s[tag=avatar,scores={moveslot1=2}] ~ ~ ~ function moves/air_launch
 execute @s[tag=avatar,scores={moveslot1=3}] ~ ~ ~ function moves/air_scooter
