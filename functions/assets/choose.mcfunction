@@ -1,4 +1,4 @@
-#bridge-file-version: #0
+HIDE
 #Choose
 execute @a[tag=choose,scores={aas=1,detect_left=1,detect_sneak=0}] ~ ~ ~ scoreboard players add @s choose 5
 execute @a[tag=choose,scores={aas=1,detect_left=1}] ~ ~ ~ scoreboard players set @s detect_left 0

@@ -1,3 +1,4 @@
+HIDE
 execute @s[tag=air] ~ ~ ~ function become/movelist_air
 execute @s[tag=fire] ~ ~ ~ function become/movelist_fire
 execute @s[tag=water] ~ ~ ~ function become/movelist_water
