@@ -6,7 +6,7 @@ execute @s[tag=fire,scores={moveslot1=3}] ~ ~ ~ function moves/fire_sprint
 execute @s[tag=fire,scores={moveslot1=4}] ~ ~ ~ function moves/fire_launch
 execute @s[tag=fire,scores={moveslot1=5}] ~ ~ ~ function moves/fire_lightning
 execute @s[tag=fire,scores={moveslot1=6}] ~ ~ ~ function moves/fire_magma_floor
-execute @s[tag=fire,scores={moveslot1=7}] ~ ~ ~ function moves/moves/fire_fireball
+execute @s[tag=fire,scores={moveslot1=7}] ~ ~ ~ function moves/fire_fireball
 execute @s[tag=fire,scores={moveslot1=8}] ~ ~ ~ function moves/fire_jump
 execute @s[tag=fire,scores={moveslot1=9}] ~ ~ ~ function moves/fire_final
 execute @s[tag=fire,scores={moveslot1=10}] ~ ~ ~ function moves/fire_smite
