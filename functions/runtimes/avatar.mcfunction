@@ -42,7 +42,7 @@ execute @s[tag=avatar] ~ ~ ~ tp @e[r=10,name=earth_throw,tag=!thrown] ^ ^0.3 ^3
 execute @e[name=earth_throw] ~ ~ ~ tp @s ~ ~ ~ facing @p
 execute @s[tag=earth_throw] ~ ~ ~ replaceitem entity @e[type=armor_stand,name=earth_throw] slot.weapon.mainhand 0 dirt 1 1
  
-execute @s[tag=earth,scores={detect_dsneak=1}] ~ ~ ~ tag @e[r=10,name=earth_throw] add thrown
+execute @s[tag=avatar,scores={detect_dsneak=1}] ~ ~ ~ tag @e[r=10,name=earth_throw] add thrown
 execute @e[tag=thrown] ~ ~ ~ effect @s fatal_poison 5 255 true
 execute @e[tag=thrown] ~ ~ ~ detect ~ ~ ~ dirt 0 summon a:explosion ~ ~ ~
 execute @e[tag=thrown] ~ ~ ~ damage @e[r=3] 2 none
