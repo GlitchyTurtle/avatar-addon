@@ -26,8 +26,12 @@ tellraw @s {"rawtext":[{"text":"§bPlaytester #4 §r- Jamez - https://www.youtub
 tellraw @s {"rawtext":[{"text":"§bCreator §r- GlitchyTurtle32 - https://www.youtube.com/channel/UCZ3E2lCjK3D1N-dcci3edwg"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bCommands:"}]}
-tellraw @s {"rawtext":[{"text":"§b/function help §r- help - shows the help menu (this menu)"}]}
+tellraw @s {"rawtext":[{"text":"§b/function help §r- help - shows the help menu (this menu)."}]}
 tellraw @s {"rawtext":[{"text":"§b/function choose §r- choose bending - choose your bending style. Choosing resets your level."}]}
+tellraw @s {"rawtext":[{"text":"§b/function choose/slot_1 §r- chooseslot1 - choose slot one."}]}
+tellraw @s {"rawtext":[{"text":"§b/function choose/slot_2 §r- chooseslot2 - choose slot two."}]}
+tellraw @s {"rawtext":[{"text":"§b/function choose/slot_3 §r- chooseslot3 - choose slot three."}]}
+tellraw @s {"rawtext":[{"text":"§b/function choose/slot_4 §r- chooseslot4 - choose slot four."}]}
 tellraw @s {"rawtext":[{"text":"§b/function movelist §r- movelist - show a list of moves you can do, dependent on your bending style."}]}
 tellraw @s {"rawtext":[{"text":"§b/function useful_tools §r- useful tools - gives a set of items you can use to run these commands in survival."}]}
 tellraw @s {"rawtext":[{"text":"§b/function toggle_movemessage §r- movemsg - desc"}]}
