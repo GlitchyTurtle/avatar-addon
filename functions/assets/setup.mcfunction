@@ -61,7 +61,6 @@ scoreboard players add @a kills 0
 scoreboard players add @a cds 0
 scoreboard players add @a aas 0
 playsound random.levelup @s ~ ~ ~
-give @s writable_book 2
 tellraw @s {"rawtext":[{"text":"§r"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bAvatar Addon§r"}]}
