@@ -47,7 +47,7 @@ Airbenders (in this pack, at least) are centered around avoiding and then counte
 Firebending is known for its intense and aggressive attacking style and general lack of adequate defensive moves, although firebenders can modify offensive maneuvers to function as a defense. 
   
 **Moves:**
-* a
+* 
  
 # <img src="https://i.imgur.com/1iBENgb.png" border="0" height="30">
 # <img src="https://i.imgur.com/gKmJvMM.png" border="0" height="30">
