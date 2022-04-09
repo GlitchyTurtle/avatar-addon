@@ -23,6 +23,7 @@ tellraw @s {"rawtext":[{"text":"§bPlaytester #1 §r- albert - https://www.youtu
 tellraw @s {"rawtext":[{"text":"§bPlaytester #2 §r- Tinpixelman66 - https://youtube.com/channel/UCDMWNQU3aVUNV8qF9ct0r5g"}]}
 tellraw @s {"rawtext":[{"text":"§bPlaytester #3 §r- Riveren - https://www.youtube.com/channel/UCNvRFPEVYuzF-xIaLv1Cffg"}]}
 tellraw @s {"rawtext":[{"text":"§bPlaytester #4 §r- Jamez - https://www.youtube.com/channel/null"}]}
+tellraw @s {"rawtext":[{"text":"§bPlaytester #5 §6(gold) §r- iamnuel - https://www.youtube.com/channel/null"}]}
 tellraw @s {"rawtext":[{"text":"§bCreator §r- GlitchyTurtle32 - https://www.youtube.com/channel/UCZ3E2lCjK3D1N-dcci3edwg"}]}
 tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§bCommands:"}]}
