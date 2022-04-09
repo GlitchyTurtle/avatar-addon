@@ -12,12 +12,12 @@ execute @a[tag=choose,scores={aas=1,choose=0..5,detect_sneak=1}] ~ ~ ~ titleraw 
 execute @a[tag=choose,scores={aas=1,choose=6..10,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Earth"}]}
 execute @a[tag=choose,scores={aas=1,choose=11..15,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Water"}]}
 execute @a[tag=choose,scores={aas=1,choose=16..20,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Air"}]}
-execute @a[tag=choose,scores={aas=1,choose=26..30,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Human"}]}
+execute @a[tag=choose,scores={aas=1,choose=21..25,detect_sneak=1}] ~ ~ ~ titleraw @s actionbar {"rawtext":[{"text":"§6You picked Human"}]}
 execute @a[tag=choose,scores={aas=1,choose=0..5,detect_sneak=1}] ~ ~ ~ function become/fire
 execute @a[tag=choose,scores={aas=1,choose=6..10,detect_sneak=1}] ~ ~ ~ function become/earth
 execute @a[tag=choose,scores={aas=1,choose=11..15,detect_sneak=1}] ~ ~ ~ function become/water
 execute @a[tag=choose,scores={aas=1,choose=16..20,detect_sneak=1}] ~ ~ ~ function become/air
-execute @a[tag=choose,scores={aas=1,choose=26..30,detect_sneak=1}] ~ ~ ~ function become/human
+execute @a[tag=choose,scores={aas=1,choose=21..25,detect_sneak=1}] ~ ~ ~ function become/human
  
 #Choose (with avatar allowed)
 execute @a[tag=choose,scores={aas=0,choose=!26,detect_left=1,detect_sneak=0}] ~ ~ ~ scoreboard players add @s choose 5
