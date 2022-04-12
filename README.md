@@ -52,7 +52,7 @@ Firebending is known for its intense and aggressive attacking style and general 
 - **Slot 3** - Sneak and punch to trigger whatever move you have for slot 3.
 - **Slot 4** - Double sneak to trigger whatever move you have for slot 4.
   
-**Moves:
+**Moves:**
 - **Fire Blast** - Shoots lava 5 blocks in front of you!
 - **Fire Sprint** - Give yourself speed and leave a fire trail untill the cooldown is over.
 - **Fire Circle** - Set the area around you on fire in the shape of a circle.
@@ -64,10 +64,6 @@ Firebending is known for its intense and aggressive attacking style and general 
 - **Last Ditch Effort** - Punch a massive combustive impact into the ground, killing you and all nearby entities. Hopefully you never use it.
 - **Fire Smite** - Hits all entities in a radius of 10 with lightning, but hurts you too.
 - **FireFinder** - Shoots a blast of fire that locks on and targets the closest entity and hits with a combustive impact.
-
-  
-**Moves:**
-* 
  
 # <img src="https://i.imgur.com/1iBENgb.png" border="0" height="30">
 # <img src="https://i.imgur.com/gKmJvMM.png" border="0" height="30">
