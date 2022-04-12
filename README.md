@@ -46,7 +46,25 @@ Airbenders (in this pack, at least) are centered around avoiding and then counte
 
 Firebending is known for its intense and aggressive attacking style and general lack of adequate defensive moves, although firebenders can modify offensive maneuvers to function as a defense. 
  
-this is a test update to see if the webhook works
+**Slot Choice:**
+- **Slot 1** - Look down and sneak to trigger whatever move you have for slot 1.
+- **Slot 2** - Look up and sneak to trigger whatever move you have for slot 2.
+- **Slot 3** - Sneak and punch to trigger whatever move you have for slot 3.
+- **Slot 4** - Double sneak to trigger whatever move you have for slot 4.
+  
+**Moves:
+- **Fire Blast** - Shoots lava 5 blocks in front of you!
+- **Fire Sprint** - Give yourself speed and leave a fire trail untill the cooldown is over.
+- **Fire Circle** - Set the area around you on fire in the shape of a circle.
+- **Fire Boosters** - Lets you fly by shooting out fire.
+- **Lightning** - Makes lightning strike 5 blocks out where you look.
+- **Fire Shield** - Makes you invulnerable for a few seconds, can be used to negate fall damage.
+- **Fireball** - Shoot the same kind of fireball that ghasts do.
+- **Fire Boosted Jump** - Jump higher than ever before.
+- **Last Ditch Effort** - Punch a massive combustive impact into the ground, killing you and all nearby entities. Hopefully you never use it.
+- **Fire Smite** - Hits all entities in a radius of 10 with lightning, but hurts you too.
+- **FireFinder** - Shoots a blast of fire that locks on and targets the closest entity and hits with a combustive impact.
+
   
 **Moves:**
 * 
