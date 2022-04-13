@@ -38,7 +38,7 @@ execute @s[tag=avatar,scores={moveslot4=36}] ~ ~ ~ function moves/fire_sprint
 execute @s[tag=avatar,scores={moveslot4=37}] ~ ~ ~ function moves/fire_launch
 execute @s[tag=avatar,scores={moveslot4=38}] ~ ~ ~ function moves/fire_lightning
 execute @s[tag=avatar,scores={moveslot4=39}] ~ ~ ~ function moves/fire_magma_floor
-execute @s[tag=avatar,scores={moveslot4=40}] ~ ~ ~ function moves/moves/fire_fireball
+execute @s[tag=avatar,scores={moveslot4=40}] ~ ~ ~ function moves/fire_fireball
 execute @s[tag=avatar,scores={moveslot4=41}] ~ ~ ~ function moves/fire_jump
 execute @s[tag=avatar,scores={moveslot4=42}] ~ ~ ~ function moves/fire_final
 execute @s[tag=avatar,scores={moveslot4=43}] ~ ~ ~ function moves/fire_smite
