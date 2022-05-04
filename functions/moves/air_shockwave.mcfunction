@@ -1,6 +1,7 @@
-#bridge-file-version: #14
+#bridge-file-version: #15
 HIDE 
 tag @s add shockwave
+particle a:air_puff
 summon armor_stand ~ ~ ~1.5 normal_size shockwave_air
 summon armor_stand ~ ~ ~-1.5 normal_size shockwave_air
 summon armor_stand ~1.5 ~ ~ normal_size shockwave_air

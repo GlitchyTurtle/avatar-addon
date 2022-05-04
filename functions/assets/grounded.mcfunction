@@ -1,4 +1,4 @@
-#bridge-file-version: #1
+#bridge-file-version: #3
 HIDE 
 #Gounded Check
 execute @a ~ ~ ~ detect ~ ~-1 ~ air 0 scoreboard players set @s ground 0

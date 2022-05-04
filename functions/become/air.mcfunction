@@ -1,4 +1,4 @@
-#bridge-file-version: #58
+#bridge-file-version: #59
 HIDE 
 tag @s add air
 scoreboard players set @s moveslot1 0
@@ -13,3 +13,4 @@ tag @s remove human
 event entity @s become_air
 tag @s remove choose
 function become/movelist_air
+particle a:choose_air

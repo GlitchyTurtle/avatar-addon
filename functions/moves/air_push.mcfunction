@@ -1,7 +1,7 @@
-#bridge-file-version: #31
 HIDE 
 tag @s add selfpush
-particle minecraft:huge_explosion_emitter ~ ~ ~
+particle a:air_push ~~~
+particle minecraft:explosion_manual ~~~
 execute @e[r=20,tag=!selfpush] ~ ~ ~ tp @s ^ ^ ^-0.5 facing @p[tag=selfpush]
 execute @e[r=20,tag=!selfpush] ~ ~ ~ tp @s ^ ^ ^-0.5 facing @p[tag=selfpush]
 execute @e[r=20,tag=!selfpush] ~ ~ ~ tp @s ^ ^ ^-0.5 facing @p[tag=selfpush]

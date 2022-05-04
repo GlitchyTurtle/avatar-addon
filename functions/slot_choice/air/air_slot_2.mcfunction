@@ -11,5 +11,6 @@ execute @s[tag=air,scores={moveslot2=8}] ~ ~ ~ function moves/air_tornado
 execute @s[tag=air,scores={moveslot2=9}] ~ ~ ~ function moves/air_seeking_blast
 execute @s[tag=air,scores={moveslot2=10}] ~ ~ ~ function moves/air_pull
 execute @s[tag=air,scores={moveslot2=11}] ~ ~ ~ function moves/air_dodge
+execute @s[tag=air,scores={moveslot2=12}] ~ ~ ~ function moves/air_combo
 execute @s[scores={moveslot2=0,cooldown1=100}] ~ ~ ~ tellraw @s {"rawtext":[{"text":"§cYou dont have a move set, use /function useful_tools (slot 2)"}]}
 scoreboard players set @s cooldown1 0

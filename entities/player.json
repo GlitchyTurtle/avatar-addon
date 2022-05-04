@@ -1,3 +1,4 @@
+//bridge-file-version: #1
 {
 	"format_version": "1.17.0",
 	"minecraft:entity": {
@@ -17,7 +18,8 @@
 					"offhand",
 					"runcommand",
 					"runcmdtwo",
-					"kill"
+					"kill",
+					"health"
 				]
 			},
 			"animations": {
@@ -30,7 +32,8 @@
 				"offhand": "controller.animation.offhand",
 				"runcommand": "controller.animation.runcommand",
 				"runcmdtwo": "controller.animation.runcmdtwo",
-				"kill": "controller.animation.kill"
+				"kill": "controller.animation.kill",
+				"health": "controller.animation.health"
 			}
 		},
 		"component_groups": {
@@ -526,6 +529,10 @@
 						}
 					}
 				]
+			},
+			"minecraft:behavior.knockback_roar": {
+				"duration": 5,
+				"knockback_strength": 10
 			}
 		},
 		"events": {

@@ -1,4 +1,4 @@
-#bridge-file-version: #36
+#bridge-file-version: #37
 HIDE 
 tag @s add water
 tag @s remove air
@@ -13,3 +13,4 @@ scoreboard players set @s moveslot4 0
 event entity @s become_water
 tag @s remove choose
 function become/movelist_water
+particle a:choose_water

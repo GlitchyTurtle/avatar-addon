@@ -1,4 +1,4 @@
-#bridge-file-version: #194
+#bridge-file-version: #200
 HIDE 
 #Abilities
 execute @s[tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/avatar/avatar_slot_1
@@ -160,10 +160,11 @@ execute @e[type=a:move_helper,r=30,tag=seeking] ~ ~ ~ execute @e[r=2,tag=!avatar
 execute @e[type=a:move_helper,r=30,tag=seeking] ~ ~ ~ execute @e[r=2,tag=!avatar,type=!a:move_helper,type=!item] ~ ~ ~ execute @e[type=a:move_helper,r=3,tag=seeking] ~ ~ ~ kill @s
  
 #Avatar State
-effect @s[tag=avatar_state] absorption 5 5 true
 effect @s[tag=avatar_state] resistance 10 10 true
 effect @s[tag=avatar_state] strength 10 10 true
 effect @s[tag=avatar_state] speed 2 2 true
-effect @s[tag=avatar_state] regeneration 2 5 true
 effect @s[tag=avatar_state] haste 5 5 true
-execute @s[tag=avatar_state] ~ ~ ~ function moves/avatar_particle
+execute @s[tag=avatar_state] ~ ~ ~ particle a:water_ring ~ ~1.1 ~
+execute @s[tag=avatar_state] ~ ~ ~ particle a:air_ring ~ ~1.1 ~
+execute @s[tag=avatar_state] ~ ~ ~ particle a:earth_ring ~ ~1.1 ~
+execute @s[tag=avatar_state] ~ ~ ~ particle a:fire_ring ~ ~1.1 ~

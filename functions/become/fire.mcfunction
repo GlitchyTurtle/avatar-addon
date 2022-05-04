@@ -1,4 +1,4 @@
-#bridge-file-version: #33
+#bridge-file-version: #34
 HIDE 
 tag @s add fire
 tag @s remove air
@@ -13,3 +13,4 @@ scoreboard players set @s moveslot4 0
 event entity @s become_fire
 tag @s remove choose
 function become/movelist_fire
+particle a:choose_fire

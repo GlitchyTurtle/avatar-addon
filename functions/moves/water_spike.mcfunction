@@ -1,6 +1,7 @@
-#bridge-file-version: #62
+#bridge-file-version: #63
 HIDE 
 tag @s add selfwater
+execute @a[r=10] ~~~ particle a:water_wave ~~~
 execute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~ ~ ~ ~ ~4 ~ ice 0 keep
 execute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~-1 ~ ~ ~ ~3 ~ ice 0 keep
 execute @e[r=10,tag=!selfwater] ~ ~ ~ fill ~1 ~ ~ ~ ~3 ~ ice 0 keep

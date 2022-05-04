@@ -1,4 +1,4 @@
-#bridge-file-version: #33
+#bridge-file-version: #34
 HIDE 
 tag @s remove fire
 tag @s remove air
@@ -13,3 +13,8 @@ scoreboard players set @s moveslot4 0
 event entity @s become_avatar
 tag @s remove choose
 function become/movelist_avatar
+particle a:choose_earth
+particle a:choose_air
+particle a:choose_fire
+particle a:choose_water
+particle a:air_puff

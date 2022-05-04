@@ -1,3 +1,4 @@
+//bridge-file-version: #4
 {
 	"format_version": "1.10.0",
 	"animation_controllers": {
@@ -2594,6 +2595,30 @@
 						"/scoreboard players add @s kills 1",
 						"@s removekill",
 						"/scoreboard players set @s combo 0"
+					]
+				}
+			}
+		},
+		"controller.animation.health": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"less": "query.health > 5"
+						}
+					],
+					"on_entry": [
+						"/execute @s[tag=avatar] ~~~ tag @s add avatar_state"
+					]
+				},
+				"less": {
+					"transitions": [
+						{
+							"default": "query.health < 5"
+						}
+					],
+					"on_entry": [
+						"/execute @s[tag=avatar] ~~~ tag @s remove avatar_state"
 					]
 				}
 			}

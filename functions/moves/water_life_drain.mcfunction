@@ -1,7 +1,8 @@
-#bridge-file-version: #82
+#bridge-file-version: #83
 HIDE 
 execute @s ~~~ detect ~~-1~ grass 0 effect @s instant_health 2 2 true
 execute @s ~~~ detect ~~-1~ grass 0 effect @s saturation 2 2 true
+particle a:water_healing ~~~
 fill ~4 ~-3 ~ ~-4 ~3 ~ dirt 1 replace grass 0
 fill ~ ~-3 ~-4 ~ ~3 ~4 dirt 1 replace grass 0
 fill ~3 ~-3 ~3 ~-3 ~3 ~-3 dirt 1 replace grass 0

@@ -1,4 +1,4 @@
-#bridge-file-version: #64
+#bridge-file-version: #66
 HIDE 
 #Abilities
 execute @s[tag=fire,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=70..89}] ~ ~ ~ function slot_choice/fire/fire_slot_1
@@ -10,6 +10,7 @@ execute @s[tag=fire,tag=!antimagic,scores={cooldown1=100,detect_dsneak=1}] ~ ~ ~
 execute @s[tag=fire,tag=!antimagic,scores={cooldown1=100}] ~ ~ ~ detect ~ ~ ~ fire 0 effect @s speed 1 0 true
 execute @s[tag=fire,tag=!antimagic,scores={cooldown1=100}] ~ ~ ~ detect ~ ~ ~ flowing_lava 0 effect @s speed 10 0 true
 execute @s[tag=fire_sprint] ~ ~ ~ setblock ~ ~ ~ fire 0 keep
+execute @s[tag=fire_sprint] ~ ~ ~ particle a:fire_blast ~~~
 execute @s[tag=fire_sprint,scores={cooldown1=100}] ~ ~ ~ tag @s remove fire_sprint
 effect @s[tag=!antimagic] fire_resistance 1 1 true
  

@@ -8,3 +8,6 @@ particle minecraft:totem_particle ~ ~ ~
 particle minecraft:totem_particle ~ ~ ~
 particle minecraft:totem_particle ~ ~ ~
 tellraw @s {"rawtext":[{"selector":"@s"},{"text":" §bhas leveled up to level "},{"score":{"name": "@s","objective": "level"}}]}
+
+tellraw @s[scores={level=5}] {"rawtext":[{"selector":"@s"},{"text":" §bhas learned a new move: §rTriple Air Blast"}]}
+scoreboard players set @s[scores={level=5}] unlocked 1

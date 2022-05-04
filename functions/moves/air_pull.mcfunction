@@ -1,7 +1,6 @@
-#bridge-file-version: #36
-HIDE 
+HIDE
 tag @s add selfpull
-particle minecraft:huge_explosion_emitter ~ ~ ~
+particle a:air_pull ~~~
 execute @e[r=20,tag=!selfpull] ~ ~ ~ tp @s ^ ^ ^1 facing @p[tag=selfpull]
 execute @e[r=20,tag=!selfpull] ~ ~ ~ particle minecraft:egg_destroy_emitter ~ ~ ~
 execute @e[r=20,tag=!selfpull] ~ ~ ~ tp @s ^ ^ ^1 facing @p[tag=selfpull]

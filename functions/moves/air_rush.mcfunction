@@ -1,4 +1,3 @@
-#bridge-file-version: #34
 HIDE 
 scoreboard players set @s cooldown1 0
 tellraw @s[tag=!chatmsgoff] {"rawtext":[{"text":"You used "},{"text":"§bAir Rush"}]}

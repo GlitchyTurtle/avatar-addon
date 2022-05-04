@@ -1,9 +1,10 @@
+//bridge-file-version: #0
 {
 	"format_version": "1.16.0",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "a:scooter",
-			"is_spawnable": true,
+			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false
 		},
