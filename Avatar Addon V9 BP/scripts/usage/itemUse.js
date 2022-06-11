@@ -20,7 +20,7 @@ export function scrollMenu(eventData) {
     }
 
     if (item.id === "a:bending_scroll") {
-
+        let empty = ["Leave Empty"]
         let air = ["Leave Empty", "Air Blast", "Air Launch", "Air Scooter", "Air Push", "Air Vanish", "Air Rush", "Air Shockwave", "Air Blade", "Air Artillery", "Air Pull", "Air Dodge"];
         let earth = ["Leave Empty", "Earth Headbutt", "Earth Pillar", "Earth Shove", "Earth Lift", "Earth Shield", "Earth Spikes", "Earth Burrow", "Earth Throw", "Earth Search", "Earth Focus Build", "Earth Scaffold"];
         let water = ["Leave Empty", "Flood", "Ice Cage", "Ice Throw", "Water Spear", "Water Spike", "Water Rush", "Fountain", "Water Healing", "Life Drain", "Splash", "Water Wake"];
@@ -65,7 +65,8 @@ export function scrollMenu(eventData) {
 	bendingstyle = "Avatar";
 	movelist = avatar;
         } else {
-            return;
+            bendingstyle = "empty";
+	movelist = empty;
         }
 
         chooseSlot.title(`Slot Choice Menu: ${bendingstyle}`);
