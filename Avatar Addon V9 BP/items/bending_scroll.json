@@ -1,0 +1,35 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:item": {
+		"description": {
+			"identifier": "a:bending_scroll"
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:hand_equipped": false,
+			"minecraft:foil": true,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "on_use"
+				}
+			},
+			"minecraft:cooldown": {
+				"category": "ender_pearl",
+				"duration": 0.9
+			},
+			"minecraft:icon": {
+				"texture": "bending_scroll"
+			}
+		},
+		"events": {
+			"on_use": {
+				"run_command": {
+					"command": [
+						"particle a:air_puff"
+					]
+				}
+			}
+		}
+	}
+}

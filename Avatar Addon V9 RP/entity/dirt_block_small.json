@@ -1,0 +1,20 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "a:dirt_block_small",
+			"materials": {
+				"default": "magma_cube"
+			},
+			"textures": {
+				"default": "textures/entity/dirt"
+			},
+			"geometry": {
+				"default": "geometry.lavaslime"
+			},
+			"render_controllers": [
+				"controller.render.magma_cube"
+			]
+		}
+	}
+}

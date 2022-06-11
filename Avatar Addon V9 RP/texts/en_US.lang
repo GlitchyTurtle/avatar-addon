@@ -1,0 +1,14 @@
+entity.a:explosion_massive.name=Massive Explosion
+entity.a:explosion.name=Explosion
+entity.a:explosion_low=Small Explosion
+entiy.a:healing_water=Water Healing
+entiy.a:move_helper=Armor Stand
+entiy.a:scooter=Air Scooter
+entiy.a:splash_effect=Splash Effect
+item.a:bending_scroll=Bending Scroll
+item.a:slot_1=Slot 1
+item.a:slot_2=Slot 2
+item.a:slot_3=Slot 3
+item.a:slot_4=Slot 4
+item.a:slot_3=Slot 5
+item.a:slot_4=Slot 6

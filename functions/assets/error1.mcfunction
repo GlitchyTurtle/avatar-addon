@@ -1,1 +1,0 @@
-tellraw @s[tag=!antimagic] {"rawtext":[{"text":"§cYou haven't chosen your bending style yet."}]}

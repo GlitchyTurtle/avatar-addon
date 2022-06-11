@@ -1,0 +1,35 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:item": {
+		"description": {
+			"identifier": "a:slot_2"
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:hand_equipped": false,
+			"minecraft:foil": false,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "on_use"
+				}
+			},
+			"minecraft:cooldown": {
+				"category": "bending_move",
+				"duration": 5
+			},
+			"minecraft:icon": {
+				"texture": "two"
+			}
+		},
+		"events": {
+			"on_use": {
+				"run_command": {
+					"command": [
+						"function slot_choice/slot2"
+					]
+				}
+			}
+		}
+	}
+}

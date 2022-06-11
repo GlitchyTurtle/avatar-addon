@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.dirt_block.execute_commands": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"execute_command_id_1": "query.skin_id == 1"
+						}
+					]
+				},
+				"execute_command_id_1": {
+					"transitions": [
+						{
+							"default": "query.skin_id != 1"
+						}
+					],
+					"on_entry": [
+						"/execute @p[scores={detect_rhy=45..135}] ~~~ tag @e[r=8,c=1,type=a:dirt_block] add travelwest",
+						"/execute @p[scores={detect_rhy=-45..45}] ~~~ tag @e[r=8,c=1,type=a:dirt_block] add travelsouth",
+						"/execute @p[scores={detect_rhy=-135..-45}] ~~~ tag @e[r=8,c=1,type=a:dirt_block] add traveleast",
+						"/execute @p[scores={detect_rhy=-135..-180}] ~~~ tag @e[r=8,c=1,type=a:dirt_block] add travelnorth",
+						"/execute @p[scores={detect_rhy=135..179}] ~~~ tag @e[r=8,c=1,type=a:dirt_block] add travelnorth",
+						"@s a:remove_command_id_1"
+					]
+				}
+			}
+		}
+	}
+}

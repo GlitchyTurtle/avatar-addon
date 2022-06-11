@@ -1,0 +1,41 @@
+{
+  	"resource_pack_name": "avatarRP",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"bending_scroll": {
+			"textures": [
+				"textures/items/bending_scroll"
+			]
+		},
+		"one": {
+			"textures": [
+				"textures/items/one"
+			]
+		},
+		"two": {
+			"textures": [
+				"textures/items/two"
+			]
+		},
+		"three": {
+			"textures": [
+				"textures/items/three"
+			]
+		},
+		"four": {
+			"textures": [
+				"textures/items/four"
+			]
+		},
+		"five": {
+			"textures": [
+				"textures/items/five"
+			]
+		},
+		"six": {
+			"textures": [
+				"textures/items/six"
+			]
+		}
+	}
+}

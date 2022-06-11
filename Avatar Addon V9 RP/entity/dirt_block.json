@@ -1,0 +1,18 @@
+{
+  "format_version":"1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "a:dirt_block",
+      "materials": {
+        "default": "entity"
+      },
+      "textures": {
+        "default": "textures/entity/dirt_block"
+      },
+      "geometry": {
+        "default": "geometry.dirt_block"
+      },
+      "render_controllers": [ "controller.render.default" ]
+    }
+  }
+}
