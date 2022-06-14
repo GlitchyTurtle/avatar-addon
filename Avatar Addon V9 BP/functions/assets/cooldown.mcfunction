@@ -1,4 +1,3 @@
-#bridge-file-version: #0
 HIDE 
 #Cooldowns & Charges
 execute @a[scores={cooldown1=!100,detect_sneak=0}] ~ ~ ~ scoreboard players add @s cooldown1 1

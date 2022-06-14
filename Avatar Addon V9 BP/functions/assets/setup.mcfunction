@@ -61,6 +61,7 @@ scoreboard players add @a moveslot5 0
 scoreboard players add @a moveslot6 0
 scoreboard players add @a chooseslot 0
 scoreboard players add @a detect_rhy 0
+scoreboard players add @a detect_jump 0
 scoreboard players add @a deaths 0
 scoreboard players add @a kills 0
 scoreboard players add @a cds 0

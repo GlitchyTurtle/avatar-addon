@@ -15,8 +15,7 @@ export function hitEvent(eventData) {
         return;
     }    
     
-    entity.runCommand(`say ${entity.name} hit ${hitEntity.name}`)
-    if (!hitEntity.hasTag("human")) {
+    if (!entity.hasTag("avatar") && !entity.hasTag("earth") && !entity.hasTag("air") && !entity.hasTag("fire") && !entity.hasTag("water")) {
         entity.runCommand(`scoreboard players add ${entity.name} combo 1`)
         try {
         entity.runCommand(`execute @a[name=${entity.name},tag=human,scores={combo=1..5}] ~~~ titleraw @s actionbar {"rawtext":[{"text":"§3Hits needed to Block Chi: "},{"score":{"name": "@s","objective": "combo"}},{"text":"/6"}]}`);

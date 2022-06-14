@@ -1,7 +1,7 @@
 import { world, Player } from "mojang-minecraft";
 import { ActionFormData, ModalFormData } from "mojang-minecraft-ui"
 
-export let betaTesters = ["GlitchyTurtle32", "IBklolpop1", ];
+export let betaTesters = ["GlitchyTurtle32", "IBklolpop1", "Jal191209"];
 
 export function getScore(objective, player, { minimum, maximum } = {}) {
     try {
@@ -32,7 +32,6 @@ export function scrollMenu(eventData) {
             earth.push("Ultimate Rock Blast [Combo]")
             water.push("Water Blade Boost [Combo]")
             fire.push("Firewall [Combo]")
-
             avatar.push("Triple Air Blast [Combo]")
             avatar.push("Ultimate Rock Blast [Combo]")
             avatar.push("Water Blade Boost [Combo]")
@@ -65,9 +64,10 @@ export function scrollMenu(eventData) {
 	bendingstyle = "Avatar";
 	movelist = avatar;
         } else {
-            bendingstyle = "empty";
+	bendingstyle = "Empty";
 	movelist = empty;
         }
+
 
         chooseSlot.title(`Slot Choice Menu: ${bendingstyle}`);
         chooseSlot.dropdown(`${bendingstyle} Move Slot #1`, movelist, prevscore1);
@@ -167,6 +167,10 @@ export function scrollMenu(eventData) {
                     }
                 })
             } else if (selection === 1) {
+	    if (!source.hasTag("avatar") && !source.hasTag("air") && !source.hasTag("water") && !source.hasTag("fire") && !source.hasTag("earth")) {
+	       source.runCommand(`tellraw ${source.nameTag} {"rawtext":[{"text":"§cChoose a bending type first!"}]}`);
+	       return;
+	    }
                 chooseSlot.show(source).then((ModalFormResponse) => {
                     const { formValues } = ModalFormResponse;
                     let [slotchoice1, slotchoice2, slotchoice3, slotchoice4, slotchoice5, slotchoice6] = formValues;

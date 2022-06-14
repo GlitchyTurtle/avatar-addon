@@ -1,4 +1,3 @@
-HIDE
 #Slot 1 - Sneak and look upwards
 execute @s[tag=!mmode,tag=air,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/air/air_slot_1
 execute @s[tag=!mmode,tag=avatar,tag=!antimagic,scores={cooldown1=100,detect_sneak=1,detect_rhx=-90}] ~ ~ ~ function slot_choice/avatar/avatar_slot_1

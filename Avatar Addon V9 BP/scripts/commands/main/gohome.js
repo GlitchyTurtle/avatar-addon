@@ -52,6 +52,6 @@ export function gohome(message, args) {
         player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c"},{"text":"${args[0]} does not exist!"}]}`);
     } else {
         player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§a"},{"text":"Welcome back ${player.nameTag}!"}]}`);
-        player.teleport(new Location(homex, homey, homez), World.getDimension(dimension), 0, player.bodyRotation);
+        player.teleport(new Location(homex, homey, homez), World.getDimension(dimension), 0, 0);
     }
 }
