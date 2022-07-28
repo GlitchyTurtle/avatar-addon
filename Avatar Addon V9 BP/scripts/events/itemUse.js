@@ -159,23 +159,38 @@ export function scrollMenu(eventData) {
 						const { selection } = ActionFormResponse;
 						console.warn(`chooseStyle : ${selection}`)
 						if (selection === 0 && !source.hasTag('antimagic')) {
-							source.runCommand(`say test`)
 							resetSelf(source);
-							source.runCommand(`say test2`)
-							become(source, "air");
-							source.runCommand(`say test3`)
+							source.runCommand("event entity @s become_air");
+							source.runCommand("tag @s add air");
+							source.runCommand("particle a:choose_air");
+							source.runCommand("title @s title a:air");
 						} else if (selection === 1 && !source.hasTag('antimagic')) {
 							resetSelf(source);
-							become(source, "water");
+							source.runCommand("event entity @s become_water");
+							source.runCommand("tag @s add water");
+							source.runCommand("particle a:choose_water");
+							source.runCommand("title @s title a:water");
 						} else if (selection === 2 && !source.hasTag('antimagic')) {
 							resetSelf(source);
-							become(source, "fire");
+							source.runCommand("event entity @s become_fire");
+							source.runCommand("tag @s add fire");
+							source.runCommand("particle a:choose_fire");
+							source.runCommand("title @s title a:fire");
 						} else if (selection === 3 && !source.hasTag('antimagic')) {
 							resetSelf(source);
-							become(source, "earth");
+							source.runCommand("event entity @s become_earth");
+							source.runCommand("tag @s add earth");
+							source.runCommand("particle a:choose_earth");
+							source.runCommand("title @s title a:earth");
 						} else if (selection === 4 && !source.hasTag('antimagic')) {
 							resetSelf(source);
-							become(source, "avatar");
+							source.runCommand("event entity @s become_avatar");
+							source.runCommand("tag @s add avatar");
+							source.runCommand("particle a:choose_earth");
+							source.runCommand("particle a:choose_fire");
+							source.runCommand("particle a:choose_water");
+							source.runCommand("particle a:choose_air");
+							source.runCommand("title @s title a:air");
 						}
 					})
 				} else if (selection === 1) {
@@ -247,7 +262,6 @@ export function scrollMenu(eventData) {
 
 
 function resetSelf(source) {
-	source.runCommand("say test");
 	source.runCommand("scoreboard players set @s moveslot1 0");
 	source.runCommand("scoreboard players set @s moveslot2 0");
 	source.runCommand("scoreboard players set @s moveslot3 0");
@@ -261,21 +275,4 @@ function resetSelf(source) {
 	try { source.runCommand("tag @s remove avatar"); } catch (error) {}
 	source.runCommand("scoreboard players set @s level 0");
 	source.runCommand("scoreboard players set @s sub_level 0");
-}
-
-function become(source, type) {
-	if (type != 'avatar') {
-		source.runCommand(`event entity @s become_${type}`);
-		source.runCommand(`tag @s add ${type}`);
-		source.runCommand(`particle a:choose_${type}`);
-		source.runCommand(`title @s title a:${type}`);
-	} else if (type === 'avatar') {
-		source.runCommand(`event entity @s become_${type}`);
-		source.runCommand(`tag @s add ${type}`);
-		source.runCommand(`particle a:choose_air`);
-		source.runCommand(`particle a:choose_fire`);
-		source.runCommand(`particle a:choose_earth`);
-		source.runCommand(`particle a:choose_water`);
-		source.runCommand(`title @s title a:air`);
-	}
 }
