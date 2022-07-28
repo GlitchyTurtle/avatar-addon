@@ -1,5 +1,5 @@
 {
-	"format_version": "1.13.0",
+	"format_version": "1.18.0",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "a:dirt_block",
@@ -47,6 +47,31 @@
 			"minecraft:collision_box": {
 				"width":1,
 				"height": 1
+			},
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"test": "distance_to_nearest_player",
+							"operator": ">",
+							"value": 20
+						},
+						"event": "minecraft:explode",
+						"target": "self"
+					}
+				]
+			},
+			"minecraft:inside_block_notifier": {
+				"block_list": [
+					{
+						"block": {
+							"name": "minecraft:air"
+						},
+						"exited_block_event": {
+							"event": "minecraft:explode"
+						}
+					}
+				]
 			},
 			"minecraft:conditional_bandwidth_optimization": {
 				"default_values": {

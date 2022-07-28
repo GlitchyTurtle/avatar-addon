@@ -1,0 +1,6 @@
+{
+  "ui_defs": [
+    "ui/cooldowns/cooldown_bar.r4ui",
+    "ui/cooldowns/cooldown_bar_uv.r4ui"
+  ]
+}

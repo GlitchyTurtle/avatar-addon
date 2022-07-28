@@ -19,7 +19,7 @@
 				"height": 0.1
 			},
 			"minecraft:explode": {
-				"fuse_length": 0,
+				"fuse_length": 5,
 				"fuse_lit": true,
 				"power": 8,
 				"causes_fire": false,

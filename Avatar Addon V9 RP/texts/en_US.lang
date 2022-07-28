@@ -1,14 +1,22 @@
+##Entities!
 entity.a:explosion_massive.name=Massive Explosion
 entity.a:explosion.name=Explosion
-entity.a:explosion_low=Small Explosion
-entiy.a:healing_water=Water Healing
-entiy.a:move_helper=Armor Stand
-entiy.a:scooter=Air Scooter
-entiy.a:splash_effect=Splash Effect
+entity.a:explosion_low.name=Small Explosion
+entity.a:healing_water.name=Water Healing
+entity.a:move_helper.name=Armor Stand
+entity.a:scooter.name=Air Scooter
+entity.a:splash_effect.name=Splash Effect
+entity.a:spirit_player.name=Sprirt Marker
+
+##Items!
 item.a:bending_scroll=Bending Scroll
-item.a:slot_1=Slot 1
-item.a:slot_2=Slot 2
-item.a:slot_3=Slot 3
-item.a:slot_4=Slot 4
-item.a:slot_3=Slot 5
-item.a:slot_4=Slot 6
+
+##All text in the game for rapid translation!
+cooldown.text=§3Move Cooldown 
+chiblocking.text=§3You have been chi blocked. You will get your bending soon.
+clearextra.slotitem.text=§cYou don't need more than one of each slot item.
+clearextra.scroll.text=§cYou don't need more than one scroll.
+action.hint.exit.a:scooter=Move Activated
+
+##New enchants!
+enchantment.damage.arthropods=Bending

@@ -9,6 +9,9 @@
 			"minecraft:hand_equipped": false,
 			"minecraft:foil": true,
 			"minecraft:can_destroy_in_creative": false,
+			"minecraft:item_storage": {
+ 				 "capacity": 128
+			},
 			"minecraft:on_use": {
 				"on_use": {
 					"event": "on_use"

@@ -1,0 +1,18 @@
+{
+  "format_version":"1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "a:spirit_player",
+      "materials": {
+        "default": "entity"
+      },
+      "textures": {
+        "default": "textures/entity/spirit_player"
+      },
+      "geometry": {
+        "default": "geometry.spirit_player"
+      },
+      "render_controllers": [ "controller.render.default" ]
+    }
+  }
+}

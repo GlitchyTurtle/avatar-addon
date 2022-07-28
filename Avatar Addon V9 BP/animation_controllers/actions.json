@@ -46,7 +46,9 @@
 					],
 					"on_entry": [
 						"/scoreboard players set @s detect_sneak 1",
-						"/function detect_dsneak"
+						"/scoreboard players set @a[scores={detect_sneak=1, detect_sneakTemp=1..}] detect_dsneak 1",
+						"/scoreboard players set @a[scores={detect_dsneak=1}] detect_sneakTemp 0",
+						"/execute @a[scores={detect_sneak=1,detect_dsneak=0}] ~~~ scoreboard players operation @s detect_sneakTemp = @s detect_dsneakSet"
 					]
 				}
 			}
@@ -95,6 +97,30 @@
 					],
 					"on_entry": [
 						"/scoreboard players set @s detect_jump 1"
+					]
+				}
+			}
+		},
+		"controller.animation.water": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"move": "query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_water 0"
+					]
+				},
+				"move": {
+					"transitions": [
+						{
+							"default": "!query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_water 1"
 					]
 				}
 			}
@@ -2460,30 +2486,6 @@
 				}
 			}
 		},
-		"controller.animation.move": {
-			"states": {
-				"default": {
-					"transitions": [
-						{
-							"move": "query.is_moving"
-						}
-					],
-					"on_entry": [
-						"/scoreboard players set @s detect_move 0"
-					]
-				},
-				"move": {
-					"transitions": [
-						{
-							"default": "!query.is_moving"
-						}
-					],
-					"on_entry": [
-						"/scoreboard players set @s detect_move 1"
-					]
-				}
-			}
-		},
 		"controller.animation.death": {
 			"states": {
 				"default": {
@@ -2534,38 +2536,26 @@
 				}
 			}
 		},
-		"controller.animation.runcommand": {
+		"controller.animation.full_moon": {
 			"states": {
 				"default": {
 					"transitions": [
 						{
-							"command_moon_full": "query.mark_variant == 2"
-						},
-						{
-							"command_moon_not_full": "query.mark_variant == 1"
-						}
-					]
-				},
-				"command_moon_full": {
-					"transitions": [
-						{
-							"default": "query.mark_variant != 1"
+							"full_moon": "(query.moon_phase == 0 && query.moon_brightness == 1.0)"
 						}
 					],
 					"on_entry": [
-						"/tag @s add full_moon",
-						"@s reset_variant"
+						"/tag @s remove full_moon"
 					]
 				},
-				"command_moon_not_full": {
+				"full_moon": {
 					"transitions": [
 						{
-							"default": "query.mark_variant != 2"
+							"default": "(!query.moon_phase == 0 || !query.moon_brightness == 1.0)"
 						}
 					],
 					"on_entry": [
-						"/tag @s remove full_moon",
-						"@s reset_variant"
+						"/tag @s add full_moon"
 					]
 				}
 			}

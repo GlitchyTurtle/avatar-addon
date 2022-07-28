@@ -5,7 +5,15 @@
 			"identifier": "a:dirt_block_small",
 			"is_spawnable": false,
 			"is_summonable": true,
-			"is_experimental": false
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"dirt_block_small"
+				]
+			},
+			"animations": {
+				"dirt_block_small": "animation.dirt_block_small"
+			}
 		},
 		"component_groups": {
 			"minecraft:exploding": {
@@ -29,6 +37,17 @@
 			"minecraft:collision_box": {
 				"width": 0.31,
 				"height": 0.31
+			},
+			"minecraft:environment_sensor": {
+				"triggers": {
+					"event": "minecraft:despawn",
+					"filters": {
+						"test": "distance_to_nearest_player",
+						"value": 64,
+						"operator": ">"
+					},
+					"target": "self"
+				}
 			},
 			"minecraft:conditional_bandwidth_optimization": {
 				"default_values": {

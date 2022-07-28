@@ -33,7 +33,7 @@
 			},
 			"minecraft:particle_initial_speed": 40,
 			"minecraft:particle_motion_dynamic": {
-				"linear_drag_coefficient": 8
+				"linear_drag_coefficient": 22
 			},
 			"minecraft:particle_appearance_billboard": {
 				"size": [
@@ -55,7 +55,7 @@
 						],
 						"step_UV": [
 							0,
-							16
+							16.1
 						],
 						"max_frame": 32,
 						"stretch_to_lifetime": true

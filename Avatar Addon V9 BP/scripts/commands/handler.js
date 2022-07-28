@@ -1,15 +1,16 @@
 // import all our commands
 import { help } from "./main/help.js";
 import { scroll } from "./main/scroll.js";
-import { mobile } from "./main/mobile.js";
 import { movemsg } from "./main/movemsg.js";
-import { movelist } from "./main/movelist.js";
+import { info } from "./main/info.js";
 import { stats } from "./main/stats.js";
 import { bending } from "./main/bending.js";
-import { sethome } from "./main/sethome.js";
-import { listhome } from "./main/listhome.js";
-import { gohome } from "./main/gohome.js";
-import { delhome } from "./main/delhome.js";
+import { home } from "./main/home.js";
+import { shop } from "./main/shop.js";
+
+//hidden list
+import { ping } from "./staff/ping.js";
+import { invsee } from "./staff/invsee.js";
 
 /**
  * @name commandHandler
@@ -44,32 +45,29 @@ export function commandHandler(player, message) {
         case (commandName === "scroll"):
             scroll(message);
             break;
-        case (commandName === "mobile"):
-            mobile(message);
+        case (commandName === "shop"):
+            shop(message, args);
             break;
         case (commandName === "movemsg"):
             movemsg(message);
             break;
-        case (commandName === "movelist"):
-            movelist(message);
+        case (commandName === "info"):
+            info(message, args);
             break;
         case (commandName === "stats"):
-            stats(message);
+            stats(message, args);
             break;
         case (commandName === "bending"):
             bending(message);
             break;
-        case (commandName === "sethome"):
-            sethome(message, args);
+        case (commandName === "home"):
+            home(message, args);
             break;
-        case (commandName === "gohome"):
-            gohome(message, args);
+        case (commandName === "ping"):
+            ping(message, args);
             break;
-        case (commandName === "delhome"):
-            delhome(message, args);
-            break;
-        case (commandName === "listhome"):
-            listhome(message, args);
+        case (commandName === "invsee"):
+            invsee(message, args);
             break;
         default:
             player.runCommand(`tellraw "${(player.nameTag)}" {"rawtext":[{"text":"§cThe command !${commandName} does not exist. Try again!"}]}`);

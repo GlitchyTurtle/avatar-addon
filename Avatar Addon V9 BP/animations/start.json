@@ -1,0 +1,21 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.start": {
+			"timeline": {
+				"5.0": [
+					"/title @s title a:air_reset",
+					"/scoreboard players set @s cooldown1 0",
+					"/execute @s[tag=!setup,tag=!uninstall] ~ ~ ~ function setup",
+					"/execute @s[tag=spirit] ~~~ gamemode s @s",
+					"/execute @s[tag=spirit] ~~~ kill @s",
+					"/execute @s[tag=spirit] ~~~ tellraw @s {\"rawtext\":[{\"text\":\"§cYou logged out while in spirit.\"}]}",
+					"/execute @s[tag=spirit] ~~~ execute @e[c=1,type=a:spirit_player] ~~~ event entity @s minecraft:despawn",
+					"/execute @s[tag=spirit] ~~~ tag @s remove spirit"
+				]
+			},
+			"animation_length": 5.0,
+			"loop": false
+		}
+	}
+}

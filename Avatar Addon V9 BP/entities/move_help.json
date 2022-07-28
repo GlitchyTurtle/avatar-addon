@@ -1,0 +1,71 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "a:move_help",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"move_help"
+				]
+			},
+			"minecraft:environment_sensor": {
+				"triggers": {
+					"event": "instant_despawn",
+					"filters": {
+						"test": "distance_to_nearest_player",
+						"value": 64,
+						"operator": ">"
+					},
+					"target": "self"
+				}
+			},
+			"minecraft:collision_box": {
+				"width": 0.5,
+				"height": 0.5
+			},
+			"minecraft:health": {
+				"value": 6,
+				"max": 6
+			},
+			"minecraft:physics": {
+				"has_gravity": false
+			},
+			"minecraft:conditional_bandwidth_optimization": {},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"deals_damage": false,
+						"cause": "entity_attack"
+					},
+					{
+						"deals_damage": false,
+						"cause": "suffocation"
+					},
+					{
+						"deals_damage": false,
+						"cause": "fatal"
+					}
+				]
+			}
+		},
+		"events": {
+			"instant_despawn": {
+				"add": {
+					"component_groups": [
+						"minecraft:despawn"
+					]
+				}
+			}
+		},
+		"component_groups": {
+			"minecraft:despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		}
+	}
+}

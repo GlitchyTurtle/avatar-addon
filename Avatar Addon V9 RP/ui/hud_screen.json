@@ -1,0 +1,32 @@
+{
+  "hud_title_text": {
+    "ignored": "(not (($title_text - 'a:') = $title_text))"
+  },
+
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": [
+          {
+            "trait_cooldown_bar": {
+              "type": "panel",
+              "factory": {
+                "name": "hud_title_text_factory",
+                "control_ids": {
+                  "hud_title_text": "panel_control@avatar_cooldown_bar.cooldown_bar_offset_control"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "hud_screen@common.base_screen": {
+    "cache_screen": true,
+    "low_frequency_rendering": true
+  }
+}
