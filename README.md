@@ -4,8 +4,8 @@
 
 This addon simply adds the four nations bending abilities from the show Avatar the last Airbender, without needing experimental gameplay enabled, so it works on servers, realms, and already modded worlds with virtually no lag. Create realms, and customize the addon to fit your playstyle using the in-game settings. 
 
-<a href="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon"><img src="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon/badge" alt="CodeFactor" height="30" /></a>
-<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/GlitchyTurtle/Avatar-Addon/total?color=35b985" height="30">
+<a href="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon"><img src="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon/badge" alt="CodeFactor" height="20" /></a>
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/GlitchyTurtle/Avatar-Addon/total?color=35b985" height="20">
 
   
 <div align="left">
