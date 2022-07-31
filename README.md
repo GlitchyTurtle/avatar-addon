@@ -11,14 +11,19 @@ This addon simply adds the four nations bending abilities from the show Avatar t
 <div align="left">
   
 ## <img src="https://i.imgur.com/wcwCiiZ.png" border="0"  height="30">
-When you start the pack, run the command `/function choose` to pick your abilities. Don't worry, you can always go back by running the same command again (`/function choose`). If you want a player without command access to choose, enter `/execute [their name] ~~~ function choose`. The options are avatar, fire, earth, water, air, and human (normal vanilla Minecraft, with the ability to learn bending cancels). 
-  
-To pick, punch to cycle through the options, and sneak when you want to confirm you choice. When you pick a bending style, nothing will happen - you need to choose your moves. Each bender will have a different moveset, and as you level up, you get access to more moves. To pick, simply run the command: `/function choose/move_slot_1` with the number at the end going 1-4. To level up, simply go about as normal - using moves will help you level up. 
+
+When you start out, nothing will happen. First, run the command `!scroll`. After that, you can choose your bending by opening it (long press or right click). The options are avatar, fire, earth, water, air, and human (normal vanilla Minecraft, with the ability to learn chi-blocking). 
+ 
+When you pick a bending style, nothing will happen - you need to choose your moves for each of your “slots”. For instance, if you sneak then punch you will use whatever move is bound to slot 4. Let’s say you are an Airbender, and used the scroll to set slot 4 to Air Blast - when you sneak and punch, you will use Air Blast. You can use your scroll to bind moves to slots. Just right click on your scroll, and click on the sub-menu button “Choose Slots”. Try picking slot 4 first, since it’s the simplest. Eventually, you’ll have your slots memorized, and a set of 6 moves you like best. These 6 that you have “slot loaded” is what makes you different from other benders of the same type.
+
+Each type of bender will have a different moveset, and each individual bender will have an even more varied set of moves. As you level up, you get access to more moves. To level up, simply go about as normal - using moves will help you level up, but don’t try to afk, it won’t work.
   
 Sometimes, bending can get annoying while just going about your normal tasks, so you can turn it off for a bit by holding arrows in your off-hand, or by dropping an item called `toggle bending`.
   
-The moves and abilities of these classes are outlined below, and also in-game.
-Have fun playing! 
+The moves and abilities of these classes are outlined below, and also in-game with the `!info moves` or `!info slots`.
+
+Have fun playing!
+
 
   
 # <img src="https://i.imgur.com/jqVUQjE.png" border="0" height="30">
