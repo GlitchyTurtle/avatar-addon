@@ -18,7 +18,7 @@ When you pick a bending style, nothing will happen - you need to choose your mov
 
 Each type of bender will have a different moveset, and each individual bender will have an even more varied set of moves. As you level up, you get access to more moves. To level up, simply go about as normal - using moves will help you level up, but don’t try to afk, it won’t work.
   
-Sometimes, bending can get annoying while just going about your normal tasks, so you can turn it off for a bit by holding arrows in your off-hand, or by dropping an item called `toggle bending`.
+Sometimes, bending can get annoying while just going about your normal tasks, so you can turn it off for a bit by holding arrows in your off-hand, or by typing `!bending` in chat.
   
 The moves and abilities of these classes are outlined below, and also in-game with the `!info moves` or `!info slots`.
 
