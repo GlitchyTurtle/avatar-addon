@@ -70,7 +70,7 @@ export function getBendingStyle(player) {
 	} else if (player.hasTag('avatar')) {
 		bendingstyle = "Avatar";
 	} else {
-		bendingstyle = "Empty";
+		bendingstyle = "Human";
 	}
 	return bendingstyle;
 }
