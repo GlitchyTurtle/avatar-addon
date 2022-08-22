@@ -9,8 +9,8 @@ export function shop(message, args) {
 	
     player.runCommand(`playsound random.levelup "${player.nameTag}"`);
 	
-	if (!args.length || !args.includes("sell") && !args.includes("buy") && !args.includes("list") && !args.includes("balance") && !args.includes("pay") && !args.includes("help")) {
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cThe argument (${args}) is not valid. Please use: sell, buy, list, or help"}]}`);
+	if (!args.length || !args.includes("sell") && !args.includes("buy") && !args.includes("list") && !args.includes("balance") && !args.includes("pay") && !args.includes("deposit") && !args.includes("extract") && !args.includes("help")) {
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cThe argument (${args}) is not valid. Please use: sell, buy, list, balance, deposit, extract, or help."}]}`);
     }
 
 	if (args[0] === "sell") {
@@ -36,32 +36,50 @@ export function shop(message, args) {
 		if (!args[1]) {
 			return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou need to specify what item you want with a selection value."}]}`);
 		}
-		if (Number.isFinite(parseInt(args[1]))) {
-			let shopItems = [];
-			let count = 0;
-			for (let p of World.getPlayers()) {
-				let tags = p.getTags();
-				for (let i = 0; i < tags.length; i++) {
-					if (tags[i].startsWith("Shop:")) {
-						let args = tags[i].split(' ');
-						shopItems.push(`${args[1]} ${args[2]} ${args[3]} ${args[4]}`);
+		
+		if (args[1] === "S1") {
+			if (getScore("money", player) < 10) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`); }
+			player.runCommand(`scoreboard players remove @s money 20`)
+			player.runCommand(`give @s emerald 1`);
+		} else if (args[1] === "S2") {
+			if (getScore("money", player) < 40) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`); }
+			player.runCommand(`scoreboard players remove @s money 40`)
+			player.runCommand(`give @s diamond 1`);
+		} else if (args[1] === "S3") {
+			if (getScore("money", player) < 100) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`); }
+			player.runCommand(`scoreboard players remove @s money 80`)
+			player.runCommand(`give @s netherite_ingot 1`);
+		} else {
+			if (Number.isFinite(parseInt(args[1]))) {
+				let shopItems = [];
+				let count = 0;
+				for (let p of World.getPlayers()) {
+					let tags = p.getTags();
+					for (let i = 0; i < tags.length; i++) {
+						if (tags[i].startsWith("Shop:")) {
+							let args = tags[i].split(' ');
+							shopItems.push(`${args[1]} ${args[2]} ${args[3]} ${args[4]}`);
+						}
 					}
 				}
+				if (shopItems[(parseInt(args[1]) - 1)]) {
+					let buyTag = shopItems[(parseInt(args[1]) - 1)].split(' ');
+					if (player.name === buyTag[3]) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou can't buy from yourself."}]}`); }
+					if (getScore("money", player) < buyTag[2]) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`); }
+					player.runCommand(`give @s ${buyTag[0]} ${buyTag[1]}`);
+					player.runCommand(`scoreboard players remove @s money ${buyTag[2]}`)
+					player.runCommand(`scoreboard players add ${buyTag[3]} money ${buyTag[2]}`)
+					player.runCommand(`tag ${buyTag[3]} remove "Shop: ${buyTag[0]} ${buyTag[1]} ${buyTag[2]} ${buyTag[3]}"`);
+				} else { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cThere is no item in the shop with that selection value."}]}`); }
 			}
-			if (shopItems[(parseInt(args[1]) - 1)]) {
-				let buyTag = shopItems[(parseInt(args[1]) - 1)].split(' ');
-				if (player.name === buyTag[3]) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou can't buy from yourself."}]}`); }
-				if (getScore("money", player) < buyTag[2]) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`); }
-				player.runCommand(`give @s ${buyTag[0]} ${buyTag[1]}`);
-				player.runCommand(`scoreboard players remove @s money ${buyTag[2]}`)
-				player.runCommand(`scoreboard players add ${buyTag[3]} money ${buyTag[2]}`)
-				player.runCommand(`tag ${buyTag[3]} remove "Shop: ${buyTag[0]} ${buyTag[1]} ${buyTag[2]} ${buyTag[3]}"`);
-			} else { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cThere is no item in the shop with that selection value."}]}`); }
 		}
 	} else if (args[0] === "list") {
 		let count = 0;
 		player.runCommand('tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§bMarket:§r"}]}');
+		player.runCommand(`tellraw @s {"rawtext":[{"text":"Item: §bEmerald x1§r Price: §b10§r Listed by: §bServer§r Selection Value: §bS1"}]}`);
+		player.runCommand(`tellraw @s {"rawtext":[{"text":"Item: §bDiamond x1§r Price: §b40§r Listed by: §bServer§r Selection Value: §bS2"}]}`);
+		player.runCommand(`tellraw @s {"rawtext":[{"text":"Item: §bNetherite x1§r Price: §b100§r Listed by: §bServer§r Selection Value: §bS3"}]}`);
 		for (let p of World.getPlayers()) {
 			let tags = p.getTags();
 			for (let i = 0; i < tags.length; i++) {
@@ -89,6 +107,21 @@ export function shop(message, args) {
 			player.runCommand(`scoreboard players remove @s money ${parseInt(args[2])}`)
 			player.runCommand(`scoreboard players add ${member.name} money ${parseInt(args[2])}`)
 		} else { return player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§cYou don't have enough money for that."}]}`); }
+	} else if (args[0] === "deposit") {
+		const item = player.getComponent('inventory').container.getItem(player.selectedSlot);
+		if (!item) { return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYour mainhand doesn't have coins!"}]}`); }
+		if (item.id === "a:copper_piece") {
+			player.runCommand(`scoreboard players add @s money ${item.amount}`);
+			player.getComponent('inventory').container.setItem(player.selectedSlot, new ItemStack(MinecraftItemTypes.air, 0));
+		}
+	} else if (args[0] === "extract") {
+		if (getScore("money", player) > 63) {
+			player.runCommand(`scoreboard players remove @s money 64`);
+			player.runCommand(`give @s a:copper_piece 64`);
+		} else {
+			return player.runCommand(`tellraw @s {"rawtext":[{"text":"§cYou don't have enough in the bank to do that."}]}`);
+		}
+		
 	} else if (args[0] === "help") {
 		player.runCommand('tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§bShop Subcommands:§r"}]}');
@@ -96,7 +129,9 @@ export function shop(message, args) {
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop list -§r List all the items in the shop currently, each with their selection value so you can buy them."}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop buy <selection value> -§r Buys the item with that selection value, automatically using your money to pay."}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop pay <player> <amount> -§r Pay another player money."}]}');
-		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop balance -§r Show your current balance of money!"}]}');
+		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop balance -§r Show your current balance of money."}]}');
+		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop deposit -§r Store 64 coins in the bank."}]}');
+		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop extract -§r Get 64 coins from the bank."}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"§b!shop help -§r Show this help menu!"}]}');
 		player.runCommand('tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
 	}

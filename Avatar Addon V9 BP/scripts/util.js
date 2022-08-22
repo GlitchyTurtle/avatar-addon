@@ -26,6 +26,12 @@ export let betaTesters = [
 ];
 
 
+//sad empty list...
+export let patreon = [
+	
+];
+
+
 export let groundBlocks = [
 	"minecraft:dirt",
 	"minecraft:grass",
@@ -88,7 +94,7 @@ export function getSubBendingStyle(player) {
 	} else if (player.hasTag('sub_combustion')) {
 		subBendingstyle = "combustion";
 	} else if (player.hasTag('sub_lightning')) {
-		subBendingstyle = "ligntning";
+		subBendingstyle = "lightning";
 	} else if (player.hasTag('sub_blood')) {
 		subBendingstyle = "blood";
 	} else if (player.hasTag('sub_healing')) {

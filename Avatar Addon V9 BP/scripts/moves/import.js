@@ -41,6 +41,25 @@ import FireShockwave from './fire/FireShockwave.js'
 import FireSmite from './fire/FireSmite.js'
 import FireFinale from './fire/FireFinale.js'
 import TripleFirewall from './fire/TripleFirewall.js'
+import CombustionBlast from './fire/CombustionBlast.js'
+import LightningStrike from './fire/LightningStrike.js'
+import LightningSmite from './fire/LightningSmite.js'
+//Water
+import WaterSpear from './water/WaterSpear.js'
+import WaterFlood from './water/WaterFlood.js'
+import WaterSplash from './water/WaterSplash.js'
+import FrostWalker from './water/FrostWalker.js'
+import WaterSpike from './water/WaterSpike.js'
+import WaterWake from './water/WaterWake.js'
+import WaterRush from './water/WaterRush.js'
+import IceThrow from './water/IceThrow.js'
+import IceCage from './water/IceCage.js'
+import WaterShield from './water/WaterShield.js'
+import WaterLaunch from './water/WaterLaunch.js'
+import WaterBladeBoost from './water/WaterBladeBoost.js'
+import BloodBending from './water/BloodBending.js'
+import HealingCloud from './water/HealingCloud.js'
+import HealingFocus from './water/HealingFocus.js'
 
 const commands = {
     //Air
@@ -85,8 +104,26 @@ const commands = {
     FireShockwave: FireShockwave,
     FireSmite: FireSmite,
     FireFinale: FireFinale,
-    TripleFirewall: TripleFirewall
+    TripleFirewall: TripleFirewall,
+    CombustionBlast: CombustionBlast,
+    LightningStrike: LightningStrike,
+    LightningSmite: LightningSmite,
     //Water
+    WaterSpear: WaterSpear,
+    WaterFlood: WaterFlood,
+    WaterSplash: WaterSplash,
+    FrostWalker: FrostWalker,
+    WaterSpike: WaterSpike,
+    WaterWake: WaterWake,
+    WaterRush: WaterRush,
+    IceThrow: IceThrow,
+    IceCage: IceCage,
+    WaterShield: WaterShield,
+    WaterLaunch: WaterLaunch,
+    WaterBladeBoost: WaterBladeBoost,
+    BloodBending: BloodBending,
+    HealingCloud: HealingCloud,
+    HealingFocus: HealingFocus
 }
 
 export default commands

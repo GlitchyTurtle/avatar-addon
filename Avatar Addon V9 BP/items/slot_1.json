@@ -1,0 +1,13 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:item": {
+		"description": {
+			"identifier": "a:slot_1"
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:icon": { "texture": "one" }
+		}
+	}
+}

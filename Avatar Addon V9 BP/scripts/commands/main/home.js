@@ -5,6 +5,7 @@ const World = world;
 export function home(message, args) {
 	message.cancel = true;
 	let player = message.sender;
+	
 	if (args[0] === 'set') {
 		// Get current location
 		let {x, y, z} = player.location;
@@ -16,7 +17,7 @@ export function home(message, args) {
 
 		// Don't allow spaces
 		if (args.length > 2) {
-			return player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c "},{"text":"No spaces in names please!"}]}`);
+			return player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§cNo spaces in names please!"}]}`);
 		}
 
 		// Make sure this name doesn't exist already and it doesn't exceed limitations
@@ -32,7 +33,7 @@ export function home(message, args) {
 			if (tags[i].startsWith("LocationHome:")) {
 				counter = ++counter;
 			}
-			if (counter >= 3 && true) {
+			if (counter >= 6 && true) {
 				verify = true;
 				player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c"},{"text":"You can only have 3 saved locations!"}]}`)
 				break; 
@@ -57,7 +58,7 @@ export function home(message, args) {
 		player.addTag(`LocationHome:${args[1]} X:${homex} Y:${homey} Z:${homez} Dimension:${currentDimension}`);
 		
 		player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§a"},{"text":"${args[1]} has been set at ${homex} ${homey} ${homez}!"}]}`)
-	} else if (args[0] === 'delete') {
+	} else if (args[0] === 'delete' || args[0] === 'del') {
 		// Don't allow spaces
 		if (args.length > 2) {
 			return player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c"},{"text":"No spaces in names please!"}]}`);
@@ -129,7 +130,7 @@ export function home(message, args) {
 			player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c"},{"text":"You do not have any saved locations!"}]}`);
 		}
 		return;
-	} else if (args[0] === 'teleport') {
+	} else if (args[0] === 'teleport' || args[0] === 'tp') {
 		// Don't allow spaces
 		if (args.length > 2) {
 			return player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§c"},{"text":"No spaces in names please!"}]}`);
@@ -172,6 +173,7 @@ export function home(message, args) {
 		} else {
 			player.runCommand(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§a"},{"text":"Welcome back ${player.nameTag}!"}]}`);
 			player.teleport(new Location(homex, homey, homez), World.getDimension(dimension), 0, 0);
+			try { player.runCommand("testfor @s[m=a]"); player.runCommand(`gamemode s @s`); } catch (error) {}
 		}	
 	} else if (args[0] === 'help') {
 		player.runCommand('tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
@@ -181,5 +183,7 @@ export function home(message, args) {
 		player.runCommand(`tellraw @s {"rawtext":[{"text":"§b!home delete <name>§r - Delete one of your homes!"}]}`);
 		player.runCommand(`tellraw @s {"rawtext":[{"text":"§b!home list§r - List your homes!"}]}`);
 		player.runCommand('tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
+	} else {
+		return player.runCommand('tellraw @s {"rawtext":[{"text":"§cThat syntax is wrong! Try !home help"}]}');
 	}
 }

@@ -1,11 +1,13 @@
 import { world, Player, ItemStack, MinecraftItemTypes } from "mojang-minecraft";
 import { ActionFormData, ModalFormData } from "mojang-minecraft-ui"
 import { betaTesters, getScore, getBendingStyle, getSubBendingStyle } from "./../util.js";
+import { actionMoves } from "./tickEvent.js"
 import commands from './../moves/import.js';
 import { stats } from "./../commands/main/stats.js";
 
-let moveList;
 let args;
+let moveList;
+const commandslist = Object.values(commands)
 
 export function scrollMenu(eventData) {
     let { item, source } = eventData;
@@ -19,12 +21,9 @@ export function scrollMenu(eventData) {
         let prevscore2 = getScore("moveslot2", source)
         let prevscore3 = getScore("moveslot3", source)
         let prevscore4 = getScore("moveslot4", source)
-        let prevscore5 = getScore("moveslot5", source)
-        let prevscore6 = getScore("moveslot6", source)
-		let commandslist = Object.values(commands)
 		moveList = ["Leave Empty"]
 		for (let i = 0; i < commandslist.length; i++) {
-			if (commandslist[i].style === getBendingStyle(source).toLowerCase() && commandslist[i].unlockable <= getScore("level", source) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(source))) {
+			if ((commandslist[i].style === getBendingStyle(source).toLowerCase() || source.hasTag("avatar")) && commandslist[i].unlockable <= getScore("level", source) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(source))) {
 				moveList.push(`${commandslist[i].name}`);
 			}
 		}
@@ -35,12 +34,6 @@ export function scrollMenu(eventData) {
         chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #2`, moveList, prevscore2);
         chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #3`, moveList, prevscore3);
         chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #4`, moveList, prevscore4);
-        if (getScore("level", source) >= 20) {
-            chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #5`, moveList, prevscore5);
-        }
-        if (getScore("level", source) >= 30) {
-            chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #6`, moveList, prevscore6);
-        }
 
         let settingMenu = new ModalFormData();
         settingMenu.title("Settings");
@@ -75,7 +68,6 @@ export function scrollMenu(eventData) {
         }
 
         let players = [];
-
         for (let player of world.getPlayers()) {
             players.push(player.nameTag);
         }
@@ -94,19 +86,19 @@ export function scrollMenu(eventData) {
 				subBending.button("Spirit", "textures/ui/avatar");
 				subBending.button("Projectile", "textures/ui/avatar");
 			} else if (source.hasTag("fire")) {
-				subBending.body("Pick one of the two options to start training! \n\nLightning - certain moves get a buff of added lightning. \n\nCombustion - certain moves get a buff of added explosions, plus one extra move that replaces fireball.");
+				subBending.body("Pick one of the two options to start training! \n\nLightning - get two new moves centered at lightning. \n\nCombustion - get one super far range blast move that explodes on impact.");
 				subBending.button("Lightning", "textures/ui/avatar");
 				subBending.button("Combustion", "textures/ui/avatar");
 			} else if (source.hasTag("water")) {
-				subBending.body("Pick one of the two options to start training! \n\nBlood - lets you freeze players in place on full moons by double sneaking. \n\nHealing -  heal yourself and other players. Buffs any healing moves greatly.");
+				subBending.body("Pick one of the two options to start training! \n\nBlood - lets you freeze players in place on full moons with a new move. \n\nHealing -  heal yourself and other players with a few new moves.");
 				subBending.button("Blood", "textures/ui/avatar");
 				subBending.button("Healing", "textures/ui/avatar");
 			} else if (source.hasTag("earth")) {
-				subBending.body("Pick one of the two options to start training! \n\Metal - get extra iron when mining and a strength effect after mining iron, as well as two new moves! \n\Lava - Get two new moves!");
+				subBending.body("Pick one of the two options to start training! \n\nMetal - get extra iron when mining and a strength effect after mining iron, as well as two new moves! \n\nLava - Get two new moves!");
 				subBending.button("Metal", "textures/ui/avatar");
 				subBending.button("Lava", "textures/ui/avatar");
 			} else if (source.hasTag("avatar")) {
-				subBending.body("Pick one of the one option to start training! \n\nSpirit - lets you become a spirit (unlockable new move at level 50), which can fly through blocks and scout areas out. \n\nProjectile -  bends the air around your arrows so they never miss again (range increases with level). \n\nLightning - certain moves get a buff of added lightning. \n\nCombustion - certain moves get a buff of added explosions, plus one extra move that replaces fireball. \n\nBlood - lets you freeze players in place on full moons by double sneaking. \n\nHealing -  heal yourself and other players. Buffs any healing moves greatly. \n\Metal - get extra iron when mining and a strength effect after mining iron. \n\Lava - Get certain moves buffed with fire.");
+				subBending.body("Pick one of the one option to start training! \n\nSpirit - lets you become a spirit (unlockable new move at level 50), which can fly through blocks and scout areas out. \n\nProjectile -  bends the air around your arrows so they never miss again (range increases with level). \n\nLightning - get two new moves centered at lightning. \n\nCombustion - get one super far range blast move that explodes on impact. \n\nBlood - unlocks a few new moves... \n\nHealing -  heal yourself and other players with a few new moves. \n\nMetal - get extra iron when mining and a strength effect after mining iron, as well as two new moves! \n\nLava - Get two new moves!");
 				subBending.button("Spirit", "textures/ui/avatar");
 				subBending.button("Projectile", "textures/ui/avatar");
 				subBending.button("Lightning", "textures/ui/avatar");
@@ -118,7 +110,7 @@ export function scrollMenu(eventData) {
 			}
 			subBending.show(source).then((ActionFormResponse) => {
 				const { selection } = ActionFormResponse;
-				console.warn(`subBending : ${selection}`)
+				//console.warn(`subBending : ${selection}`)
 				if (selection === 0 || selection === 1) {
 					if (source.hasTag("air")) { selection ? source.runCommand(`tag @s add sub_projectile`) : source.runCommand(`tag @s add sub_spirit`); }
 					if (source.hasTag("fire")) { selection ? source.runCommand(`tag @s add sub_combustion`) : source.runCommand(`tag @s add sub_lightning`); }
@@ -148,7 +140,7 @@ export function scrollMenu(eventData) {
 		} else {
 			mainMenu.show(source).then((ActionFormResponse) => {
 				const { selection } = ActionFormResponse;
-				console.warn(`mainMenu : ${selection}`)
+				//console.warn(`mainMenu : ${selection}`)
 				if (bendingdisabled && selection === 0) {
 					source.runCommand(`tellraw @s {"rawtext":[{"text":"§aYou have your bending now!§r"}]}`);
 					source.runCommand(`tag @s remove antimagic`);
@@ -157,7 +149,7 @@ export function scrollMenu(eventData) {
 				if (selection === 0) {
 					chooseStyle.show(source).then((ActionFormResponse) => {
 						const { selection } = ActionFormResponse;
-						console.warn(`chooseStyle : ${selection}`)
+						//console.warn(`chooseStyle : ${selection}`)
 						if (selection === 0 && !source.hasTag('antimagic')) {
 							resetSelf(source);
 							source.runCommand("event entity @s become_air");
@@ -200,24 +192,18 @@ export function scrollMenu(eventData) {
 					}
 					chooseSlot.show(source).then((ModalFormResponse) => {
 						const { formValues } = ModalFormResponse;
-						let [slotchoice1, slotchoice2, slotchoice3, slotchoice4, slotchoice5, slotchoice6] = formValues;
-						console.warn(`chooseSlot : ${slotchoice1} : ${slotchoice2} : ${slotchoice3} : ${slotchoice4} : ${slotchoice5} : ${slotchoice6}`);
+						let [slotchoice1, slotchoice2, slotchoice3, slotchoice4] = formValues;
+						//console.warn(`chooseSlot : ${slotchoice1} : ${slotchoice2} : ${slotchoice3} : ${slotchoice4}`);
 						source.runCommand(`scoreboard players set @s moveslot1 ${slotchoice1}`);
 						source.runCommand(`scoreboard players set @s moveslot2 ${slotchoice2}`);
 						source.runCommand(`scoreboard players set @s moveslot3 ${slotchoice3}`);
 						source.runCommand(`scoreboard players set @s moveslot4 ${slotchoice4}`);
-						if (getScore("level", source) >= 20) {
-							source.runCommand(`scoreboard players set @s moveslot5 ${slotchoice5}`);
-						}
-						if (getScore("level", source) >= 30) {
-							source.runCommand(`scoreboard players set @s moveslot6 ${slotchoice6}`);
-						}
 					})
 				} else if (selection === 2) {
 					settingMenu.show(source).then((ModalFormResponse) => {
 						const { formValues } = ModalFormResponse;
 						let [moveMessages, enableBending, publicStats] = formValues;
-						console.warn(`infoPage : ${moveMessages} : ${enableBending} : ${publicStats}`);
+						//console.warn(`infoPage : ${moveMessages} : ${enableBending} : ${publicStats}`);
 						if (moveMessages) {
 							source.removeTag('chatmsgoff');
 						} else {
@@ -238,41 +224,58 @@ export function scrollMenu(eventData) {
 					statsMenu.show(source).then((ModalFormResponse) => {
 						const { formValues } = ModalFormResponse;
 						let [target] = formValues;
-						console.warn(`statsPage : ${players[target].toString().toLowerCase()} -> ${source.nameTag}`);
+						//console.warn(`statsPage : ${players[target].toString().toLowerCase()} -> ${source.nameTag}`);
 						try {
-							args = [`${players[target].toString().toLowerCase()}`]
+							args = [`${players[target].toString().toLowerCase()}`];
 							stats(source, args);
 						} catch (e) {
-							source.runCommand(`tellraw ${source.nameTag} {"rawtext":[{"text":"§c${players[target]} has their stats privated currently."}]}`);
+							source.runCommand(`tellraw ${source.nameTag} {"rawtext":[{"text":"§c${players[target]} has their stats privated currently. ${e}"}]}`);
 						}
 					})
 				}
 			})
 		}
-    } else if (source.hasTag('fire')) {
-		if (item.id === "minecraft:cod") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedCod, item.amount)); }
-		if (item.id === "minecraft:beef") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedBeef, item.amount)); }
-		if (item.id === "minecraft:chicken") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedChicken, item.amount)); }
-		if (item.id === "minecraft:porkchop") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedPorkchop, item.amount)); }
-		if (item.id === "minecraft:rabbit") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedRabbit, item.amount)); }
-		if (item.id === "minecraft:mutton") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedMutton, item.amount)); }
-		if (item.id === "minecraft:salmon") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedSalmon, item.amount)); }
+	} else if ((source.hasTag("avatar") || source.hasTag("air") || source.hasTag("fire") || source.hasTag("water") || source.hasTag("earth")) && !source.hasTag("antimagic") && !source.hasTag("chi_blocked") && getScore("cooldown1", source) === 100) {
+		if (item.id === "a:slot_1") { actionMoves(source, 1); }
+		if (item.id === "a:slot_2") { actionMoves(source, 2); }
+		if (item.id === "a:slot_3") { actionMoves(source, 3); }
+		if (item.id === "a:slot_4") { actionMoves(source, 4); }
+		if (source.hasTag('fire') || source.hasTag('avatar')) {
+			if (item.id === "minecraft:cod") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedCod, item.amount)); }
+			if (item.id === "minecraft:beef") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedBeef, item.amount)); }
+			if (item.id === "minecraft:chicken") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedChicken, item.amount)); }
+			if (item.id === "minecraft:porkchop") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedPorkchop, item.amount)); }
+			if (item.id === "minecraft:rabbit") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedRabbit, item.amount)); }
+			if (item.id === "minecraft:mutton") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedMutton, item.amount)); }
+			if (item.id === "minecraft:salmon") { source.getComponent('inventory').container.setItem(source.selectedSlot, new ItemStack(MinecraftItemTypes.cookedSalmon, item.amount)); }
+		}
 	}
 }
-
 
 function resetSelf(source) {
 	source.runCommand("scoreboard players set @s moveslot1 0");
 	source.runCommand("scoreboard players set @s moveslot2 0");
 	source.runCommand("scoreboard players set @s moveslot3 0");
 	source.runCommand("scoreboard players set @s moveslot4 0");
-	source.runCommand("scoreboard players set @s moveslot5 0");
-	source.runCommand("scoreboard players set @s moveslot6 0");
 	try { source.runCommand("tag @s remove air"); } catch (error) {}
 	try { source.runCommand("tag @s remove earth"); } catch (error) {}
 	try { source.runCommand("tag @s remove fire"); } catch (error) {}
 	try { source.runCommand("tag @s remove water"); } catch (error) {}
 	try { source.runCommand("tag @s remove avatar"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_projectile"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_spirit"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_metal"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_lava"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_combustion"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_lightning"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_blood"); } catch (error) {}
+	try { source.runCommand("tag @s remove sub_healing"); } catch (error) {}
 	source.runCommand("scoreboard players set @s level 0");
 	source.runCommand("scoreboard players set @s sub_level 0");
+	let tags = source.getTags();
+	for (let i = 0; i < tags.length; i++) {
+		if (tags[i].startsWith("Moveset:")) {
+			source.removeTag(tags[i]);
+		}
+	}
 }

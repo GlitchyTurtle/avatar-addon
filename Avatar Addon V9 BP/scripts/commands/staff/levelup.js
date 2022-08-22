@@ -39,7 +39,7 @@ function levelUp(player) {
 	player.runCommand("particle a:level_up ~~~");
 	player.runCommand(`tellraw @s {"rawtext":[{"text":"§bYou have leveled up to level: §r"},{"score":{"name": "@s","objective": "level"}}]}`);
 	for (let i = 0; i < commandslist.length; i++) {
-		if (commandslist[i].style === getBendingStyle(player).toLowerCase() && commandslist[i].unlockable === getScore("level", player) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(player))) {
+		if ((commandslist[i].style === getBendingStyle(player).toLowerCase() || player.hasTag("avatar")) && commandslist[i].unlockable === getScore("level", player) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(player))) {
 			player.runCommand(`tellraw @s {"rawtext":[{"text":"§bYou have unlocked a new move: §r${commandslist[i].name}"}]}`);
 		}
 	}

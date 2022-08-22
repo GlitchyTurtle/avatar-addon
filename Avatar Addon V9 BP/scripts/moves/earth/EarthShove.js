@@ -16,7 +16,7 @@ const command = {
 			player.runCommand("playsound dig.grass @a[r=10]");
 			player.runCommand("particle a:earth_shockwave ~~~");
 			player.runCommand("camerashake add @s 0.3 0.1 positional");
-			try { player.runCommand(`execute @s ~~~ damage @e[r=6,rm=0.3] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
+			try { player.runCommand(`damage @e[r=6,rm=0.3] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
 		}
     }
 }

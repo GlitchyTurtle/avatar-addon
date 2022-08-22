@@ -1,0 +1,29 @@
+{
+	"format_version": 1.16,
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "minecraft:copper_piece_recipe"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"pattern": [
+			" B ",
+			"BAB",
+			" B "
+		],
+		"key": {
+			"A": {
+				"item": "minecraft:copper_ingot"
+			},
+			"B": {
+				"item": "minecraft:raw_copper"
+			}
+		},
+		"result": {
+			"item": "a:copper_piece",
+			"count": 1
+		},
+		"priority": 1
+	}
+}

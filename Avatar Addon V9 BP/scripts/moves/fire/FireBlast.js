@@ -2,8 +2,6 @@ import { world, World } from 'mojang-minecraft'
 import commands from '../import.js';
 import { getScore } from "./../../util.js";
 
-let startTick;
-
 const command = {
     name: 'Fire Blast',
     description: 'Shoots fire 10 blocks in front of you!',

@@ -77,30 +77,6 @@
 				}
 			}
 		},
-		"controller.animation.jump": {
-			"states": {
-				"default": {
-					"transitions": [
-						{
-							"jump": "query.is_jumping"
-						}
-					],
-					"on_entry": [
-						"/scoreboard players set @s detect_jump 0"
-					]
-				},
-				"jump": {
-					"transitions": [
-						{
-							"default": "!query.is_jumping"
-						}
-					],
-					"on_entry": [
-						"/scoreboard players set @s detect_jump 1"
-					]
-				}
-			}
-		},
 		"controller.animation.water": {
 			"states": {
 				"default": {
@@ -2541,7 +2517,7 @@
 				"default": {
 					"transitions": [
 						{
-							"full_moon": "(query.moon_phase == 0 && query.moon_brightness == 1.0)"
+							"full_moon": "query.moon_phase == 0"
 						}
 					],
 					"on_entry": [
@@ -2551,7 +2527,7 @@
 				"full_moon": {
 					"transitions": [
 						{
-							"default": "(!query.moon_phase == 0 || !query.moon_brightness == 1.0)"
+							"default": "!query.moon_phase == 0"
 						}
 					],
 					"on_entry": [

@@ -1,9 +1,9 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Server: Avatar Addon 1.19!",
-		"description": "Adds the bending seen in avatar to minecraft! ",
-		"uuid": "137b4861-f7b2-4f1a-ad07-bfe472d94b22",
+		"name": "§6Avatar §3Addon! §8[1.19]§r",
+		"description": "Adds the bending seen in avatar the last airbender to minecraft! All credit to GlitchTurtle32!",
+		"uuid": "137ba861-f7b2-4f1a-ad07-bfe472d94b22",
 		"version": [
 			1,
 			0,
@@ -11,7 +11,7 @@
 		],
 		"min_engine_version": [
 			1,
-			13,
+			17,
 			0
 		]
 	},

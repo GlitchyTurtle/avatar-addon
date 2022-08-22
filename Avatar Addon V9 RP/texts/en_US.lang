@@ -10,13 +10,14 @@ entity.a:spirit_player.name=Sprirt Marker
 
 ##Items!
 item.a:bending_scroll=Bending Scroll
+item.a:copper_piece=Copper Piece
+item.a:slot_1=Slot 1
+item.a:slot_2=Slot 2
+item.a:slot_3=Slot 3
+item.a:slot_4=Slot 4
 
-##All text in the game for rapid translation!
-cooldown.text=§3Move Cooldown 
-chiblocking.text=§3You have been chi blocked. You will get your bending soon.
-clearextra.slotitem.text=§cYou don't need more than one of each slot item.
-clearextra.scroll.text=§cYou don't need more than one scroll.
-action.hint.exit.a:scooter=Move Activated
+##Other
+action.hint.exit.a:scooter=Sneak to dismount.
 
 ##New enchants!
 enchantment.damage.arthropods=Bending

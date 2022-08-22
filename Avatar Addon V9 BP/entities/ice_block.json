@@ -12,9 +12,8 @@
 				"minecraft:explode":{
 					"fuse_length":0,
 					"fuse_lit":true,
-					"power":4,
-					"causes_fire":true,
-					"fire_affected_by_griefing":true,
+					"power":1,
+					"causes_fire":false,
 					"destroy_affected_by_griefing":true
 				}
 			},
@@ -29,15 +28,15 @@
 				"has_gravity":false
 			},
 			"minecraft:collision_box":{
-				"width":1,
-				"height":1
+				"width":0.5,
+				"height":0.5
 			},
 			"minecraft:environment_sensor": {
 				"triggers": {
 					"event": "minecraft:explode",
 					"filters": {
 						"test": "distance_to_nearest_player",
-						"value": 64,
+						"value": 30,
 						"operator": ">"
 					},
 					"target": "self"
@@ -49,6 +48,18 @@
 					"max_dropped_ticks":10,
 					"use_motion_prediction_hints":true
 				}
+			},
+			"minecraft:inside_block_notifier": {
+				"block_list": [
+					{
+						"block": {
+							"name": "minecraft:air"
+						},
+						"exited_block_event": {
+							"event": "minecraft:explode"
+						}
+					}
+				]
 			},
 			"minecraft:damage_sensor":{
 				"triggers":[

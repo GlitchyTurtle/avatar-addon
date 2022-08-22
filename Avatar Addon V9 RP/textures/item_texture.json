@@ -36,6 +36,11 @@
 			"textures": [
 				"textures/items/six"
 			]
+		},
+		"copper_piece": {
+			"textures": [
+				"textures/items/copper_piece"
+			]
 		}
 	}
 }

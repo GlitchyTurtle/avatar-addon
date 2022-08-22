@@ -9,6 +9,6 @@ export function blockBreak(eventData) {
 
     if (player.hasTag("sub_metal") && getScore("level", player) > 50 && brokenBlockPermutation.type.id === "minecraft:iron_ore" || brokenBlockPermutation.type.id === "minecraft:deepslate_iron_ore") {
     	player.runCommand(`structure load raw_iron ${x} ${y} ${z}`);
-	player.runCommand(`effect @s strength 10 1 true`);
+		player.runCommand(`effect @s strength 10 1 true`);
     }
 }
