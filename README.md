@@ -5,7 +5,6 @@
 This addon simply adds the four nations bending abilities from the show Avatar the last Airbender!
 
 <a href="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon"><img src="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon/badge" alt="CodeFactor" height="25" /></a>
-<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/GlitchyTurtle/Avatar-Addon/total?color=35b985" height="25">
 
   
 <div align="left">
