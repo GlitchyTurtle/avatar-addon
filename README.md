@@ -9,7 +9,7 @@ This addon simply adds the four nations bending abilities from the show Avatar t
 <div align="left">
 
 ## <img src="https://i.imgur.com/wcwCiiZ.png" border="0"  height="30">
- 
+
 When you start out, a scroll will appear in your inventory. It should look the exact same as the image below. After that, you can choose your bending by opening it (long press or right click).
 <div align="center">
 //image
@@ -49,5 +49,15 @@ Have fun with them in-game!
 
 
 
+ <details>
+<summary>Air Blast</summary>
+ <img src="https://modbay.net/uploads/posts/2022-10/avatar-addon-air-blast.gif" border="0"><br>
+ Shoots a focused beam of air that does damage and knockback.
+</details>
 
+ <details>
+<summary>Air Blast</summary>
+<br>
+  TEstyest<br>
  <img src="https://modbay.net/uploads/posts/2022-10/avatar-addon-air-blast.gif" border="0">
+</details>
