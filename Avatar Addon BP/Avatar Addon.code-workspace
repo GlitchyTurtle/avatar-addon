@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../development_resource_packs/Avatar Addon V9 RP"
+		}
+	],
+	"settings": {
+		"BC-MC.Diagnostics.Json": false,
+		"BC-MC.Diagnostics.Lang": false,
+		"BC-MC.Diagnostics.Tags": false
+	}
+}

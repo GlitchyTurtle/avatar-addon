@@ -1,0 +1,26 @@
+##Entities!
+entity.a:explosion_massive.name=Massive Explosion
+entity.a:explosion.name=Explosion
+entity.a:explosion_low.name=Small Explosion
+entity.a:healing_water.name=Water Healing
+entity.a:move_helper.name=Armor Stand
+entity.a:scooter.name=Air Scooter
+entity.a:splash_effect.name=Splash Effect
+entity.a:spirit_player.name=Sprirt Marker
+entity.a:knockback_avatar.name=Avatars Supercharged Push
+
+##Items!
+item.a:bending_scroll=Bending Scroll
+item.a:copper_piece=Copper Piece
+item.a:slot_1=Slot 1
+item.a:slot_2=Slot 2
+item.a:slot_3=Slot 3
+item.a:slot_4=Slot 4
+item.a:slot_5=Slot 5
+item.a:slot_6=Slot 6
+
+##Other
+action.hint.exit.a:scooter=Sneak to dismount.
+
+##New enchants!
+enchantment.damage.arthropods=Bending

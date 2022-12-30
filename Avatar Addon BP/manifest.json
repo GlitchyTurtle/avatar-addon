@@ -1,0 +1,38 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "§6Avatar §3Addon! §8[1.19.51] [BP]§r",
+		"description": "Adds the bending seen in avatar the last airbender to minecraft! All credit to GlitchTurtle32!",
+		"uuid": "54edfea5-ac12-b7ca-b192-624e255a4560",
+		"version": [
+			2,
+			0,
+			0
+		],
+		"min_engine_version": [
+			1,
+			19,
+			50
+		]
+	},
+    "modules": [
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "b7055392-4154-4aa8-813f-afa6291f1056",
+            "entry": "scripts/main.js",
+            "version": [ 0, 1, 0 ]
+        }
+    ],
+    "capabilities": [ "script_eval" ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.1.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "1.0.0-beta"
+        }
+    ]
+}

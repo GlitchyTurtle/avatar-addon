@@ -1,0 +1,75 @@
+{
+	"format_version": "1.10.0",
+	"particle_effect": {
+		"description": {
+			"identifier": "a:supercharged_fire_blue_shockwave",
+			"basic_render_parameters": {
+				"material": "particles_alpha",
+				"texture": "textures/particle/soul_flame_atlas"
+			}
+		},
+		"components": {
+			"minecraft:emitter_initialization": {
+				"creation_expression": "variable.size = 1.2;"
+			},
+			"minecraft:emitter_rate_instant": {
+				"num_particles": 90
+			},
+			"minecraft:emitter_lifetime_once": {
+				"active_time": 1
+			},
+			"minecraft:emitter_shape_disc": {
+				"radius": 0.8,
+				"surface_only": true,
+				"direction": "outwards",
+				"offset": [
+					0,
+					0.4,
+					0
+				]
+			},
+			"minecraft:particle_lifetime_expression": {
+				"max_lifetime": 1
+			},
+			"minecraft:particle_initial_spin": {
+				"rotation_rate": "Math.random(-100,100)"
+			},
+			"minecraft:particle_initial_speed": 80,
+			"minecraft:particle_motion_dynamic": {
+				"linear_acceleration": [
+					0,
+					1,
+					0
+				],
+				"linear_drag_coefficient": 4
+			},
+			"minecraft:particle_appearance_billboard": {
+				"size": [
+					"variable.size*(1-variable.particle_age)",
+					"variable.size*(1-variable.particle_age)"
+				],
+				"facing_camera_mode": "lookat_xyz",
+				"uv": {
+					"texture_width": 16,
+					"texture_height": 512,
+					"flipbook": {
+						"base_UV": [
+							0,
+							0
+						],
+						"size_UV": [
+							16,
+							16
+						],
+						"step_UV": [
+							0,
+							16
+						],
+						"max_frame": 32,
+						"stretch_to_lifetime": true
+					}
+				}
+			}
+		}
+	}
+}

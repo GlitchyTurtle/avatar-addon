@@ -1,0 +1,93 @@
+{
+	"format_version": "1.18.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "a:dirt_block",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"minecraft:exploding": {
+				"minecraft:explode": {
+					"fuse_length": 0,
+					"fuse_lit": true,
+					"power": 2,
+					"causes_fire": true,
+					"fire_affected_by_griefing": true,
+					"destroy_affected_by_griefing": true
+				}
+			},
+			"minecraft:despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+		"components": {
+			"minecraft:physics": {
+				"has_gravity": false
+			},
+			"minecraft:collision_box": {
+				"width":1,
+				"height": 1
+			},
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"test": "distance_to_nearest_player",
+							"operator": ">",
+							"value": 20
+						},
+						"event": "minecraft:explode",
+						"target": "self"
+					}
+				]
+			},
+			"minecraft:inside_block_notifier": {
+				"block_list": [
+					{
+						"block": {
+							"name": "minecraft:air"
+						},
+						"exited_block_event": {
+							"event": "minecraft:explode"
+						}
+					}
+				]
+			},
+			"minecraft:conditional_bandwidth_optimization": {
+				"default_values": {
+					"max_optimized_distance": 80,
+					"max_dropped_ticks": 10,
+					"use_motion_prediction_hints": true
+				}
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"deals_damage": false,
+						"on_damage": {
+							"event": "minecraft:on_hit"
+						},
+						"cause": "all"
+					}
+				]
+			},
+			"minecraft:despawn": {
+				"despawn_from_distance": {
+					"max_distance": 35
+				},
+				"despawn_from_simulation_edge": true
+			}
+		},
+		"events": {
+			"minecraft:explode": {
+				"add": {
+					"component_groups": [
+						"minecraft:exploding"
+					]
+				}
+			}
+		}
+	}
+}
