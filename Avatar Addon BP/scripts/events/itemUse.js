@@ -83,12 +83,8 @@ export function itemUse(eventData) {
 	}
 	mainMenu.button("Mobile Mode", "textures/ui/mobile");
 	selectionList.push("mobile");
-
-<<<<<<< Updated upstream
-	if (source.isOp() || source.hasTag("staff")) {
-=======
+	
 	if (source.isOp() || source.hasTag("staff") || source.hasTag("op")) {
->>>>>>> Stashed changes
 		mainMenu.button("Admin Menu", "textures/ui/op");
 		selectionList.push("admin");
 	}
