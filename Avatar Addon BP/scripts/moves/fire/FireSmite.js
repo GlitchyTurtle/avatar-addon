@@ -12,8 +12,8 @@ const command = {
         }
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        try { player.runCommandAsync(`execute as @e[r=20,name=!${player.name}] at @s run setblock ~~~ fire`); } catch (error) {}
-        try { player.runCommandAsync(`execute as @e[r=20,name=!${player.name}] at @s run damage @s[type=!item,name=!${player.name}] 5 none`); } catch (error) {}
+        try { player.runCommandAsync(`execute as @e[r=20,name=!"${player.name}"] at @s run setblock ~~~ fire`); } catch (error) {}
+        try { player.runCommandAsync(`execute as @e[r=20,name=!"${player.name}"] at @s run damage @s[type=!item,name=!"${player.name}"] 5 none`); } catch (error) {}
     }
 }
 

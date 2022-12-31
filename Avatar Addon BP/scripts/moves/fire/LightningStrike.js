@@ -10,7 +10,7 @@ const command = {
     execute(player) {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("summon lightning_bolt ^^^7");
-        player.runCommandAsync(`execute as @s positioned ^^^7 damage @e[r=5,type=!item,name=!${player.name}] ${Math.ceil(getScore("level", player)/4)} lightning entity ${player.name}`);
+        player.runCommandAsync(`execute as @s positioned ^^^7 damage @e[r=5,type=!item,name=!"${player.name}"] ${Math.ceil(getScore("level", player)/4)} lightning entity "${player.name}"`);
     }
 }
 

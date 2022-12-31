@@ -151,7 +151,7 @@ function airRuntime(player) {
 	if (player.hasTag('sub_projectile')) {
 		try { player.runCommandAsync("tag @e[r=10,type=arrow] add seeking"); } catch (error) {}
 		try { player.runCommandAsync(`execute as @e[r=${getScore("level", player)*4},type=arrow,tag=seeking] at @s if block ~~-1~ air run particle a:air_blast ~~~`); } catch (error) {}
-		try { player.runCommandAsync(`execute as @e[r=${getScore("level", player)*4},type=arrow,tag=seeking] at @s run execute as @e[r=2,type=!arrow,tag=!seeking,tag=!sub_projectile] run damage @s[type=!item,name=!${player.name}] 2 projectile`); } catch (error) {}
+		try { player.runCommandAsync(`execute as @e[r=${getScore("level", player)*4},type=arrow,tag=seeking] at @s run execute as @e[r=2,type=!arrow,tag=!seeking,tag=!sub_projectile] run damage @s[type=!item,name=!"${player.name}"] 2 projectile`); } catch (error) {}
 		try { player.runCommandAsync(`execute as @e[r=${getScore("level", player)*4},type=arrow,tag=seeking] at @s run execute as @e[r=2,type=!arrow,tag=!seeking,tag=!sub_projectile] run kill @e[r=4,type=arrow]`); } catch (error) {}
 		try { player.runCommandAsync(`execute as @e[r=${getScore("level", player)*4},c=5,type=arrow,tag=seeking] at @s run tp @s ^^^2 facing @e[tag=!sub_projectile,type=!arrow,type=!armor_stand,type=!item,c=1,type=!xp_orb]`); } catch (error) {}
 	}
@@ -216,7 +216,7 @@ function setup(player) {
 	player.addTag("setup");
 	player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§rAre you an op? If you want special menu settings, make sure you are a world operator!"}]}`);
 	player.runCommandAsync('give @s a:bending_scroll 1 0 {"minecraft:keep_on_death":{},"minecraft:item_lock":{"mode":"lock_in_inventory"}}');
-	showWarning(player, `Welcome!`, `Hey §b${player.nameTag}§r!\n\nWelcome to §bAvatar Addon§r!\n\nTo get started, right click or long press the §bbending scroll§r in your inventory, and select any option from the list.\n\nIf you need help, check the page where you downloaded this, the discord, or send me (GlitchyTurtle32) a message!`)
+	showWarning(player, `Welcome!`, `Hey §b${player.name}§r!\n\nWelcome to §bAvatar Addon§r!\n\nTo get started, right click or long press the §bbending scroll§r in your inventory, and select any option from the list.\n\nIf you need help, check the page where you downloaded this, the discord, or send me (GlitchyTurtle32) a message!`)
 }
 
 function forEachScoreboard(item) {

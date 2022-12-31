@@ -18,10 +18,10 @@ const command = {
 			if (!startTick) startTick = event.currentTick;
 			try {
 				player.runCommandAsync(`particle a:water_dodge ~~~`); 
-				player.runCommandAsync(`tp @s ^ ^ ^1.5 facing @e[name=!${player.nameTag},c=1,type=!item,type=!xp_orb]`);
+				player.runCommandAsync(`tp @s ^ ^ ^1.5 facing @e[name=!"${player.name}",c=1,type=!item,type=!xp_orb]`);
 			} catch (error) {}
 			try {
-				player.runCommandAsync(`testfor @e[r=3,name=!${player.nameTag}]`);
+				player.runCommandAsync(`testfor @e[r=3,name=!"${player.name}"]`);
 				endEarly = true;
 			} catch (error) {}
 			if (event.currentTick - startTick > 100 || endEarly === true) {

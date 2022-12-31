@@ -11,7 +11,7 @@ const command = {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("playsound random.explode @a[r=3]");
         player.runCommandAsync("particle a:air_puff");
-        try { player.runCommandAsync(`damage @e[r=15,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 15))} none entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`damage @e[r=15,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 15))} none entity @s`); } catch (error) {}
     }
 }
 

@@ -19,7 +19,7 @@ const command = {
 			let {x, y, z} = player.location;
 			let earthShieldTick = world.events.tick.subscribe(event => {
 				if (!startTick) startTick = event.currentTick;
-				try { player.runCommandAsync(`execute as @e[x=${x},y=${y},z=${z},name=!${player.nameTag},r=4] at @s run tp @s ^^^-1 facing ${x} ${y} ${z}`); } catch (error) {}
+				try { player.runCommandAsync(`execute as @e[x=${x},y=${y},z=${z},name=!"${player.name}",r=4] at @s run tp @s ^^^-1 facing ${x} ${y} ${z}`); } catch (error) {}
 				if (event.currentTick - startTick > 120) {
 					world.events.tick.unsubscribe(earthShieldTick);
 					startTick = undefined;

@@ -18,7 +18,7 @@ const command = {
 			let earthThrowTick = world.events.tick.subscribe(event => {
 				if (!startTick) startTick = event.currentTick;
 				player.runCommandAsync("effect @s speed 1 2");
-				try { player.runCommandAsync(`damage @e[r=5,type=!item,name=!${player.name}] 2 none`); } catch (error) {}
+				try { player.runCommandAsync(`damage @e[r=5,type=!item,name=!"${player.name}"] 2 none`); } catch (error) {}
 				try { player.runCommandAsync("fill ~-1~~-1 ~1~2~1 air 0 destroy"); } catch (error) {}
 				if (event.currentTick - startTick > 100) {
 					world.events.tick.unsubscribe(earthThrowTick);

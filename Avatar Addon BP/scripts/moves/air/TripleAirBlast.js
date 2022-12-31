@@ -52,7 +52,7 @@ async function blast1(player) {
 	return new Promise(resolve => {
 		for (let i = 1; i < 15; i++) {
 			try {
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!${player.nameTag}] at @s run tp @s ^^^-0.5 facing @p[name=${player.nameTag}]`);
+				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
 			} catch (error) {}
 		}
 		try {
@@ -71,7 +71,7 @@ async function blast1(player) {
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("playsound firework.blast @a[r=3]");
-			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
+			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
 		} catch (error) {}
 	})
 }
@@ -80,7 +80,7 @@ async function blast2(player) {
 	return new Promise(resolve => {
 		for (let i = 1; i < 15; i++) {
 			try {
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!${player.nameTag}] at @s run tp @s ^^^-0.5 facing @p[name=${player.nameTag}]`);
+				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
 			} catch (error) {}
 		}
 		player.runCommandAsync("playsound firework.blast @a[r=3]");
@@ -99,7 +99,7 @@ async function blast2(player) {
 			player.runCommandAsync("particle a:air_blast_pop ^^1.4 ^7");
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
+			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
 		} catch (error) {}
 	})
 }
@@ -109,12 +109,12 @@ async function blast3(player) {
 		for (let i = 1; i < 15; i++) {
 			try {
 				player.runCommandAsync(`particle a:air_blast ^^1^${i/2}`);
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!${player.nameTag}] at @s run tp @s ^^^-0.5 facing @p[name=${player.nameTag}]`);
+				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
 			} catch (error) {}
 		}
 		player.runCommandAsync(`particle a:air_blast_pop ^^1^7.2`);
 		player.runCommandAsync("playsound firework.blast @a[r=3]");
-		try { player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`); } catch (error) {}
+		try { player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`); } catch (error) {}
 		player.runCommandAsync("scoreboard players set @s cooldown1 0");
 		player.runCommandAsync("scoreboard players set @s detect_left 0");
 	})

@@ -15,7 +15,7 @@ const command = {
         for (let i = 1; i < 15; i++) {
 	        player.runCommandAsync(`particle a:water_blast ^^1^${i/2}`);
         }
-        try { player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=6,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 16))+2} none entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=6,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 16))+2} none entity @s`); } catch (error) {}
         player.runCommandAsync(`particle a:water_blast_pop ^^1^7.2`);
     }
 }

@@ -15,7 +15,7 @@ const command = {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("playsound mob.turtle.swim @a[r=3] ~ ~ ~ 0.9 1");
         try { player.runCommandAsync("fill ~1 ~1 ~1 ~-1 ~1 ~-1 flowing_water 0 keep"); } catch (error) {}
-        try { player.runCommandAsync(`damage @e[r=8,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 16))} none entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`damage @e[r=8,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 16))} none entity @s`); } catch (error) {}
         let {x, y, z} = player.location;
         let floodTick = world.events.tick.subscribe(event => {
 	        if (!startTick) startTick = event.currentTick;

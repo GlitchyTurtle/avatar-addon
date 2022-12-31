@@ -15,8 +15,8 @@ const command = {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("playsound random.explode @a[r=3]");
 		player.runCommandAsync("particle a:supercharged_fire_blue_shockwave");
-        try { player.runCommandAsync(`damage @e[r=40,type=!item,name=!${player.name}] ${Math.ceil(getScore("level", player)/4)} fire_tick entity @s`); } catch (error) {}
-        try { player.runCommandAsync(`damage @e[r=10,type=!item,name=!${player.name}] ${getScore("level", player)} fire_tick entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`damage @e[r=40,type=!item,name=!"${player.name}"] ${Math.ceil(getScore("level", player)/4)} fire_tick entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${getScore("level", player)} fire_tick entity @s`); } catch (error) {}
     }
 }
 

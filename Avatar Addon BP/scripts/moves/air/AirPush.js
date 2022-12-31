@@ -16,7 +16,7 @@ const command = {
         player.runCommandAsync("particle minecraft:explosion_manual ~~~");
         player.runCommandAsync("summon a:knockback_instant ~~~");
         player.runCommandAsync("playsound random.explode @a[r=5]");
-        try { player.runCommandAsync(`damage @e[r=10,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 8))} none entity @s`); } catch (error) {}
+        try { player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 8))} none entity @s`); } catch (error) {}
         let kbTick = world.events.tick.subscribe(event => {
 			if (!startTick) startTick = event.currentTick;        
 			if (event.currentTick - startTick > 10) {

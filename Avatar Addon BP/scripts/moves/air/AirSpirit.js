@@ -18,22 +18,22 @@ const command = {
 		player.addTag("spirit");
         player.runCommandAsync("gamemode spectator @s");
         player.runCommandAsync("summon a:spirit_player ~~~");
-        player.runCommandAsync(`tag @e[c=1,r=13,type=a:spirit_player] add ${player.name}`);
+        player.runCommandAsync(`tag @e[c=1,r=13,type=a:spirit_player] add "${player.name}"`);
         let spiritTick = world.events.tick.subscribe(event => {
 			if (!startTick) startTick = event.currentTick;
 			try { 
 				player.runCommandAsync("scoreboard players set @s cooldown1 0");
-				player.runCommandAsync(`execute as @e[type=a:spirit_player,tag=${player.name}] at @s run particle a:air_charge ~~~`);
+				player.runCommandAsync(`execute as @e[type=a:spirit_player,tag="${player.name}"] at @s run particle a:air_charge ~~~`);
 			} catch (error) {}
 			if (event.currentTick - startTick > 300) {
 				world.events.tick.unsubscribe(spiritTick);
 				player.removeTag("spirit");
-				player.runCommandAsync(`tp @s @e[c=1,type=a:spirit_player,tag=${player.name}]`).catch(err => {
+				player.runCommandAsync(`tp @s @e[c=1,type=a:spirit_player,tag="${player.name}"]`).catch(err => {
 					player.runCommandAsync(`gamemode surival @s`);
 					player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYour spirit marker was killed."}]}`);
 					player.runCommandAsync("kill @s");
 				})
-				player.runCommandAsync(`execute as @e[c=1,type=a:spirit_player,tag=${player.name}] at @s run event entity @s minecraft:despawn`);
+				player.runCommandAsync(`execute as @e[c=1,type=a:spirit_player,tag="${player.name}"] at @s run event entity @s minecraft:despawn`);
 				player.runCommandAsync(`gamemode ${saved} @s`);
 				startTick = undefined;
 			}

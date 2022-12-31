@@ -57,7 +57,7 @@ async function blast1(player) {
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
+			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
 		} catch (error) {}
 		player.addTag('kbsafe');
 		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
@@ -73,7 +73,7 @@ async function blast2(player) {
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
+			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
 		} catch (error) {}
 		player.runCommandAsync("summon a:knockback_instant ~~5~");
 		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
@@ -88,7 +88,7 @@ async function blast3(player) {
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
+			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
 		} catch (error) {}
 		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
 		player.removeTag('kbsafe');

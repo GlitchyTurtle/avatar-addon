@@ -28,7 +28,7 @@ const command = {
 			}
 			try {
 				player.runCommandAsync(`execute as @e[c=1,type=a:ice_block,tag=launch] at @s run tp @s ^^^-1`);
-				player.runCommandAsync(`execute as @e[c=1,type=a:ice_block,tag=launch] at @s run execute as @e[r=2,name=!${player.nameTag},type=!a:ice_block] at @s run event entity @e[r=5,type=a:ice_block] minecraft:explode`);
+				player.runCommandAsync(`execute as @e[c=1,type=a:ice_block,tag=launch] at @s run execute as @e[r=2,name=!"${player.name}",type=!a:ice_block] at @s run event entity @e[r=5,type=a:ice_block] minecraft:explode`);
 			} catch (error) {}
 			player.runCommandAsync(`testfor @e[type=a:ice_block,r=50,c=1]`).catch(err=>{
 				world.events.tick.unsubscribe(iceThrowTick);

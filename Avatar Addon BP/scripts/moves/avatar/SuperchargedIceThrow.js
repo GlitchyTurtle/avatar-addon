@@ -30,15 +30,15 @@ const command = {
 			if (event.currentTick - startTick > 50) {
 				try { player.runCommandAsync(`tag @e[r=10,c=3,type=a:ice_block] add launch`); } catch (error) {}
 			}
-			try { player.runCommandAsync(`tp @e[c=1,tag=n1,type=a:ice_block,tag=!launch] ^-1^0.3^1.5 facing ${player.nameTag}`); } catch (error) {}
-			try { player.runCommandAsync(`tp @e[c=1,tag=n2,type=a:ice_block,tag=!launch] ^^0.3^1.5 facing ${player.nameTag}`); } catch (error) {}
-			try { player.runCommandAsync(`tp @e[c=1,tag=n3,type=a:ice_block,tag=!launch] ^1^0.3^1.5 facing ${player.nameTag}`); } catch (error) {}
+			try { player.runCommandAsync(`tp @e[c=1,tag=n1,type=a:ice_block,tag=!launch] ^-1^0.3^1.5 facing "${player.name}"`); } catch (error) {}
+			try { player.runCommandAsync(`tp @e[c=1,tag=n2,type=a:ice_block,tag=!launch] ^^0.3^1.5 facing "${player.name}"`); } catch (error) {}
+			try { player.runCommandAsync(`tp @e[c=1,tag=n3,type=a:ice_block,tag=!launch] ^1^0.3^1.5 facing "${player.name}"`); } catch (error) {}
 			if (getScore("detect_left", player) === 1) { 
 				try { player.runCommandAsync(`tag @e[r=10,c=3,type=a:ice_block] add launch`); } catch (error) {}
 			}
 			try {
 				player.runCommandAsync(`execute as @e[c=3,type=a:ice_block,tag=launch] at @s run tp @s ^^^-1`);
-				player.runCommandAsync(`execute as @e[c=3,type=a:ice_block,tag=launch] at @s run execute as @e[r=2,name=!${player.nameTag},type=!a:ice_block] at @s run event entity @e[r=5,type=a:ice_block] minecraft:explode_mega`);
+				player.runCommandAsync(`execute as @e[c=3,type=a:ice_block,tag=launch] at @s run execute as @e[r=2,name=!"${player.name}",type=!a:ice_block] at @s run event entity @e[r=5,type=a:ice_block] minecraft:explode_mega`);
 			} catch (error) { 
 				console.warn("error")
 			}

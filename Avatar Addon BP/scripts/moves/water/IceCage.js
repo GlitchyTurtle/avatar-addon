@@ -9,8 +9,8 @@ const command = {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
         player.runCommandAsync("playsound beacon.power @a[r=6]");
 		try {
-			player.runCommandAsync(`execute as @e[r=5,name=!${player.name}] at @s run fill ~1~-1~1 ~-1~2~-1 packed_ice 0 keep`); 
-			player.runCommandAsync(`execute as @e[r=5,name=!${player.name}] at @s run fill ~~~ ~~1~ air 0 replace packed_ice`);
+			player.runCommandAsync(`execute as @e[r=5,name=!"${player.name}"] at @s run fill ~1~-1~1 ~-1~2~-1 packed_ice 0 keep`); 
+			player.runCommandAsync(`execute as @e[r=5,name=!"${player.name}"] at @s run fill ~~~ ~~1~ air 0 replace packed_ice`);
 		} catch (error) {}
     }
 }

@@ -18,7 +18,7 @@ const command = {
 			player.runCommandAsync("playsound dig.grass @a[r=10]");
 			player.runCommandAsync("particle a:earth_shockwave ~~~");
 			player.runCommandAsync("camerashake add @s 0.3 0.1 positional");
-			try { player.runCommandAsync(`damage @e[r=6,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
+			try { player.runCommandAsync(`damage @e[r=6,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
 		}
     }
 }

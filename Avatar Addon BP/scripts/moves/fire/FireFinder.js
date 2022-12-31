@@ -28,11 +28,11 @@ const command = {
                     } else {
                         player.runCommandAsync("execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run particle minecraft:mobflame_single ~ ~1 ~"); 
                     }
-                    player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run tp @s ^ ^ ^1.5 facing @e[r=100,type=!a:move_help,name=!${player.nameTag},c=1,type=!item,type=!xp_orb]`);
+                    player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run tp @s ^ ^ ^1.5 facing @e[r=100,type=!a:move_help,name=!"${player.name}",c=1,type=!item,type=!xp_orb]`);
                 } catch (error) {}
-                player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run testfor @e[r=1,name=!${player.nameTag},type=!a:move_help]`).then(({successCount})=> {
+                player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run testfor @e[r=1,name=!"${player.name}",type=!a:move_help]`).then(({successCount})=> {
                     player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run summon a:explosion_low ~~1~`);
-                    player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run damage @e[r=5,type=!item,name=!${player.name}] 10`);
+                    player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run damage @e[r=5,type=!item,name=!"${player.name}"] 10`);
                     player.runCommandAsync(`execute as @e[type=a:move_help,tag=fireseeking,c=1] at @s run event entity @s instant_despawn`);
                 })
             if (event.currentTick - startTick > 40) {

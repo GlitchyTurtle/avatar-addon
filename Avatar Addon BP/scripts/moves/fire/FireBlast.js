@@ -21,7 +21,7 @@ const command = {
 				player.runCommandAsync(`particle a:${firetype} ^${i/20}^1^${i/2}`);
 			} catch (error) {}
         }
-		try { player.runCommandAsync(`execute as @s positioned ^^^7.5 run damage @e[r=5,type=!item,name=!${player.name}] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
+		try { player.runCommandAsync(`execute as @s positioned ^^^7.5 run damage @e[r=5,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
     }
 }
 

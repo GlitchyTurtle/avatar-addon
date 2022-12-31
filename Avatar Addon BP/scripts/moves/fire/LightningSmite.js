@@ -9,8 +9,8 @@ const command = {
     sub_bending_required: 'lightning',
     execute(player) {
         player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        try { player.runCommandAsync(`execute as @e[r=8,name=!${player.name}] at @s run summon lightning_bolt`); } catch (error) {}
-        player.runCommandAsync(`execute as @e[r=8,name=!${player.name}] at @s run damage @s[type=!item,name=!${player.name}] ${Math.ceil(getScore("level", player)/4)} lightning entity ${player.name}`);
+        try { player.runCommandAsync(`execute as @e[r=8,name=!"${player.name}"] at @s run summon lightning_bolt`); } catch (error) {}
+        player.runCommandAsync(`execute as @e[r=8,name=!"${player.name}"] at @s run damage @s[type=!item,name=!"${player.name}"] ${Math.ceil(getScore("level", player)/4)} lightning entity "${player.name}"`);
     }
 }
 

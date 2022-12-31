@@ -52,7 +52,7 @@ async function blast1(player) {
 		try { 
 			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
 			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!${player.name}] 5 none entity @s`);
+			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("scoreboard players set @s detect_sneak 0");
@@ -65,7 +65,7 @@ async function blast2(player) {
 		try { 
 			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
 			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!${player.name}] 5 none entity @s`);
+			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("scoreboard players set @s detect_sneak 0");
@@ -78,7 +78,7 @@ async function blast3(player) {
 		try {
 			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
 			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!${player.name}] 5 none entity @s`);
+			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
 			player.runCommandAsync("scoreboard players set @s cooldown1 0");
 			player.runCommandAsync("scoreboard players set @s detect_left 0");
 			player.runCommandAsync("scoreboard players set @s detect_sneak 0");

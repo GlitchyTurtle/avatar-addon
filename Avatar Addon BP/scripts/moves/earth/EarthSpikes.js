@@ -19,7 +19,7 @@ const command = {
 			let earthSpikesTick = world.events.tick.subscribe(event => {
 				if (!startTick) startTick = event.currentTick;
 		        try {
-					player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run tp @s ^^^-1 facing @p[name=${player.name}]`);
+					player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run tp @s ^^^-1 facing @p[name="${player.name}"]`);
 					player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run tp @s ~~-1~ true`);
 				} catch (error) {}
 				player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run summon evocation_fang ~~~`);
