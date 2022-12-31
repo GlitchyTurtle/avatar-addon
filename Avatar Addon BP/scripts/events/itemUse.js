@@ -84,7 +84,7 @@ export function itemUse(eventData) {
 	mainMenu.button("Mobile Mode", "textures/ui/mobile");
 	selectionList.push("mobile");
 
-	if (source.isOp()) {
+	if (source.isOp() || source.hasTag("staff")) {
 		mainMenu.button("Admin Menu", "textures/ui/op");
 		selectionList.push("admin");
 	}
