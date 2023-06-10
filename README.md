@@ -7,8 +7,8 @@ This addon simply adds the four nations bending abilities from the show Avatar t
 <a href="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon"><img src="https://www.codefactor.io/repository/github/glitchyturtle/avatar-addon/badge" alt="CodeFactor" height="25" /></a>
 
 <div align="left">
-
-## <img src="https://imgur.com/a/oSHvZWB" border="0"  height="30">
+  
+## <img src="https://i.imgur.com/wcwCiiZ.png" border="0"  height="30">
 
 When you start out, a scroll will appear in your inventory. It should look the exact same as the image below. After that, you can choose your bending by opening it (long press or right click).
 <div align="center">
