@@ -1,6 +1,6 @@
 <div align="center">
   
-## <img src="avatar_addon_logo.png" border="0" width="500">
+## <img src="logo.png" border="0" width="500">
 
 This addon simply adds the four nations bending abilities from the show Avatar the last Airbender!
 
