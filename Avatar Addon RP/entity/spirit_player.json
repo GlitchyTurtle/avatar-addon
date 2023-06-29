@@ -4,7 +4,7 @@
     "description": {
       "identifier": "a:spirit_player",
       "materials": {
-        "default": "entity"
+        "default": "entity_alphablend"
       },
       "textures": {
         "default": "textures/entity/spirit_player"

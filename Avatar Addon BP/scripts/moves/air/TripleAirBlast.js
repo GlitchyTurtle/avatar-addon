@@ -1,9 +1,80 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
+import { MolangVariableMap, Player } from "@minecraft/server";
+import { getScore, setScore, delayedFunc, calcVectorOffset, playSound, calcBendingResistance } from "./../../util.js";
 
-let startTick;
-let stage = 1;
+const curveOffset = [
+	0.2,
+	0.4,
+	0.6,
+	0.8,
+	0.9,
+	1.0,
+	1.0,
+	1.0,
+	1.0,
+	1.0,
+	0.9,
+	0.8,
+	0.6,
+	0.4,
+	0.2,
+	0.2
+];
+
+function airBlast(player, stage, dmg_factor) {
+	setScore(player, "cooldown", 0);
+	delayedFunc(player, (animation) => { 
+		// Play animation first
+		stage % 2 == 0 ? player.playAnimation("animation.air.off_blast") : player.playAnimation("animation.air.blast");
+
+		// To be executed when the animation is done
+		delayedFunc(player, (airBlast) => {
+			const map = new MolangVariableMap();
+			for (var i = 1; i < 15; i++) {
+				// Create the needed variables for kb and pos
+				const playerViewDir = player.getViewDirection()
+
+				var xOffset = 0;
+				if (stage == 1) xOffset = -curveOffset[i];
+				if (stage == 2) xOffset = curveOffset[i];
+
+				const currentPos = calcVectorOffset(player, xOffset, 1, i/2);
+				const currentBlock = player.dimension.getBlock(currentPos);
+				
+				// Apply knockback (and a little bit of damage) to the entities
+				const entities = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.2, excludeNames: [player.name], excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] })];
+				let items = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.2, type: "item" })];
+				entities.forEach(entity => {
+					entity.applyKnockback(playerViewDir.x, playerViewDir.z, 1, 0.3)
+                    entity.applyDamage(Math.max(3 - calcBendingResistance(entity), 1));
+				});
+				items.forEach(item => { item.applyImpulse(playerViewDir) });
+
+				// Check if we hit a solid block
+				if (currentBlock.isSolid()) break;
+
+				// Spawn the particle
+				player.dimension.spawnParticle("a:air_blast", currentPos, map);
+			}
+
+			// Apply full damage and knockback for good aim
+			const playerViewDir = player.getViewDirection()
+			const entities = player.getEntitiesFromViewDirection({ maxDistance: 10, excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] });
+            entities.forEach(entity => {
+                if (entity.hasTag("permKbSafe") && (entity instanceof Player)) return entity.dimension.spawnParticle("a:air_leap", entity.location, map);
+                try {
+                    entity.applyKnockback(playerViewDir.x, playerViewDir.z, 3, 0.3)
+
+                    const damageDealt = getScore('offTier', player) * this.damage_factor + 2;
+                    entity.applyDamage(Math.max(damageDealt - calcBendingResistance(entity), 1));
+                } catch (error) {}
+            });
+
+			// Particle effects and sound
+			player.dimension.spawnParticle("a:air_blast_pop", calcVectorOffset(player, xOffset, 1, i/2 - 0.5), map);
+			playSound(player, 'firework.blast', 1, calcVectorOffset(player, xOffset, 1, i/2 - 0.5), 3);
+		}, 12);
+	}, 12 * stage);
+}
 
 const command = {
     name: 'Triple Air Blast',
@@ -12,110 +83,12 @@ const command = {
     unlockable: 14,
     unlockable_for_avatar: 14,
     cooldown: 'fast',
-    async execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		await new Promise(resolve => {
-			blast1(player);
-			resolve();
-		});
-        let tripleAirTick = world.events.tick.subscribe(async event => {
-			if (!startTick) startTick = event.currentTick;
-			if (stage === 1 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast2(player);
-					resolve();
-				});
-				stage++;
-			} else if (stage === 2 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast3(player);
-					resolve();
-				});
-				world.events.tick.unsubscribe(tripleAirTick);
-				stage = 1;
-				startTick = undefined;
-			}
-			if (event.currentTick - startTick > 300 || (getScore("cooldown1", player) > 90 && event.currentTick - startTick > 20)) {
-				world.events.tick.unsubscribe(tripleAirTick);
-				startTick = undefined;
-				stage = 1;
-			}
-		})
+	damage_factor: 2,
+    execute(player) {
+		airBlast(player, 1, this.damage_factor);
+		airBlast(player, 2, this.damage_factor);
+		airBlast(player, 3, this.damage_factor);
 	}
 }
 
 export default command
-
-
-
-async function blast1(player) {
-	return new Promise(resolve => {
-		for (let i = 1; i < 15; i++) {
-			try {
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
-			} catch (error) {}
-		}
-		try {
-			player.runCommandAsync("particle a:air_blast ^0.4 ^1.4 ^1");
-			player.runCommandAsync("particle a:air_blast ^0.6 ^1.4 ^1.5");
-			player.runCommandAsync("particle a:air_blast ^0.8 ^1.4 ^2");
-			player.runCommandAsync("particle a:air_blast ^0.9 ^1.4 ^2.5");
-			player.runCommandAsync("particle a:air_blast ^1 ^1.4 ^3");
-			player.runCommandAsync("particle a:air_blast ^1 ^1.4 ^3.5");
-			player.runCommandAsync("particle a:air_blast ^1 ^1.4 ^4");
-			player.runCommandAsync("particle a:air_blast ^0.9 ^1.4 ^4.5");
-			player.runCommandAsync("particle a:air_blast ^0.8 ^1.4 ^5");
-			player.runCommandAsync("particle a:air_blast ^0.6 ^1.4 ^5.5");
-			player.runCommandAsync("particle a:air_blast ^0.4 ^1.4 ^6");
-			player.runCommandAsync("particle a:air_blast_pop ^^1.4 ^7");
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("playsound firework.blast @a[r=3]");
-			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
-		} catch (error) {}
-	})
-}
-
-async function blast2(player) {
-	return new Promise(resolve => {
-		for (let i = 1; i < 15; i++) {
-			try {
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
-			} catch (error) {}
-		}
-		player.runCommandAsync("playsound firework.blast @a[r=3]");
-		try { 
-			player.runCommandAsync("particle a:air_blast ^-0.4 ^1.4 ^1");
-			player.runCommandAsync("particle a:air_blast ^-0.6 ^1.4 ^1.5");
-			player.runCommandAsync("particle a:air_blast ^-0.8 ^1.4 ^2");
-			player.runCommandAsync("particle a:air_blast ^-0.9 ^1.4 ^2.5");
-			player.runCommandAsync("particle a:air_blast ^-1 ^1.4 ^3");
-			player.runCommandAsync("particle a:air_blast ^-1 ^1.4 ^3.5");
-			player.runCommandAsync("particle a:air_blast ^-1 ^1.4 ^4");
-			player.runCommandAsync("particle a:air_blast ^-0.9 ^1.4 ^4.5");
-			player.runCommandAsync("particle a:air_blast ^-0.8 ^1.4 ^5");
-			player.runCommandAsync("particle a:air_blast ^-0.6 ^1.4 ^5.5");
-			player.runCommandAsync("particle a:air_blast ^-0.4 ^1.4 ^6");
-			player.runCommandAsync("particle a:air_blast_pop ^^1.4 ^7");
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
-		} catch (error) {}
-	})
-}
-
-async function blast3(player) {
-	return new Promise(resolve => {
-		for (let i = 1; i < 15; i++) {
-			try {
-				player.runCommandAsync(`particle a:air_blast ^^1^${i/2}`);
-				player.runCommandAsync(`execute as @s positioned ^^^${i/2} run execute as @e[r=2,name=!"${player.name}"] at @s run tp @s ^^^-0.5 facing @p[name="${player.name}"]`);
-			} catch (error) {}
-		}
-		player.runCommandAsync(`particle a:air_blast_pop ^^1^7.2`);
-		player.runCommandAsync("playsound firework.blast @a[r=3]");
-		try { player.runCommandAsync(`execute as @s positioned ^^^7 run damage @e[r=3,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`); } catch (error) {}
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		player.runCommandAsync("scoreboard players set @s detect_left 0");
-	})
-}

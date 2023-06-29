@@ -19,6 +19,7 @@
 			"minecraft:emitter_lifetime_looping": {
 				"active_time": 1
 			},
+     			"minecraft:emitter_lifetime_once": {},
 			"minecraft:emitter_shape_disc": {
 				"radius": 1,
 				"plane_normal": "z",

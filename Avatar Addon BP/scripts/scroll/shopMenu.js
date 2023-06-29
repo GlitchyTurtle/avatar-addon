@@ -24,12 +24,12 @@ export function shopMenu(source) {
     let shopMain = new ActionFormData();
     shopMain.title("Shop Menu: Main");
     shopMain.body(`Your Balance: §b${getScore("money", source)}\n\nPay:§r Send another player money.\n\n§bDeposit:§r All copper pieces in your inventory will be added to your bank balance.\n\n§bWithdraw:§r Take out copper pieces from your bank, don't have a full inventory!\n\n§bSell:§r Put the item you want to sell in your first hotbar slot, and then click sell.\n\n§bBuy:§r Used to purchase an item.`);
-	shopMain.button("Pay", "textures/ui/pay");
-	shopMain.button("Deposit", "textures/ui/deposit")
-	shopMain.button("Withdraw", "textures/ui/extract")
-    shopMain.button("Sell", "textures/ui/sell");
+	shopMain.button("Pay", "textures/ui/avatar/pay");
+	shopMain.button("Deposit", "textures/ui/avatar/deposit")
+	shopMain.button("Withdraw", "textures/ui/avatar/extract")
+    shopMain.button("Sell", "textures/ui/avatar/sell");
 	if (count > 0) {
-		shopMain.button("Buy", "textures/ui/load");
+		shopMain.button("Buy", "textures/ui/avatar/load");
 	}
 	
 	let shopSell = new ModalFormData();
@@ -124,10 +124,10 @@ export function shopMenu(source) {
 				if (price > getScore("money", source)) return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cYou don't have enough money."}]}`);
 				
 				//source.runCommandAsync( `say block: ${args[0]} count: ${args[1]} data: ${args[2]} price: ${price} player: ${args[4]}`);
-				source.runCommandAsync( `give @s ${args[0]} ${args[1]} ${args[2]}`);
 				source.runCommandAsync( `scoreboard players remove @s money ${price}`)
 				source.runCommandAsync( `scoreboard players add ${args[4]} money ${price}`)
 				source.runCommandAsync( `tag ${args[4]} remove "Shop: ${args[0]} ${args[1]} ${args[2]} ${args[3]} ${args[4]}"`);
+				source.runCommandAsync( `give @s ${args[0]} ${args[1]}`);
 				source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§bYou have purchased §r${args[0].replace("minecraft:", "").replace("a:", "")}§b for §r${price}§b copper pieces."}]}`);
 			})
 		}

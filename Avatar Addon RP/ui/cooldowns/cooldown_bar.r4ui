@@ -123,13 +123,13 @@
       },
       {
         "creative_default@avatar_cooldown_bar.cooldown_bar_stack_panel": {
-          "offset": [ 0, -45 ],
+          "offset": [ 0, -25 ],
           "$visible_binding": "(#is_not_riding and #is_creative_mode)"
         }
       },
       {
         "creative_riding@avatar_cooldown_bar.cooldown_bar_stack_panel": {
-          "offset": [ 0, -45 ],
+          "offset": [ -50, -25 ],
           "$visible_binding": "(#is_riding and #is_creative_mode)"
         }
       }

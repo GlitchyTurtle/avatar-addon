@@ -1,6 +1,5 @@
-import { World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { setScore, playSound, delayedFunc } from "../../util.js";
 
 const command = {
     name: 'Air Vanish',
@@ -10,10 +9,17 @@ const command = {
     unlockable_for_avatar: 8,
     cooldown: 'fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound random.explode @a[r=3]");
-        player.runCommandAsync("particle a:air_vanish ~~~");
-        player.runCommandAsync("effect @s invisibility 10 3 true");
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.vanish");
+        player.runCommand("inputpermission set @s movement disabled");
+        
+        delayedFunc(player, (airVanish) => {
+            const currentLocation = { x: player.location.x, y: player.location.y, z: player.location.z };
+            player.dimension.spawnParticle("a:air_vanish", currentLocation, new MolangVariableMap());
+            player.addEffect("invisibility", 200, { amplifier: 1, showParticles: false });
+            playSound(player, 'random.explode', 1, currentLocation, 2);
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 10);
     }
 }
 

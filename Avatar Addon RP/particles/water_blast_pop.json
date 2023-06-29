@@ -1,4 +1,3 @@
-//bridge-file-version: #2
 {
 	"format_version": "1.10.0",
 	"particle_effect": {
@@ -71,8 +70,8 @@
 				"color": {
 					"interpolant": "variable.water",
 					"gradient": {
-						"0.1": "#FFD8F5FF",
-						"0.79": "#FF4F39E8"
+						"0.13": "#FF00B7FF",
+						"0.5": "#FF2366D9"
 					}
 				}
 			},

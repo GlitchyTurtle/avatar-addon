@@ -1,4 +1,7 @@
-import { getScore } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { setScore, getScore, delayedFunc, playSound } from "./../../util.js";
+
+const map = new MolangVariableMap();
 
 const command = {
     name: 'Fire Charge',
@@ -7,18 +10,28 @@ const command = {
     unlockable: 5,
     unlockable_for_avatar: 66,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        player.runCommandAsync("effect @s regeneration 2 5 true");
+        setScore(player, "cooldown", 0);
+        player.runCommand("inputpermission set @s movement disabled");
+        player.runCommand("camerashake add @a[r=15] 0.4 1 positional");
+        player.playAnimation("animation.fire.pull");
+        playSound(player, 'mob.shulker.shoot', 1, player.location, 3);
+        player.addEffect("resistance", 10, { amplifier: 255, showParticles: false });
+
         if (getScore("level", player) >= 100) {
-            player.runCommandAsync("particle a:fire_blue_charge_quick ~~~");
-            player.runCommandAsync("effect @s speed 3 6 true");
+            player.dimension.spawnParticle("a:fire_blue_charge_quick", player.location, map);
         } else {
-           player.runCommandAsync("particle a:fire_charge_quick ~~~"); 
-           player.runCommandAsync("effect @s speed 1 5 true");
+            player.dimension.spawnParticle("a:fire_charge_quick", player.location, map);
         }
-        player.runCommandAsync("effect @s absorption 60 1 true");
-        player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
+
+        delayedFunc(player, (fireCharge) => {
+            player.addEffect("saturation", 600, { amplifier: 255, showParticles: false });
+            player.addEffect("regeneration", 100, { amplifier: 1, showParticles: false });
+            player.addEffect("speed", 10, { amplifier: 5, showParticles: false });
+        }, 10);
+
+        delayedFunc(player, (moveAgain) => {
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 20);
     }
 }
 

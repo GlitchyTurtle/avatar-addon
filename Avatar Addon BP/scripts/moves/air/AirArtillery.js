@@ -1,11 +1,5 @@
-import { world } from '@minecraft/server'
-
-let startTick;
-
-async function create(player) {
-    await player.runCommandAsync("summon a:move_help ^ ^1 ^2");
-    await player.runCommandAsync("tag @e[c=1,r=13,type=a:move_help] add seeking");
-}
+import { system, MolangVariableMap } from "@minecraft/server";
+import { calcVectorOffset, createShockwave, getScore, setScore, playSound, delayedFunc, calculateKnockbackVector } from "./../../util.js";
 
 const command = {
     name: 'Air Artillery',
@@ -14,26 +8,64 @@ const command = {
     unlockable: 11,
     unlockable_for_avatar: 11,
     cooldown: 'fast',
+    damage_factor: 0.5,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        create(player);
-        let artilleryTick = world.events.tick.subscribe(event => {
-            if (!startTick) startTick = event.currentTick;
+        // Setup
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.blast");
+        const dmg_factor = this.damage_factor;
 
-            player.runCommandAsync("execute as @e[type=a:move_help,tag=seeking,c=1] at @s run particle minecraft:large_explosion ~ ~1 ~");
-            player.runCommandAsync(`execute as @e[type=a:move_help,tag=seeking,c=1] at @s run tp @s ^ ^ ^1.5 facing @e[r=100,type=!a:move_help,name=!"${player.name}",c=1,type=!item,type=!xp_orb]`);
-            player.runCommandAsync(`execute as @e[type=a:move_help,tag=seeking,c=1] at @s run testfor @e[r=1,name=!"${player.name}",type=!a:move_help]`).then(({successCount})=> {
-                player.runCommandAsync(`execute as @e[type=a:move_help,tag=seeking,c=1] at @s run summon a:explosion_low ~~1~`);
-                player.runCommandAsync(`execute as @e[type=a:move_help,tag=seeking,c=1] at @s run damage @e[r=5,type=!item,name=!"${player.name}"] 10`);
-                player.runCommandAsync(`execute as @e[type=a:move_help,tag=seeking,c=1] at @s run event entity @s instant_despawn`);
-            })
-            if (event.currentTick - startTick > 50) {
-                world.events.tick.unsubscribe(artilleryTick);
-                try { player.runCommandAsync("event entity @e[type=a:move_help,tag=seeking,c=1] instant_despawn"); } catch (error) {}
-                startTick = undefined;
-            }
-        })
+        // To be executed when the animation is done
+        delayedFunc(player, (airArtillery) => {
+            const map = new MolangVariableMap();
+            const entities = [...player.dimension.getEntities({ location: player.location, maxDistance: 25, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
+            
+            if (entities[0] == undefined) return player.sendMessage("§cThere are no nearby entities to target!");
+
+            let currentTick = 0;
+            let endRuntime = false;
+            let currentLocation;
+            const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 200) return system.clearRun(sched_ID);
+
+                // Find the block current location based on the last particle location
+                let entityDir;
+                let currentPos;
+                let currentBlock;
+                try {
+                    if (!currentLocation) {
+                        entityDir = calculateKnockbackVector(entities[0].location, player.location, 1); 
+                        currentLocation = calcVectorOffset(player, -0.2, 1, currentTick, entityDir);
+                    }
+                    entityDir = calculateKnockbackVector(entities[0].location, currentLocation, 1); 
+                    currentPos = calcVectorOffset(player, -0.2, 1, currentTick, entityDir, currentLocation); //
+                    currentBlock = player.dimension.getBlock(currentPos);  
+                } catch (error) {
+                    return system.clearRun(sched_ID);
+                }
+                if (!entityDir || !currentPos || !currentBlock) return system.clearRun(sched_ID);
+
+                // Check if we hit the entity
+                const hasHitEntity = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.5, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
+
+                // Check if we hit a solid block
+                if (currentBlock.isSolid() || hasHitEntity[0] != undefined) endRuntime = true;
+
+                // Spawn the particle
+                player.dimension.spawnParticle("minecraft:large_explosion", currentPos, map);
+                
+                // The end of the runtime
+                if (currentTick > 100 || endRuntime) {
+                    // Particle effects and sound
+                    player.dimension.spawnParticle("a:air_blast_pop", currentPos, map);
+                    playSound(player, 'firework.blast', 1, currentPos, 3);
+                    createShockwave(player, currentPos, 3, 3, dmg_factor);
+                    return system.clearRun(sched_ID);
+                }
+            }, 1);
+        }, 12);
     }
 }
 

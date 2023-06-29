@@ -1,9 +1,26 @@
-import { world } from '@minecraft/server'
-import { getScore, getBendingStyle } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { getScore, setScore, delayedFunc, playSound, createShockwave } from "./../../util.js";
 
-let startTick;
-let stage = 1;
-let firetype = "";
+function fireWall(player, stage, dmg_factor) {
+	setScore(player, "cooldown", 0);
+	delayedFunc(player, (animation) => { 
+		// Play animation first
+		const fireType = getScore("level", player) >= 100 ? "_blue" : "";
+		stage % 2 == 0 ? player.playAnimation("animation.fire.off_blast") : player.playAnimation("animation.fire.blast");
+
+		// To be executed when the animation is done
+		delayedFunc(player, (fireWall) => {
+			const map = new MolangVariableMap();
+	
+			playSound(player, 'random.explode', 1, player.location, 5);
+            createShockwave(player, player.location, 10, 10, dmg_factor);
+
+			player.dimension.spawnParticle(`a:fire_wave${fireType}`, player.location, map);
+			player.dimension.spawnParticle(`a:fire_wall${fireType}`, player.location, map);
+			playSound(player, 'fire.ignite', 1, player.location, 3);
+		}, 12);
+	}, 12 * stage);
+}
 
 const command = {
     name: 'Triple Firewall',
@@ -11,86 +28,12 @@ const command = {
     style: 'fire',
     unlockable: 10,
     unlockable_for_avatar: 75,
-    async execute(player) {
-		if (getScore("level", player) > 100) { firetype = "_blue"; } else { firetype = ""; }
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		await new Promise(resolve => {
-			blast1(player);
-			resolve();
-		});
-        let tripleAirTick = world.events.tick.subscribe(async event => {
-			if (!startTick) startTick = event.currentTick;
-			if (stage === 1 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast2(player);
-					resolve();
-				});
-				stage++;
-			} else if (stage === 2 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast3(player);
-					resolve();
-				});
-				world.events.tick.unsubscribe(tripleAirTick);
-				stage = 1;
-				startTick = undefined;
-			}
-			if (event.currentTick - startTick > 300 || (getScore("cooldown1", player) > 90 && event.currentTick - startTick > 20)) {
-				world.events.tick.unsubscribe(tripleAirTick);
-				startTick = undefined;
-				stage = 1;
-				player.removeTag('kbsafe');
-			}
-		})
+	damage_factor: 3,
+    execute(player) {
+		fireWall(player, 1, this.damage_factor);
+		fireWall(player, 2, this.damage_factor);
+		fireWall(player, 3, this.damage_factor);
 	}
 }
 
 export default command
-
-
-
-async function blast1(player) {
-	return new Promise(resolve => {
-		try {
-			player.runCommandAsync(`particle a:fire_wave${firetype} ~~~`);
-			player.runCommandAsync(`particle a:fire_wall${firetype} ~~~`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
-		} catch (error) {}
-		player.addTag('kbsafe');
-		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
-		player.runCommandAsync("summon a:knockback_instant ~~5~");
-	});
-}
-
-async function blast2(player) {
-	return new Promise(resolve => {
-		try { 
-			player.runCommandAsync(`particle a:fire_wave${firetype} ~~~`);
-			player.runCommandAsync(`particle a:fire_wall${firetype} ~~~`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
-		} catch (error) {}
-		player.runCommandAsync("summon a:knockback_instant ~~5~");
-		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
-	});
-}
-
-async function blast3(player) {
-	return new Promise(resolve => {
-		try { 
-			player.runCommandAsync(`particle a:fire_wave${firetype} ~~~`);
-			player.runCommandAsync(`particle a:fire_wall${firetype} ~~~`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("playsound fire.ignite @a[r=13]");
-			player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 10))} none entity @s`);
-		} catch (error) {}
-		player.runCommandAsync(`title @s title a:${getBendingStyle(player).toLowerCase()}`);
-		player.removeTag('kbsafe');
-	});
-}

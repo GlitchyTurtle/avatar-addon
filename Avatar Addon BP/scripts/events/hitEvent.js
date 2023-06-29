@@ -1,95 +1,88 @@
-import { MinecraftItemTypes, Items, MinecraftEnchantmentTypes, world, Player } from "@minecraft/server";
-import { getScore } from "./../util.js";
+import { Player, MolangVariableMap, MinecraftBlockTypes } from "@minecraft/server";
+import { setScore, getScore, calcVectorOffset, getBendingStyle, getGamemode } from "./../util.js";
+
+const map = new MolangVariableMap();
 
 export function hitEvent(eventData) {
-    //Properties from class
+    // Properties from class
     let { hitEntity, hitBlock, entity } = eventData;
 
-    //If it's not a player who did the hit then ignore
+	// If a block is hit then ignore
+	if (hitBlock) {
+		if (entity.hasTag("water") && hitBlock.typeId === "minecraft:grass" && getScore("water_loaded", entity) < 8 && getScore("utiTier", entity) > 4) {
+			entity.sendMessage("§7Consumed moisture from this block.")
+			hitBlock.setType(MinecraftBlockTypes.dirt);
+			setScore(entity, "water_loaded", 1, true);
+		}
+
+		if (entity.hasTag("earh") && hitBlock.typeId === "minecraft:grass") {
+			const { x, y, z } = hitBlock.location;
+			entity.runCommand(`clone ${x} ${y-4} ${z} ${x} ${y-1} ${z} ${x} ${y} ${z}`);
+			entity.runCommand(`fill ${x} ${y-4} ${z} ${x} ${y-1} ${z} air`);
+		}
+		return;
+	}
+
+	if (getGamemode(hitEntity) == "creative") return;
+
+    // If it's not a player who did the hit then ignore
     if (!(entity instanceof Player)) {
 		return;
     }
 
-    //If a block is hit then ignore
-    if (hitBlock) {
-        return;
-    }    
-	
-	const item = entity.getComponent('inventory').container.getItem(entity.selectedSlot);
-	try {
-		let item_enchants = item.getComponent("enchantments").enchantments;
-		if (item_enchants) {
-			for (let enchants in MinecraftEnchantmentTypes) {
-				// If no enchantment then move to next loop
-				let enchanted = MinecraftEnchantmentTypes[enchants];
-				if (!item_enchants.hasEnchantment(enchanted)) {
-					continue;
-				}
-				// Get properties of this enchantment
-				let enchant_data = item_enchants.getEnchantment(MinecraftEnchantmentTypes[enchants]);
-				// Do stuff
-				if (enchant_data.type.id === "baneOfArthropods" && item.id != "minecraft:enchanted_book") {				
-					if (entity.hasTag('air')) {
-						try { hitEntity.runCommandAsync(`effect @s levitation 1 1 true`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle minecraft:egg_destroy_emitter ~~~`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle a:air_puff ~~~`); } catch (error) {}
-					} else if (entity.hasTag('earth')) {
-						try { hitEntity.runCommandAsync(`summon evocation_fang ~~~`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle a:earth_shockwave ~~~`); } catch (error) {}
-					} else if (entity.hasTag('fire')) {
-						try { hitEntity.runCommandAsync(`setblock ~~~ fire 0 keep`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`effect @s slowness 1 ${enchant_data.level} true`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle a:fire_wave ~~~`); } catch (error) {}
-					} else if (entity.hasTag('water')) {
-						try { hitEntity.runCommandAsync(`effect @s slowness 1 ${enchant_data.level} true`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle a:water_wave ~~~`); } catch (error) {}
-					} else if (entity.hasTag('avatar')) {
-						try { hitEntity.runCommandAsync(`setblock ~~~ fire 0 keep`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle minecraft:egg_destroy_emitter ~~~`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`summon evocation_fang ~~~`); } catch (error) {}
-						try { hitEntity.runCommandAsync(`particle a:earth_shockwave ~~~`); } catch (error) {}
-					}
-					
-				}
-			}
-		}
-	} catch (error) {}
-	
-    //If it's not a player then ignore who got hit
+    // If it's not a player who was hit then ignore
     if (!(hitEntity instanceof Player)) {
 		return;
     }
 
-	if (getScore("combat", entity) === 0) {
-		entity.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou are in combat! Do not leave the game!"}]}`);
-		hitEntity.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou are in combat! Do not leave the game!"}]}`);
+	// Waterbender squid shield passive
+	if (hitEntity.hasTag("water") && getScore("defTier", hitEntity) >= 2 && getScore("detect_water", hitEntity) > 1) {
+		hitEntity.dimension.spawnParticle('a:squid_ink', hitEntity.location, map);
+		hitEntity.addEffect("invisibility", 20, { amplifier: 1, showParticles: false });
 	}
-	entity.runCommandAsync(`scoreboard players add @s combo 1`);
-	hitEntity.runCommandAsync(`scoreboard players set @s combo 0`);
-	entity.runCommandAsync(`scoreboard players set @s combat 220`);
-	hitEntity.runCommandAsync(`scoreboard players set @s combat 220`);
+
+	// Airbender weapon disarm
+	if (entity.hasTag("air") && getScore("utiTier", entity) >= 10 && Math.random() < 0.15) {
+		const inventory = hitEntity.getComponent("minecraft:inventory").container
+		const item = inventory.getItem(hitEntity.selectedSlot);
+		if (!inventory || !item) return;
 	
-    if (!entity.hasTag("avatar") && !entity.hasTag("earth") && !entity.hasTag("air") && !entity.hasTag("fire") && !entity.hasTag("water")) {
-        try { entity.runCommandAsync(`execute as @s[scores={combo=1..5}] run titleraw @s actionbar {"rawtext":[{"text":"§3Hits needed to Block Chi: "},{"score":{"name": "@s","objective": "combo"}},{"text":"/6"}]}`); } catch (error) {}
-        if (getScore("combo", entity) > 5) {
-            try {
-				if (!hitEntity.hasTag("avatar") && !hitEntity.hasTag("earth") && !hitEntity.hasTag("air") && !hitEntity.hasTag("fire") && !hitEntity.hasTag("water")) {
-					entity.runCommandAsync(`scoreboard players set @s combo 0`);
-					entity.runCommandAsync(`scoreboard players add @s sub_level 1`);
-					entity.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§3Blocked ${hitEntity.name}'s Chi for ${getScore("level", entity)} seconds. They aren't a bender, so it just slows them down."}]}`);
-					hitEntity.runCommandAsync(`effect @s slowness ${getScore("level", entity)} 3 true`);
-					hitEntity.runCommandAsync(`particle minecraft:egg_destroy_emitter ~~~`);
-				} else {
-					entity.runCommandAsync(`scoreboard players set @s combo 0`);
-					entity.runCommandAsync(`scoreboard players add @s sub_level 1`);
-					entity.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§3Blocked ${hitEntity.name}'s Chi for ${getScore("level", entity)} seconds."}]}`);
-					hitEntity.runCommandAsync(`scoreboard players set @s cooldown1 ${100 - getScore("level", entity) * 20}`);
-					hitEntity.runCommandAsync(`tag @s add chi_blocked`);
-					hitEntity.runCommandAsync(`effect @s slowness ${getScore("level", entity)} 3 true`);
-					hitEntity.runCommandAsync(`particle minecraft:egg_destroy_emitter ~~~`);
-				}
-            } catch (error) {
-				hitEntity.runCommandAsync(`tellraw @a[name=${entity.name}] actionbar {"rawtext":[{"text":"§cCould not block ${hitEntity.name}'s Chi because they are already blocked!"}]}`);
+		hitEntity.dimension.spawnItem(item, calcVectorOffset(hitEntity, 0, 0, 2.5)).setVelocity(hitEntity.getViewDirection());
+		hitEntity.getComponent('inventory').container.setItem(hitEntity.selectedSlot, null);
+	}
+
+	// Combat log prevention!
+	if (getScore("combat", entity) === 0) {
+		entity.sendMessage("§cYou are in combat! Do not leave the game!");
+		hitEntity.sendMessage("§cYou are in combat! Do not leave the game!");
+	}
+	setScore(entity, "combo", 1, true);
+	setScore(hitEntity, "combo", 0);
+	setScore(entity, "combat", 220);
+	setScore(hitEntity, "combat", 220);
+
+	// Chi blocking system
+	const amplifier = getScore("level", entity) * 40;
+    if (getBendingStyle(entity) === "Non-bender") {
+		//entity.onScreenDisplay.setActionBar(`Combo Chi Block: ${getScore("combo", entity)}/12`); - until bugs on apex are resolved
+		player.runCommand(`title @s actionbar Combo Chi Block: ${getScore("combo", entity)}/12`);
+
+		// If the nonbender has a combo of 6, disable the bender for 2 times the level of the nonbender seconds
+		if (getScore("combo", entity) > 11) {
+			setScore(entity, "combo", 0);
+			setScore(entity, "sub_level", 1, true);
+
+			hitEntity.addEffect("slowness", amplifier, { amplifier: 6, showParticles: false });
+			hitEntity.addEffect("weakness", amplifier, { amplifier: 10, showParticles: false });
+			
+			if (getBendingStyle(hitEntity) === "Non-bender") {
+				entity.sendMessage(`§7Blocked ${hitEntity.name}'s Chi for ${getScore("level", entity) * 2} seconds. They aren't a bender, so it just slows them down.`);
+				hitEntity.dimension.spawnParticle('minecraft:egg_destroy_emitter', hitEntity.location, map);
+			} else {
+				entity.sendMessage(`§7Blocked ${hitEntity.name}'s Chi for ${getScore("level", entity) * 2} seconds.`);
+				setScore(hitEntity, "cooldown", 100 - getScore("level", entity) * 20);
+				hitEntity.addTag("chi_blocked")
+				hitEntity.dimension.spawnParticle('minecraft:egg_destroy_emitter', hitEntity.location, map);
 			}
         }
     }

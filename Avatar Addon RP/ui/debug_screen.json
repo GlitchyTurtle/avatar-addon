@@ -1,0 +1,20 @@
+
+{
+  "Avatar_Logo": {
+     "type": "image",
+     "texture": "textures/ui/avatar/avatar",
+     "anchor_from": "top_right",
+     "anchor_to": "top_right",
+     "offset": [-5, 5],
+     "size": [11, 11],
+     "layer": 3
+  },
+  "content_panel": {
+    "type": "panel",
+    "controls": [
+      { 
+        "Avatar_Logo@debug_screen.Avatar_Logo": {} 
+      }
+    ]
+  }
+}

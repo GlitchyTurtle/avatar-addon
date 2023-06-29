@@ -1,7 +1,14 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
+import { system, MolangVariableMap } from "@minecraft/server";
+import { calcVectorOffset, getScore, setScore, delayedFunc } from "../../util.js";
 
-let startTick;
+function findBlock(player, currentPos) {
+	var currentBlock = player.dimension.getBlock(currentPos);
+	while (!currentBlock.isSolid()) {
+		currentPos = { x: currentPos.x, y: currentPos.y - 1, z: currentPos.z }
+		currentBlock = player.dimension.getBlock(currentPos);
+	}
+	player.runCommand(`summon evocation_fang ${currentPos.x} ${currentPos.y + 1} ${currentPos.z}`)
+}
 
 const command = {
     name: 'Earth Spikes',
@@ -10,26 +17,54 @@ const command = {
     unlockable: 8,
     unlockable_for_avatar: 49,
     cooldown: 'fast',
-    async execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (getScore("ground", player) === 1) {
-			player.runCommandAsync("playsound dig.grass @a[r=10]");
-			player.runCommandAsync("summon a:move_help ^ ^2 ^2");
-	        player.runCommandAsync("tag @e[c=1,r=14,type=a:move_help] add spikesummoner");
-			let earthSpikesTick = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;
-		        try {
-					player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run tp @s ^^^-1 facing @p[name="${player.name}"]`);
-					player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run tp @s ~~-1~ true`);
-				} catch (error) {}
-				player.runCommandAsync(`execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run summon evocation_fang ~~~`);
-				if (event.currentTick - startTick > 20) {
-					world.events.tick.unsubscribe(earthSpikesTick);
-					player.runCommandAsync("execute as @e[type=a:move_help,tag=spikesummoner,c=1] at @s run event entity @s instant_despawn");
-					startTick = undefined;
-				}
-			})
-		}
+    execute(player) {
+        // Setup
+        setScore(player, "cooldown", 0);
+        if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+
+        player.playAnimation("animation.earth.spikes");
+        player.runCommand("inputpermission set @s movement disabled");
+
+        // To be executed when the animation is done
+        delayedFunc(player, (earthSpikes) => {
+            const travelDir = player.getViewDirection();
+
+            // I've found this specific number to be the best
+            travelDir.y = 0.4;
+
+            let currentTick = 0;
+            let endRuntime = false;
+            let currentLocation;
+            
+            const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 150) return system.clearRun(sched_ID);
+
+                // Find the block current location based on the last particle location
+                let currentPos;
+                let currentBlock;
+                try {
+                    if (!currentLocation) currentLocation = calcVectorOffset(player, 0, 1, currentTick + 1, travelDir);
+                    currentPos = calcVectorOffset(player, 0, 1, currentTick + 1, travelDir, currentLocation);
+                    currentBlock = player.dimension.getBlock(currentPos);  
+                } catch (error) {
+                    return system.clearRun(sched_ID);
+                }
+
+                if (!currentPos || !currentBlock) return system.clearRun(sched_ID);
+
+				findBlock(player, currentPos);
+
+                // The end of the runtime
+                if (currentTick > 50 || endRuntime) {
+                    return system.clearRun(sched_ID);
+                }
+            }, 1);
+        }, 20);
+        delayedFunc(player, (removeDirtBlock) => {
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 35);
     }
 }
 

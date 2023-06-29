@@ -1,6 +1,5 @@
-import { world } from '@minecraft/server'
-
-let startTick;
+import { MolangVariableMap } from "@minecraft/server";
+import { setScore, delayedFunc, playSound, createShockwave } from "./../../util.js";
 
 const command = {
     name: 'Supercharged Air Shove',
@@ -9,21 +8,19 @@ const command = {
     unlockable: 100,
     unlockable_for_avatar: 100,
     cooldown: 'slow',
-    async execute(player) {
-        if (!player.hasTag("avatar_state")) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou must be in avatar state to use this move!"}]}`);
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("particle a:supercharged_air_push ~~~");
-        await player.addTag("kbsafe");
-        player.runCommandAsync("summon a:knockback_avatar ~~~");
-        let kbTick = world.events.tick.subscribe(event => {
-			if (!startTick) startTick = event.currentTick;
-            player.runCommandAsync("playsound random.explode @a[r=5]");  
-			if (event.currentTick - startTick > 10) {
-				world.events.tick.unsubscribe(kbTick);
-				player.removeTag("kbsafe");
-				startTick = undefined;
-			}
-        })
+    execute(player) {
+        setScore(player, "cooldown", 0);
+        if (!player.hasTag("avatar_state")) return player.sendMessage("§cYou must be in avatar state to use this move!");
+
+        player.playAnimation("animation.air.push");
+        delayedFunc(player, airPush => {
+            const map = new MolangVariableMap();
+            const playerPos = player.location;
+            createShockwave(player, playerPos, 50, 150, 0);
+            player.dimension.spawnParticle("a:supercharged_air_push", playerPos, map);
+            player.dimension.spawnParticle("minecraft:explosion_manual", playerPos, map);
+            playSound(player, 'random.explode', 1.5, playerPos, 15);
+        }, 8);
     }
 }
 

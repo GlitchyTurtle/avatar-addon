@@ -38,7 +38,7 @@
 				"active_time": 1
 			},
 			"minecraft:emitter_shape_sphere": {
-				"radius": 2,
+				"radius": 1,
 				"surface_only": true,
 				"direction": "inwards"
 			},
@@ -72,13 +72,12 @@
 					]
 				}
 			},
-			"minecraft:particle_appearance_lighting": {},
 			"minecraft:particle_appearance_tinting": {
 				"color": {
-					"interpolant": "variable.water",
+					"interpolant": "v.particle_age / v.particle_lifetime",
 					"gradient": {
-						"0.1": "#FFD8F5FF",
-						"0.79": "#FF4F39E8"
+						"0.39": "#FF34BCFA",
+						"0.71": "#FFFF33D1"
 					}
 				}
 			}

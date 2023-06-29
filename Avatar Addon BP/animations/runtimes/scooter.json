@@ -4,11 +4,8 @@
 		"animation.scooter": {
 			"timeline": {
 				"0.0": [
-					"/execute as @p[tag=air,r=5] at @s run particle a:air_scooter ~~-0.2~",
-					"/execute as @p[tag=avatar,r=5] at @s run particle a:air_scooter ~~-0.2~",
-					"/execute as @p[tag=fire,r=5] at @s run particle minecraft:mobflame_single ~~-0.2~",
-					"/damage @e[r=3,type=!a:scooter,tag=!air,tag=!fire,tag=!avatar] 2 none entity @s",
-					"/tp @s ^^^0.4 true"
+					"/particle a:air_scooter ~~0.2~",
+					"/tp @s ^^^0.2"
 				]
 			},
 			"animation_length": 0.05,

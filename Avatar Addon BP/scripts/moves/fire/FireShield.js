@@ -1,7 +1,5 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system, MolangVariableMap } from '@minecraft/server'
+import { getScore, setScore, delayedFunc, calculateKnockbackVector } from "./../../util.js";
 
 const command = {
     name: 'Fire Shield',
@@ -11,27 +9,56 @@ const command = {
     unlockable_for_avatar: 63,
     cooldown: 'fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.blaze.shoot @a[r=5]");
-        
-        player.runCommandAsync("effect @s resistance 1 255 true");
-        if (getScore("level", player) >= 100) {
-            player.runCommandAsync("particle a:fire_shield_blue ~~~");
-		    player.runCommandAsync("particle a:fire_wave_blue ~~~");
-        } else {
-            player.runCommandAsync("particle a:fire_shield ~~~");
-		    player.runCommandAsync("particle a:fire_wave ~~~");
-        }
-    
-        let {x, y, z} = player.location;
-        let fireShieldTick = world.events.tick.subscribe(event => {
-            if (!startTick) startTick = event.currentTick;
-            try { player.runCommandAsync(`execute as @e[x=${x},y=${y},z=${z},name=!"${player.name}",r=4] at @s run tp @s ^^^-1 facing ${x} ${y} ${z}`); } catch (error) {}
-            if (event.currentTick - startTick > 120) {
-                world.events.tick.unsubscribe(fireShieldTick);
-                startTick = undefined;
+		// Setup
+		setScore(player, "cooldown", 0);
+
+		player.addEffect("resistance", 25, { amplifier: 255, showParticles: false });
+		player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
+		player.playAnimation("animation.fire.push");
+
+		delayedFunc(player, (waterShield) => {
+			player.addTag("bendingShield");
+            if (getScore("level", player) >= 100) {
+                player.dimension.spawnParticle("a:fire_shield_blue", player.location, new MolangVariableMap());
+            } else {
+                player.dimension.spawnParticle("a:fire_shield", player.location, new MolangVariableMap());
             }
-        })
+			let spawnPos = player.location;
+			let currentTick = 0;
+
+			const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 100) return system.clearRun(sched_ID);
+
+				// Get entities
+				const dimension = player.dimension;
+				const entities = [...dimension.getEntities({ location: spawnPos, maxDistance: 6, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
+				const items = [...dimension.getEntities({ location: spawnPos, maxDistance: 6, type: "item" })];
+			
+				// Loop through all nearby entities (not items though)
+				entities.forEach(entity => {
+					const kbVector = calculateKnockbackVector(entity.location, spawnPos, 1);
+					try {
+                        entity.clearVelocity()
+                    } catch (error) {
+                        entity.runCommand("tp @s @s");
+                    }
+					try {
+						entity.applyKnockback(kbVector.x, kbVector.z, 1, 0);
+					} catch (error) {
+						entity.applyImpulse(calculateKnockbackVector(entity.location, spawnPos, 0.1));
+					}
+				});
+				items.forEach(item => { item.applyImpulse(calculateKnockbackVector(item.location, spawnPos, 0.3)); });
+
+				// The end of the runtime
+				if (currentTick > 35) {
+					player.removeTag("bendingShield");
+					return system.clearRun(sched_ID);
+				}
+			}, 1);
+		}, 10);
     }
 }
 

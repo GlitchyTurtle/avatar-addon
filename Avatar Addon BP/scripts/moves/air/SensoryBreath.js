@@ -1,13 +1,35 @@
+import { MolangVariableMap } from "@minecraft/server";
+import { delayedFunc, setScore, calculateDistance } from "./../../util.js";
+
 const command = {
-    name: 'Deep Breath',
-    description: 'Displays the basic stats of the player nearest to you in a 40 block radius!',
+    name: 'Sensory Breath',
+    description: 'Displays the basic stats of all players in a 150 block radius, but also lets them know that you "checked" them.',
     style: 'air',
-    unlockable: 13,
+    unlockable: 0,
+    unlockable_for_avatar: 0,
     cooldown: 'fast',
+    uti_tier_required: 3,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("particle a:air_vanish ~~~");
-        player.runCommandAsync(`execute as @p[name=!"${player.name}",r=40] run tellraw @p[name="${player.name}"] {"rawtext":[{"text":"§b You are not alone, ${player.name} is near."}]}`);
+        // Setup
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.jump");
+
+        // To be executed when the animation is done
+        delayedFunc(player, (airBlast) => {
+            const map = new MolangVariableMap();
+            const entities = [...player.dimension.getEntities({ location: player.location, maxDistance: 150, excludeNames: [player.name], type: "player", excludeTags: ["bending_dmg_off"] })];
+        
+            if (!entities.length) return player.sendMessage(`§7No players could be found.`);
+
+            // Loop through all nearby players
+            entities.forEach(entity => {
+                player.sendMessage(`§7${entity.name} is ${calculateDistance(player.location, entity.location).toFixed(0)} blocks away. They are aware that you checked them.`);
+                entity.sendMessage(`§7${player.name} just checked your position.`);
+                entity.dimension.spawnParticle("a:air_shockwave_small", entity.location, map);
+            });
+
+            player.dimension.spawnParticle("a:air_shockwave_small", player.location, map);
+        }, 15);
     }
 }
 

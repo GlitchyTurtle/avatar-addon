@@ -1,8 +1,5 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
-let kbSafeToggle;
+import { system, world } from '@minecraft/server'
+import { setScore, getScore, delayedFunc } from "./../../util.js";
 
 const command = {
     name: 'Blood Bending',
@@ -13,29 +10,34 @@ const command = {
     unlockable_for_avatar: 0,
     cooldown: 'slow',
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (player.hasTag("full_moon") || getScore("level", player) >= 100) {
-			player.addTag("kbsafe");
-			kbSafeToggle = true
-			player.runCommandAsync("playsound mob.turtle.swim @a[r=3] ~ ~ ~ 0.9 1");
-			let kbTickW = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;        
-				if (event.currentTick - startTick < 50) {
-					try { player.runCommandAsync(`execute as @s positioned ^^1^5 run tp @e[r=4] ~~~`); } catch (error) {}
-				} else if (kbSafeToggle) {
-					try { player.runCommandAsync(`summon a:knockback_instant ^^1^4.5`); } catch (error) {}
-					kbSafeToggle = false
-				}
-				if (event.currentTick - startTick > 60) {
-					world.events.tick.unsubscribe(kbTickW);
-					startTick = undefined;
-					player.removeTag("kbsafe");
-					kbSafeToggle = true
-				}
-			})
-		} else {
-			return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou need the power of a full moon for this, or an incredibly high mastery - level 100 or more. "}]}`);
-		}
+        setScore(player, "cooldown", 0);
+
+        const FULL_MOON = ((world.getAbsoluteTime() - world.getTime()) / 24000) % 8 == 0;
+        const NIGHT_TIME = world.getTime() > 12000;
+    
+		if ((!FULL_MOON || !NIGHT_TIME) && getScore("level", player) < 100) return player.sendMessage("§cYou need the power of a full moon for this, or an incredibly high mastery - level 100 or more.");
+		
+        player.playAnimation("animation.water.blast");
+        player.runCommand("inputpermission set @s movement disabled");
+        
+        delayedFunc(player, (fireSprint) => {
+            let currentTick = 0;
+            const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 100) return system.clearRun(sched_ID);
+
+                // Apply velocity in the direction the player is looking at
+                player.runCommandAsync(`execute as @s positioned ^^1^5 run tp @e[r=4] ~~~`);
+                player.runCommand("camerashake add @s 0.1 0.1 positional");
+
+                // The end of the runtime
+                if (currentTick > 35) {
+                    player.runCommand("inputpermission set @s movement enabled");
+                    return system.clearRun(sched_ID);
+                }
+            }, 1);
+        }, 6);
     }
 }
 

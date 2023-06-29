@@ -1,3 +1,8 @@
+import { MolangVariableMap } from "@minecraft/server";
+import { calcVectorOffset, setScore, playSound, delayedFunc } from "./../../util.js";
+
+const map = new MolangVariableMap();
+
 const command = {
     name: 'Air Bubble',
     description: 'Defend yourself from projectiles',
@@ -6,14 +11,13 @@ const command = {
     unlockable_for_avatar: 6,
     cooldown: 'fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("effect @s resistance 1 255 true");
-        player.runCommandAsync("particle a:air_blast_pop ~~1~")
-        player.runCommandAsync("particle a:air_bubble ~~~")
-        try { player.runCommandAsync(`execute as @e[r=8,name=!"${player.name}"] at @s run tp @s ^^^-5 facing "${player.name}"`); } catch (error) {}
-        try { player.runCommandAsync("event entity @e[r=10] instant_despawn"); } catch (error) {}
-        try { player.runCommandAsync("event entity @e[r=10] minecraft:despawn"); } catch (error) {}
-        try { player.runCommandAsync("event entity @e[r=10] minecraft:explode"); } catch (error) {}
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.bubble");
+
+        delayedFunc(player, (airBubble) => {
+            player.addEffect("resistancce", 25, { amplifier: 200, showParticles: false });
+            player.dimension.spawnParticle("a:air_bubble", player.location, map);
+        }, 12);
     }
 }
 

@@ -10,41 +10,58 @@
 			"scripts": {
 				"animate": [
 					"main",
-					"start",
 					"left",
 					"sneak",
+					"jump",
 					"sprint",
 					"water",
-					"rhx",
-					"rhy",
-					"death",
 					"offhand",
-					"full_moon",
-					"kill",
 					"health"
 				]
 			},
 			"animations": {
 				"main": "animation.main",
-				"start": "animation.start",
 				"left": "controller.animation.left",
 				"sneak": "controller.animation.sneak",
+				"jump": "controller.animation.jump",
 				"sprint": "controller.animation.sprint",
 				"water": "controller.animation.water",
-				"rhx": "controller.animation.rhx",
-				"rhy": "controller.animation.rhy",
-				"death": "controller.animation.death",
 				"offhand": "controller.animation.offhand",
-				"full_moon": "controller.animation.full_moon",
-				"kill": "controller.animation.kill",
 				"health": "controller.animation.health"
 			}
 		},
 		"component_groups": {
-			"a:earth": {
+			"a:health_normal": {
 				"minecraft:health": {
+					"value": 20,
+					"max": 20
+				}
+			},
+			"a:health_15": {
+				"minecraft:health": {
+					"value": 30,
+					"max": 30
+				}
+			},
+			"a:health_20": {
+				"minecraft:health": {
+					"value": 40,
 					"max": 40
-				},
+				}
+			},
+			"a:health_25": {
+				"minecraft:health": {
+					"value": 50,
+					"max": 50
+				}
+			},
+			"a:breath_water": {
+				"minecraft:breathable": {
+					"breathes_water": true,
+					"breathes_air": true
+				}
+			},
+			"a:breath_earth": {
 				"minecraft:breathable": {
 					"total_supply": 15,
 					"suffocate_time": -1,
@@ -59,201 +76,28 @@
 						"minecraft:gravel",
 						"minecraft:sand"
 					]
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": true
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
-					]
 				}
 			},
-			"a:air": {
-				"minecraft:health": {
-					"max": 20
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": false
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
-					]
-				},
-				"minecraft:breathable": {
-					"total_supply": 15,
-					"suffocate_time": -1,
-					"inhale_time": 3.75,
-					"generates_bubbles": false
-				}
-			},
-			"a:water": {
+			"a:breath_avatar": {
 				"minecraft:breathable": {
 					"breathes_water": true,
-					"breathes_air": true
-				},
-				"minecraft:health": {
-					"max": 30
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": true
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
-					]
-				}
-			},
-			"a:fire": {
-				"minecraft:health": {
-					"max": 30
-				},
-				"minecraft:breathable": {
+					"breathes_air": true,
 					"total_supply": 15,
 					"suffocate_time": -1,
 					"inhale_time": 3.75,
-					"generates_bubbles": false
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": true
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand"
 					]
 				}
 			},
-			"a:human": {
-				"minecraft:health": {
-					"max": 20
-				},
-				"minecraft:breathable": {
-					"total_supply": 15,
-					"suffocate_time": -1,
-					"inhale_time": 3.75,
-					"generates_bubbles": false
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": true
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
-					]
-				}
-			},
-			"a:avatar": {
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "fall",
-							"deals_damage": false
-						},
-						{
-							"cause": "entity_attack",
-							"deals_damage": true,
-							"on_damage": {
-								"event": "kill",
-								"target": "other",
-								"filters": {
-									"all_of": [
-										{
-											"test": "has_damage",
-											"subject": "self",
-											"value": "fatal"
-										}
-									]
-								}
-							}
-						}
-					]
-				},
+			"a:breath_normal": {
 				"minecraft:breathable": {
 					"total_supply": 15,
 					"suffocate_time": -1,
@@ -266,65 +110,127 @@
 						"minecraft:grass",
 						"minecraft:cobblestone",
 						"minecraft:gravel",
-						"minecraft:sand",
-						"minecraft:water",
-						"minecraft:flowing_water"
+						"minecraft:sand"
 					]
-				},
-				"minecraft:health": {
-					"max": 40
 				}
 			},
-			"normal": {
-				"minecraft:variant": {
-					"value": 452
+			"a:base_damage_normal": {
+				"minecraft:attack": {
+					"damage": 1
 				}
 			},
-			"kill": {
-				"minecraft:variant": {
-					"value": 455
+			"a:base_damage_2": {
+				"minecraft:attack": {
+					"damage": 2
 				}
 			},
-			"minecraft:add_bad_omen": {
-				"minecraft:spell_effects": {
-					"add_effects": [
+			"a:base_damage_3": {
+				"minecraft:attack": {
+					"damage": 3
+				}
+			},
+			"a:base_damage_4": {
+				"minecraft:attack": {
+					"damage": 4
+				}
+			},
+			"a:base_damage_5": {
+				"minecraft:attack": {
+					"damage": 5
+				}
+			},
+			"a:no_hunger": {
+				"minecraft:player.exhaustion": {
+					"max": 0
+				}
+			},
+			"a:normal_hunger": {
+				"minecraft:player.exhaustion": {
+					"max": 20
+				}
+			},
+			"a:no_mob_agro": {
+				"minecraft:type_family": {
+					"family": []
+				}
+			},
+			"a:mob_agro": {
+				"minecraft:type_family": {
+					"family": [
+						"player"
+					]
+				}
+			},
+			"a:contact_damage_off": {
+				"minecraft:damage_sensor": {
+					"triggers": [
 						{
-							"effect": "bad_omen",
-							"duration": 6000,
-							"display_on_screen_animation": true
+							"cause": "contact",
+							"deals_damage": false
+						},
+						{
+							"cause": "magma",
+							"deals_damage": false
 						}
 					]
-				},
-				"minecraft:timer": {
-					"time": [
-						0,
-						0
-					],
-					"looping": false,
-					"time_down_event": {
-						"event": "minecraft:clear_add_bad_omen",
-						"target": "self"
-					}
 				}
 			},
-			"minecraft:clear_bad_omen_spell_effect": {
-				"minecraft:spell_effects": {}
-			},
-			"minecraft:raid_trigger": {
-				"minecraft:raid_trigger": {
-					"triggered_event": {
-						"event": "minecraft:remove_raid_trigger",
-						"target": "self"
-					}
-				},
-				"minecraft:spell_effects": {
-					"remove_effects": "bad_omen"
+			"a:fall_damage_special": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"damage_multiplier": 0.3,
+							"on_damage": {
+								"event": "a:spawn_ground_particle"
+							}
+						}
+					]
 				}
+			},
+			"a:contact_fall_damage_off": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "contact",
+							"deals_damage": false
+						},
+						{
+							"cause": "magma",
+							"deals_damage": false
+						},
+						{
+							"cause": "fall",
+							"deals_damage": false
+						}
+					]
+				}
+			},
+			"a:reset_damage_sensor": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "contact",
+							"deals_damage": true
+						},
+						{
+							"cause": "magma",
+							"deals_damage": true
+						},
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"a:will_trigger_skulk_off": {
+				"minecraft:vibration_damper": {}
 			}
 		},
 		"components": {
 			"minecraft:experience_reward": {
-				"on_death": "Math.Min(query.player_level * 7, 100)"
+				"on_death": "Math.ceil(query.player_level * 7)"
 			},
 			"minecraft:type_family": {
 				"family": [
@@ -340,6 +246,7 @@
 				"height": 1.8
 			},
 			"minecraft:can_climb": {},
+			"minecraft:scaffolding_climber": {},
 			"minecraft:movement": {
 				"value": 0.1
 			},
@@ -445,147 +352,214 @@
 						"event": "minecraft:trigger_raid"
 					}
 				]
-			},
-			"minecraft:damage_sensor": {
-				"triggers": [
-					{
-						"cause": "entity_attack",
-						"deals_damage": true,
-						"on_damage": {
-							"event": "kill",
-							"target": "other",
-							"filters": {
-								"all_of": [
-									{
-										"test": "has_damage",
-										"subject": "self",
-										"value": "fatal"
-									}
-								]
-							}
-						}
-					}
-				]
 			}
 		},
 		"events": {
-			"become_earth": {
+			"a:set_health_normal": {
 				"add": {
 					"component_groups": [
-						"a:earth"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"a:air",
-						"a:water",
-						"a:fire",
-						"a:human",
-						"a:avatar"
+						"a:health_normal"
 					]
 				}
 			},
-			"become_fire": {
+			"a:set_health_15": {
 				"add": {
 					"component_groups": [
-						"a:fire"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"a:air",
-						"a:water",
-						"a:earth",
-						"a:human",
-						"a:avatar"
+						"a:health_15"
 					]
 				}
 			},
-			"become_air": {
+			"a:set_health_20": {
 				"add": {
 					"component_groups": [
-						"a:air"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"a:earth",
-						"a:water",
-						"a:fire",
-						"a:human",
-						"a:avatar"
+						"a:health_20"
 					]
 				}
 			},
-			"become_water": {
+			"a:set_health_25": {
 				"add": {
 					"component_groups": [
-						"a:water"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"a:earth",
-						"a:air",
-						"a:fire",
-						"a:human",
-						"a:avatar"
+						"a:health_25"
 					]
 				}
 			},
-			"become_avatar": {
-				"remove": {
-					"component_groups": [
-						"a:earth",
-						"a:air",
-						"a:water",
-						"a:fire",
-						"a:human"
-					]
-				},
+			"a:set_breath_water": {
 				"add": {
 					"component_groups": [
-						"a:avatar"
+						"a:breath_water"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_earth",
+						"a:breath_avatar",
+						"a:breath_normal"
 					]
 				}
 			},
-			"become_human": {
-				"remove": {
-					"component_groups": [
-						"a:earth",
-						"a:air",
-						"a:water",
-						"a:fire",
-						"a:avatar"
-					]
-				},
+			"a:set_breath_earth": {
 				"add": {
 					"component_groups": [
-						"a:human"
+						"a:breath_earth"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_water",
+						"a:breath_avatar",
+						"a:breath_normal"
 					]
 				}
 			},
-			"removekill": {
-				"remove": {
-					"component_groups": [
-						"kill"
-					]
-				},
+			"a:set_breath_avatar": {
 				"add": {
 					"component_groups": [
-						"normal"
+						"a:breath_avatar"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_water",
+						"a:breath_earth",
+						"a:breath_normal"
 					]
 				}
 			},
-			"kill": {
+			"a:set_breath_normal": {
 				"add": {
 					"component_groups": [
-						"kill"
+						"a:breath_normal"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"normal"
+						"a:breath_water",
+						"a:breath_avatar",
+						"a:breath_earth"
+					]
+				}
+			},
+			"a:set_base_damage_normal": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_normal"
+					]
+				}	
+			},
+			"a:set_base_damage_2": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_2"
+					]
+				}	
+			},
+			"a:set_base_damage_3": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_3"
+					]
+				}	
+			},
+			"a:set_base_damage_4": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_4"
+					]
+				}	
+			},
+			"a:set_base_damage_5": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_5"
+					]
+				}	
+			},
+			"a:no_hunger": {
+				"add": {
+					"component_groups": [
+						"a:no_hunger"
+					]
+				}
+			},
+			"a:normal_hunger": {
+				"add": {
+					"component_groups": [
+						"a:normal_hunger"
+					]
+				}
+			},
+			"a:no_mob_agro": {
+				"add": {
+					"component_groups": [
+						"a:no_mob_agro"
+					]
+				}
+			},
+			"a:mob_agro": {
+				"add": {
+					"component_groups": [
+						"a:mob_agro"
+					]
+				}
+			},
+			"a:reset_damage_sensor": {
+				"add": {
+					"component_groups": [
+						"a:reset_damage_sensor"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:fall_damage_off",
+						"a:fall_damage_on",
+						"contact_damage_on",
+						"contact_damage_off"
+					]
+				}
+			},
+			"a:set_contact_damage_off": {
+				"add": {
+					"component_groups": [
+						"a:contact_damage_off"
+					]
+				}	
+			},
+			"a:set_fall_damage_off": {
+				"add": {
+					"component_groups": [
+						"a:contact_fall_damage_off"
+					]
+				}	
+			},
+			"a:set_trigger_skulk_off": {
+				"add": {
+					"component_groups": [
+						"a:will_trigger_skulk_off"
+					]
+				}
+			},
+			"a:set_trigger_skulk_on": {
+				"remove": {
+					"component_groups": [
+						"a:will_trigger_skulk_off"
+					]
+				}
+			},
+			"a:set_special_fall_damage": {
+				"add": {
+					"component_groups": [
+						"a:fall_damage_special"
+					]
+				}
+			},
+			"a:spawn_ground_particle": {
+				"run_command": {
+					"command": [
+						"execute if entity @s[tag=water] run particle a:water_blast_pop ~~0.3~",
+						"execute if entity @s[tag=earth] run particle a:earth_shockwave ~~0.1~",
+						"execute if entity @s[tag=earth] run damage @e[r=10,rm=0.4] 5",
+						"execute if entity @s[tag=earth] run playanimation @s animation.earth.landing",
+						"execute if entity @s[tag=earth] run camerashake add @a[r=5] 0.4 0.3 positional"
 					]
 				}
 			},

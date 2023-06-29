@@ -1,0 +1,30 @@
+{
+	"format_version": "1.19.10",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "a:red_blooded_nephew_tea_recipe"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"ingredients": [
+			{
+				"item": "minecraft:fire_charge"
+			},
+            {
+				"item": "minecraft:sweet_berries"
+			},
+            {
+				"item": "minecraft:blaze_powder"
+			},
+			{
+				"item": "a:water_cup"
+			}
+		],
+		"result": [
+			{
+				"item": "a:red_blooded_nephew_tea"
+			}
+		]
+	}
+}

@@ -1,7 +1,4 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { setScore, getScore, playSound, delayedFunc } from "./../../util.js";
 
 const command = {
     name: 'Earth Lift',
@@ -11,21 +8,25 @@ const command = {
     unlockable_for_avatar: 51,
     cooldown: 'slow',
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (getScore("ground", player) === 1) {
-			player.runCommandAsync("playsound dig.grass @a[r=10]");
+        setScore(player, "cooldown", 0);
+
+		if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+
+		player.playAnimation("animation.earth.lift");
+        player.runCommand("inputpermission set @s movement disabled");
+
+		delayedFunc(player, (earthPillarReturn) => {
 			let {x, y, z} = player.location;
-			player.runCommandAsync("clone ~5~-2~5 ~-5~4~-5 ~-5~4~-5 masked move");
-			player.runCommandAsync("execute as @e[r=10] at @s run tp @s ~~6~");
-			let dropTick = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;
-				if (event.currentTick - startTick > 100) {
-					world.events.tick.unsubscribe(dropTick);
-					try { player.runCommandAsync(`execute as @s positioned ${x} ${y+6} ${z} run clone ~5 ~4 ~5 ~-5 ~-4 ~-5 ~-5 ~-10 ~-5 masked move`); } catch (error) {}
-					startTick = undefined;
-				}
-			})
-		}
+			player.runCommand("clone ~5~-2~5 ~-5~4~-5 ~-5~4~-5 masked move");
+			player.runCommand("execute as @e[r=10] at @s run tp @s ~~6~");
+			playSound(player, 'dig.grass', 1, player.location, 2);
+			player.runCommand("inputpermission set @s movement enabled");
+			setScore(player, "cooldown", 0);
+
+			delayedFunc(player, (earthPillarReturn) => {
+				player.runCommand(`execute as @s positioned ${x} ${y+6} ${z} run clone ~5 ~4 ~5 ~-5 ~-4 ~-5 ~-5 ~-10 ~-5 masked move`);
+			}, 60);
+		}, 20);
     }
 }
 

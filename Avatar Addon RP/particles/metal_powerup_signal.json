@@ -14,10 +14,11 @@
 				"rotation": true,
 				"velocity": true
 			},
-			"minecraft:emitter_rate_instant": {
-				"num_particles": 4
+			"minecraft:emitter_rate_steady": {
+				"spawn_rate": 100,
+				"max_particles": 400
 			},
-			"minecraft:emitter_lifetime_once": {
+			"minecraft:emitter_lifetime_looping": {
 				"active_time": 1
 			},
 			"minecraft:emitter_shape_disc": {

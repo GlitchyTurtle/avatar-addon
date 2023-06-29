@@ -17,19 +17,20 @@ export function movesetMenu(source) {
     for (let i = 0; i < tags.length; i++) {
 		if (tags[i].startsWith("Moveset:")) {
 			let current = tags[i].split(" ")
-            movesetDelete.button(`${current[0].replace('Moveset:', '')}`, "textures/ui/delete");
-			movesetLoad.button(`${current[0].replace('Moveset:', '')}`, "textures/ui/load");
+            movesetDelete.button(`${current[0].replace('Moveset:', '')}`, "textures/ui/avatar/delete");
+			movesetLoad.button(`${current[0].replace('Moveset:', '')}`, "textures/ui/avatar/load");
 			test.push(`${tags[i]}`)
 			count = ++count;
         }
     }
+	
     let movesetMain = new ActionFormData();
     movesetMain.title("Moveset Menu: Main");
     movesetMain.body("Create a new moveset, or delete one you have already created!");
-    movesetMain.button("Create", "textures/ui/create");
+    movesetMain.button("Create", "textures/ui/avatar/create");
 	if (count > 0) {
-		movesetMain.button("Load", "textures/ui/load");
-		movesetMain.button("Delete", "textures/ui/delete");
+		movesetMain.button("Load", "textures/ui/avatar/load");
+		movesetMain.button("Delete", "textures/ui/avatar/delete");
 	}
 	
 	let movesetCreate = new ModalFormData();
@@ -76,7 +77,7 @@ export function movesetMenu(source) {
 					return;
 				}
 				// Store their new moveset lists
-				source.addTag(`Moveset:${args} ${getScore("moveslot1", source)} ${getScore("moveslot2", source)} ${getScore("moveslot3", source)} ${getScore("moveslot4", source)}`);
+				source.addTag(`Moveset:${args} ${getScore("moveslot1", source)} ${getScore("moveslot2", source)} ${getScore("moveslot3", source)} ${getScore("moveslot4", source)} ${getScore("moveslot5", source)} ${getScore("moveslot6", source)} ${getScore("moveslot7", source)} ${getScore("moveslot8", source)} ${getScore("moveslot9", source)}`);
 				source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§a"},{"text":"Saved moveset ${args}!"}]}`)
 			})
         } else if (selection === 1) {
@@ -86,7 +87,7 @@ export function movesetMenu(source) {
 				let tags = source.getTags();
 				for (let i = 0; i < tags.length; i++) {
 					if (tags[i].startsWith("Moveset:") && tags[i].startsWith(home[0].toString())) {
-						for (let b = 1; b < 5; b++) {
+						for (let b = 1; b < 10; b++) {
 							source.runCommandAsync( `scoreboard players set @s moveslot${b} ${home[b]}`);
 						}
 						source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§a"},{"text":"Loaded moveset ${home[0].replace("Moveset:","")} successfully!"}]}`);

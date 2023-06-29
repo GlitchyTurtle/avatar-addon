@@ -1,151 +1,327 @@
 import { world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { getScore, showWarning } from "./../util.js";
+import { getScore, setScore, getBendingStyle, parseSettings, levelUp } from "./../util.js";
+import { showStats } from "./statsMenu.js";
+import { chooseType, resetPlayer } from "./chooseBendingMenu.js";
+import { checkForUnlocks } from "./skillTreeMenu.js";
+import { protectArea } from "../admin/protect.js";
+import { debug } from "../admin/debug.js";
+
+function playerSettings(source) {
+	let playerNames = [];
+	let players = [];
+    for (let player of world.getPlayers()) {
+        playerNames.push(player.name);
+		players.push(player);
+    }
+
+	let playerSettingMenuLevel = new ModalFormData();
+    playerSettingMenuLevel.title("Select player to edit");
+	playerSettingMenuLevel.dropdown("Player Name:", playerNames, 0);
+
+	playerSettingMenuLevel.show(source).then((ModalFormResponse) => {
+		const { formValues } = ModalFormResponse;
+		if (!formValues) return source.sendMessage("§cYou exited the menu, so your selection was not saved!");
+
+		const [playerSelected] = formValues;
+		const target = players[playerSelected];
+		playerOptions(source, target);
+	})
+}
+
+function playerOptions(player, target) {
+	let playerOptions = new ActionFormData();
+    playerOptions.title(`Edit Player: ${target.name}`);
+    playerOptions.body("Choose a setting to edit for the selected player.");
+	playerOptions.button("Player Level", "textures/ui/avatar/player_settings");
+	playerOptions.button("Player Skill Tree", "textures/ui/avatar/skill_tree");
+	playerOptions.button("Player Inventory", "textures/ui/avatar/inventory");
+	playerOptions.button("Bending Options", `textures/ui/avatar/avatar_logo`);
+	playerOptions.button("Player Stats", `textures/ui/avatar/info`);
+	playerOptions.button("Reset Player", `textures/ui/avatar/delete`);
+
+	let selectionList = ["PlayerLevel", "PlayerSkillTree", "PlayerInventory", "BendingOptions", "PlayerStats", "ResetPlayer"];
+	playerOptions.show(player).then((ActionFormResponse) => {
+		const { selection } = ActionFormResponse;
+		switch(selectionList[selection]) {
+			case "PlayerLevel":
+				playerLevel(player, target);
+				break;
+			case "PlayerSkillTree":
+				playerSkillTree(player, target);
+				break;
+			case "PlayerInventory":
+				seeInventory(player, target);
+				break;
+			case "BendingOptions":
+				playerBending(player, target)
+				break;
+			case "PlayerStats":
+				showStats(player, target);
+				break;
+			case "ResetPlayer":
+				resetPlayer(target);
+				player.sendMessage(`§7${target.name} has been completely reset.`)
+				break;
+		}
+	})
+}
+
+function playerLevel(player, target) {
+	const prevLvl = getScore("level", target);
+	
+	let levelTreeSettings = new ModalFormData();
+    levelTreeSettings.title("Edit Player Skills Level");
+	levelTreeSettings.slider("Level", 0, 100, 1, prevLvl);
+
+	levelTreeSettings.show(player).then((ModalFormResponse) => {
+		const { formValues } = ModalFormResponse;
+		if (!formValues) return player.sendMessage("§cYou exited the menu, so your selection was not saved!");
+		const [level] = formValues;
+
+		if (prevLvl < level) {
+			for (var i = prevLvl; i < level; i++) {
+				levelUp(target);
+			}
+		} else {
+			setScore(target, "level", level);
+		}
+		player.sendMessage(`§hUpdated ${target.name}'s level: §b${prevLvl}§7 => §b${level}`);
+	})
+}
+
+function playerSkillTree(player, target) {
+    const OFF_TIER = getScore("offTier", target);
+    const DEF_TIER = getScore("defTier", target);
+    const UTI_TIER = getScore("utiTier", target);
+    const MOB_TIER = getScore("mobTier", target);
+
+	let levelTreeSettings = new ModalFormData();
+    levelTreeSettings.title("Edit Player Skills Level");
+	levelTreeSettings.slider("Offense Tier", 0, 10, 1, OFF_TIER);
+	levelTreeSettings.slider("Defense Tier", 0, 10, 1, DEF_TIER);
+	levelTreeSettings.slider("Utility Tier", 0, 10, 1, UTI_TIER);
+	levelTreeSettings.slider("Mobility Tier", 0, 10, 1, MOB_TIER);
+
+	levelTreeSettings.show(player).then((ModalFormResponse) => {
+		const { formValues } = ModalFormResponse;
+		if (!formValues) return player.sendMessage("§cYou exited the menu, so your selection was not saved!");
+		const [offTier, defTier, utiTier, mobTier] = formValues;
+		
+		setScore(target, "offTier", offTier);
+		for (var i = OFF_TIER; i <= offTier; i++) {
+			checkForUnlocks(target, getBendingStyle(target).toLowerCase(), "offTier", i);
+		}
+
+		setScore(target, "defTier", defTier);
+		for (var i = DEF_TIER; i <= defTier; i++) {
+			checkForUnlocks(target, getBendingStyle(target).toLowerCase(), "defTier", i);
+		}
+
+		setScore(target, "utiTier", utiTier);
+		for (var i = UTI_TIER; i <= utiTier; i++) {
+			checkForUnlocks(target, getBendingStyle(target).toLowerCase(), "utiTier", i);
+		}
+
+		setScore(target, "mobTier", mobTier);
+		for (var i = MOB_TIER; i <= mobTier; i++) {
+			checkForUnlocks(target, getBendingStyle(target).toLowerCase(), "mobTier", i);
+		}
+
+		const messages = [];
+		
+		if (OFF_TIER != offTier) messages.push(`§hUpdated ${target.name}'s Offense Tier: §b${OFF_TIER}§7 => §b${offTier}`);
+		if (DEF_TIER != defTier) messages.push(`§hUpdated ${target.name}'s Defense Tier: §b${OFF_TIER}§7 => §b${defTier}`);
+		if (UTI_TIER != utiTier) messages.push(`§hUpdated ${target.name}'s Utility Tier: §b${OFF_TIER}§7 => §b${utiTier}`);
+		if (MOB_TIER != mobTier) messages.push(`§hUpdated ${target.name}'s Mobility Tier: §b${OFF_TIER}§7 => §b${mobTier}`);
+
+		player.sendMessage(messages.join('\n'));
+	})
+}
+
+function playerBending(player, target) {
+	let playerBendingMenu = new ActionFormData();
+	const selectionList = ["Non-Bender", "Air", "Water", "Fire", "Earth", "Avatar"];
+	const selectedBendingType = getBendingStyle(target);
+	for (const bendingType of selectionList) {
+		const texturePath = bendingType === "Non-Bender"
+			? "textures/ui/brewing_fuel_empty"
+			: `textures/ui/avatar/${bendingType.toLowerCase()}`;
+	  
+		const highlightedText = bendingType === selectedBendingType
+			? `${bendingType} §l[Selected]§r`
+			: bendingType;
+	  
+		playerBendingMenu.button(highlightedText, texturePath);
+	}
+	
+	// Show the menu and respond	
+	playerBendingMenu.show(player).then((ActionFormResponse) => {
+		const { selection } = ActionFormResponse;
+		if (selection === undefined) return player.sendMessage("§cYou exited the menu, so your selection was not saved.");
+
+		// Reset the tags and scores, then add new ones
+		resetPlayer(target);
+		player.sendMessage(`§hSet §b${target.name}'s§h bending style to §b${selectionList[selection]}§h.`);
+		switch(selectionList[selection]) {
+			case "Non-Bender":
+				setScore(target, "level", 20, false)
+				target.onScreenDisplay.setTitle("a:reset");
+				break;
+			case "Air":
+				chooseType(target, "air");
+				break;
+			case "Water":
+				chooseType(target, "water");
+				break;
+			case "Fire":
+				chooseType(target, "fire");
+				break;
+			case "Earth":
+				chooseType(target, "earth");
+				break;
+			case "Avatar":
+				chooseType(target, "avatar");
+				break;
+		}
+	});
+}
+
+function seeInventory(player, target) {
+		let container = target.getComponent('inventory').container;
+		player.sendMessage('-----------------------------------------');
+		player.sendMessage(`§b${target.nameTag}§r's inventory:\n`);
+		for (let i = 0; i < container.size; i++) {
+			if (container.getItem(i)) {
+				let o = container.getItem(i);
+				player.sendMessage(`§bSlot ${i+1}:§r ${o.typeId.replace("minecraft:", "").replace("a:", "")} x${o.amount}§r`);
+			}
+		}
+		player.sendMessage('-----------------------------------------');
+}
+
+function worldSettings(player) {
+	let PREV_SETTINGS = parseSettings(getScore("settings", player));
+	const settings = [
+		{ name: "Choosing Bending", value: PREV_SETTINGS.BENDING_OPT, type: "dropdown", options: ["Chosen", "Random", "Admin Only"]},
+		{ name: "Avatar Setting", value: PREV_SETTINGS.AVATAR_OPT, type: "dropdown", options: ["No Avatar", "Avatar Random", "Avatar For All"]},
+		{ name: "Leveling Speed", value: PREV_SETTINGS.LEVEL_SPD, type: "slider", min: 1, max: 8, step: 1},
+		{ name: "Chat ranks", value: PREV_SETTINGS.CHAT_RANKS, type: "toggle"},
+		{ name: "Shop System", value: PREV_SETTINGS.SHOP_SYS, type: "toggle"},
+		{ name: "Sethome System", value: PREV_SETTINGS.HOME_SYS, type: "toggle"},
+		{ name: "Bending Choice Final", value: PREV_SETTINGS.CHOICE_FINAL, type: "toggle"},
+		{ name: "Instant Cooldown (buggy)", value: PREV_SETTINGS.COOLDOWNS, type: "toggle"}
+	];
+	
+	const worldSettings = new ModalFormData().title("Settings")	
+	for (let i = 0; i < settings.length; i++) {
+		let setting = settings[i]
+		switch (setting.type) {
+			case "toggle":
+				worldSettings.toggle(setting.name + ":", setting.value);
+				break;
+			case "dropdown":
+				worldSettings.dropdown(setting.name + ":", setting.options, setting.value);
+				break;
+			case "slider":
+				worldSettings.slider(setting.name, setting.min, setting.max, setting.step, setting.value);
+				break;
+		}
+	}
+
+	worldSettings.show(player).then(async (ModalFormResponse) => {
+		const { formValues } = ModalFormResponse;
+		if (!formValues) return player.sendMessage("§cYou exited the menu, so your selection was not saved!");
+
+		let [bending, avatarSet, levelSpeed, chatRank, shopSys, homeSys, finalChoice, cooldowns] = formValues;
+
+		let message = "";
+		for (let i = 0; i < formValues.length; i++) {
+			let setting = settings[i];
+			if (formValues[i] != setting.value) {
+				switch (setting.type) {
+					case "toggle":
+						message += `§hUpdated ${setting.name}: ${setting.value ? "§aTrue" : "§cFalse"}§7 => ${formValues[i] ? "§aTrue" : "§cFalse"}\n`;
+						break;
+					case "dropdown":
+						message += `§hUpdated ${setting.name}: §b${setting.options[setting.value]}§7 => §b${setting.options[formValues[i]]}\n`;
+						break;
+					case "slider":
+						message += `§hUpdated ${setting.name}: §b${setting.value}§7 => §b${formValues[i]}\n`;
+						break;
+				}
+			}
+		}
+		if (message) player.sendMessage(`----------------\n${message}§r----------------`)
+		let newSettings = `${Number(bending) + 1}${Number(avatarSet) + 1}${Number(levelSpeed) + 1}${Number(chatRank) + 1}${Number(shopSys) + 1}${Number(homeSys) + 1}${Number(finalChoice) + 1}${Number(cooldowns) + 1}`;
+		await player.runCommandAsync(`scoreboard players set avatar:config settings ${newSettings}`);
+		await player.runCommandAsync("scoreboard players operation @a settings = avatar:config settings");
+	});
+}
+
+function runCode(player) {
+	let runCodeMenu = new ModalFormData();
+    runCodeMenu.title("Run JS Code:");
+	runCodeMenu.textField("Code", "player.applyKnockback(1,1,1,1);");
+
+	runCodeMenu.show(player).then((ModalFormResponse) => {
+		const { formValues } = ModalFormResponse;
+		if (!formValues) return player.sendMessage("§cYou exited the menu, so your selection was not saved!");
+		let code = formValues[0];
+		try {
+			eval(code);
+		} catch (err) {
+			player.sendMessage("§cFailed to execute code!")
+		}
+	});
+}
+
+function devTools(source) {
+	let devToolsMenu = new ActionFormData();
+    devToolsMenu.title("Admin Menu: Main");
+    devToolsMenu.body("Select a setting to edit");
+	devToolsMenu.button("Protect Area", "textures/ui/avatar/home");
+	devToolsMenu.button("Run JS Code", "textures/ui/avatar/runcode");
+	devToolsMenu.button("Debug", "textures/ui/avatar/ping");
+
+	let selectionList = ["ProtectArea", "RunJSCode", "Debug"];
+	devToolsMenu.show(source).then((ActionFormResponse) => {
+		const { selection } = ActionFormResponse;
+		switch(selectionList[selection]) {
+			case "ProtectArea":
+				protectArea(source);
+				break;
+			case "RunJSCode":
+				runCode(source);
+				break;
+			case "Debug":
+				debug(source);
+				break;
+		}
+	})
+}
 
 export function adminMenu(source) {
 	let adminMain = new ActionFormData();
     adminMain.title("Admin Menu: Main");
     adminMain.body("Select a setting to edit");
-	adminMain.button("Player Level", "textures/ui/player_settings");
-	adminMain.button("Player Inventory", "textures/ui/inventory");
-	adminMain.button("World Settings", "textures/ui/home");
-	adminMain.button("Ping", "textures/ui/ping");
-	
-	let players = [];
-    for (let player of world.getPlayers()) {
-        players.push(player.nameTag);
-    }
-	
-	let chatSettings = ["No Chat Ranks", "Logo Chat Ranks"];
-	let avatarSettings = ["No Avatar", "Avatar For All"];
-	let worldSettingMenu = new ModalFormData();
-    worldSettingMenu.title("Edit World Settings");
+	adminMain.button("Edit Player", "textures/ui/avatar/player_settings");
+	adminMain.button("World Settings", "textures/ui/avatar/home");
+	adminMain.button("Dev Tools", "textures/ui/avatar/runcode");
 
-	worldSettingMenu.dropdown("Chat ranks:", chatSettings, !getScore("chatRankSet", source));
-
-	worldSettingMenu.dropdown("Avatar setting:", avatarSettings, !getScore("avatarSet", source));
-	if (!getScore("shop", source)) {
-		worldSettingMenu.toggle("Shop System", true);
-	} else {
-		worldSettingMenu.toggle("Shop System", false);
-	}
-	if (!getScore("home", source)) {
-		worldSettingMenu.toggle("Sethome System", true);
-	} else {
-		worldSettingMenu.toggle("Sethome System", false);
-	}
-	if (!getScore("cdSet", source)) {
-		worldSettingMenu.toggle("Cooldown Time (buggy)", true);
-	} else {
-		worldSettingMenu.toggle("Cooldown Time (buggy)", false);
-	}
-	
-	let playerSettingMenuLevel = new ModalFormData();
-    playerSettingMenuLevel.title("Edit Player Level");
-	playerSettingMenuLevel.dropdown("Player Name:", players, 0);
-	playerSettingMenuLevel.slider("Player Level", 0, 200, 1, 0);
-	
-	let playerInventoryMenu = new ModalFormData();
-    playerInventoryMenu.title("See Player Inventory");
-	playerInventoryMenu.dropdown("Player Name:", players, 0);
-	
+	let selectionList = ["EditPlayer", "WorldSettings", "DevTools"];
 	adminMain.show(source).then((ActionFormResponse) => {
 		const { selection } = ActionFormResponse;
-        if (selection === 0) {
-			playerSettingMenuLevel.show(source).then((ModalFormResponse) => {
-				const { formValues } = ModalFormResponse;
-				let [playerSelected, levelSelected] = formValues;
-				source.runCommandAsync( `playsound random.levelup @s`);
-				source.runCommandAsync( `scoreboard players set ${players[playerSelected]} sub_level 0`);
-				source.runCommandAsync( `scoreboard players set ${players[playerSelected]} level ${levelSelected}`);
-				source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§aSet ${players[playerSelected]}'s level to ${levelSelected}."}]}`);
-			})
-
-		} else if (selection === 1) {
-			playerInventoryMenu.show(source).then((ModalFormResponse) => {
-				const { formValues } = ModalFormResponse;
-				let [playerSelected] = formValues;
-				source.runCommandAsync( `playsound random.levelup @s`);
-				let member;
-				for (let pl of world.getPlayers()) {
-					if (pl.nameTag.toString() === players[playerSelected].toString()) {
-						member = pl;
-						break;
-					}
-				}
-				let container = member.getComponent('inventory').container;
-				source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
-				source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§b${member.nameTag}§r's inventory:\n"}]}`);
-				for (let i = 0; i < container.size; i++) {
-					if (container.getItem(i)) {
-						let o = container.getItem(i);
-						source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§bSlot ${i+1}:§r ${o.typeId.replace("minecraft:", "").replace("a:", "")} x${o.amount}§r"}]}`);
-					}
-				}
-				source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"-----------------------------------------§r"}]}');
-			})
-		} else if (selection === 2) {
-			worldSettingMenu.show(source).then((ModalFormResponse) => {
-				source.runCommandAsync( `playsound random.levelup @s`);
-				const { formValues } = ModalFormResponse;
-				let [chatRank, avatarSet, shopSys, homeSys, cooldowns] = formValues;
-				console.warn(`C${chatRank} A${avatarSet} S${shopSys} H${homeSys} C${cooldowns}`);
-				//Remember, in this case, 1 is False, and 0 is True!
-				if (chatRank) {
-					source.runCommandAsync( 'scoreboard players set avatar:config chatRankSet 0');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§aChat Ranks are now enabled!"}]}');
-				} else {
-					source.runCommandAsync( 'scoreboard players set avatar:config chatRankSet 1');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§cChat Ranks are now disabled."}]}');
-				}
-
-				if (avatarSet) {
-					source.runCommandAsync( 'scoreboard players set avatar:config avatarSet 0');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§aChoosing the Avatar is now enabled!"}]}');
-				} else {
-					source.runCommandAsync( 'scoreboard players set avatar:config avatarSet 1');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§cChoosing the Avatar is now disabled."}]}');
-				}
-
-				if (shopSys) {
-					source.runCommandAsync( 'scoreboard players set avatar:config shop 0');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§aShops are now enabled!"}]}');
-				} else {
-					source.runCommandAsync( 'scoreboard players set avatar:config shop 1');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§cShops are now disabled."}]}');
-				}
-				if (homeSys) {
-					source.runCommandAsync( 'scoreboard players set avatar:config home 0');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§aHomes are now enabled!"}]}');
-				} else {
-					source.runCommandAsync( 'scoreboard players set avatar:config home 1');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§cHomes are now disabled."}]}');
-				}
-				if (cooldowns) {
-					source.runCommandAsync( 'scoreboard players set avatar:config cdSet 0');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§aCooldowns are now enabled!"}]}');
-				} else {
-					showWarning(source, "Cooldowns Disabled", "Warning! This is not an intended feature, so any bugs experienced here are not worth reporting. Enabling this feature may cause extra lag, crashes, and more.");
-					source.runCommandAsync( 'scoreboard players set avatar:config cdSet 1');
-					source.runCommandAsync( 'tellraw @s {"rawtext":[{"text":"§cCooldowns are now disabled."}]}');
-				}
-				source.runCommandAsync( 'scoreboard players operation @a chatRankSet = avatar:config chatRankSet');
-				source.runCommandAsync( 'scoreboard players operation @a avatarSet = avatar:config avatarSet');
-				source.runCommandAsync( 'scoreboard players operation @a shop = avatar:config shop');
-				source.runCommandAsync( 'scoreboard players operation @a home = avatar:config home');
-				source.runCommandAsync( 'scoreboard players operation @a cdSet = avatar:config cdSet');
-			})
-		} else if (selection === 3) {
-			source.runCommandAsync( `playsound random.levelup @s`);
-		    let pingTick = world.events.tick.subscribe(({ deltaTime }) => {
-				let tps = 1/deltaTime
-				if (tps > 10) {
-					source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§aPong! Current TPS: ${tps}"}]}`);
-				} else {
-					source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cPong! Current TPS: ${tps}"}]}`);
-				}
-				world.events.tick.unsubscribe(pingTick);
-			})
+		switch(selectionList[selection]) {
+			case "EditPlayer":
+				playerSettings(source);
+				break;
+			case "WorldSettings":
+				worldSettings(source);
+				break;
+			case "DevTools":
+				devTools(source);
+				break;
 		}
 	})
 }

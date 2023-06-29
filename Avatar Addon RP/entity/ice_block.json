@@ -4,7 +4,7 @@
     "description": {
       "identifier": "a:ice_block",
       "materials": {
-        "default": "entity"
+        "default": "entity_alphablend"
       },
       "textures": {
         "default": "textures/entity/ice_block"

@@ -1,109 +1,173 @@
+import { MolangVariableMap } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui"
-import { getScore } from "./../util.js";
+import { setScore, getScore, parseSettings, getBendingStyle } from "./../util.js";
+
+// To spawn particles
+const map = new MolangVariableMap();
+
+// Tags that need to be removed
+const removeTags = [
+	"air",
+	"earth",
+	"fire",
+	"water",
+	"avatar",
+	"avatar_state",
+	"kb_up",
+	"sub_projectile",
+	"avatar_particles",
+	"fast_cooldown",
+	"super_fast_cooldown",
+	"antimagic",
+	"spirit",
+	"chi_blocked",
+	"permKbSafe",
+	"double_jump",
+];
+
+// Events that reset other skill tree events
+const resetEvents = [
+	"a:set_trigger_skulk_on",
+	"a:reset_damage_sensor",
+	"a:normal_hunger",
+	"a:set_base_damage_normal",
+	"a:set_breath_normal",
+	"a:set_health_normal",
+	"a:mob_agro"
+];
+
+// Scores that need to be reset
+const resetScores = [
+	"level",
+	"sub_level",
+	"skill_points",
+	"defTier",
+	"offTier",
+	"utiTier",
+	"mobTier",
+	"moveslot1",
+	"moveslot2",
+	"moveslot3",
+	"moveslot4",
+	"moveslot5",
+	"moveslot6",
+	"moveslot7",
+	"moveslot8",
+	"moveslot9",
+]
+
+export function resetPlayer(player) {
+	// Remove tags
+	const tags = player.getTags();
+	for (const tag of removeTags) {
+		player.removeTag(tag);
+	}
+	for (const tag of tags) {
+		if (tag.startsWith('sub_') || tag.startsWith('Moveset:')) {
+			player.removeTag(tag);
+		}
+	}
+
+	// Reset events
+	for (const event of resetEvents) {
+		player.triggerEvent(event);
+	}
+
+	// Reset scores
+	for (const score of resetScores) {
+		setScore(player, score, 0);
+	}
+}
+
+export function chooseType(player, typeName) {
+	player.addTag(typeName)
+	player.dimension.spawnParticle(`a:choose_${typeName}`, player.location, map);
+	player.onScreenDisplay.setTitle(`a:${typeName}`);
+}
 
 export function chooseBendingMenu(source) {
 	// Quick checks
-	if (source.hasTag('bending_off')) {
-		return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cYou need to enable bending to choose!§r"}]}`);
+	if (source.hasTag('bending_off')) return source.sendMessage("§cYou need to enable bending to choose!");
+
+	// So we can access settings
+	const SETTINGS = parseSettings(getScore("settings", source));
+
+	if (SETTINGS.CHOICE_FINAL && source.hasTag("alreadyChose")) return source.sendMessage("§cOn this server, all picks are final. No changing now!");
+	if (SETTINGS.BENDING_OPT === 2) return source.sendMessage("§cOn this server, an admin must choose your bending for you!");
+
+	if (SETTINGS.BENDING_OPT === 1) {
+		resetPlayer(source);
+		let selectionList = ["Non-Bender", "Air", "Water", "Fire", "Earth"]
+		if (SETTINGS.AVATAR_OPT >= 1) selectionList.push("Avatar");
+		source.sendMessage("§cOn this server, your bending is randomly chosen!");
+
+		const randomChoice = selectionList[Math.floor(Math.random() * selectionList.length)]
+		if (randomChoice === "Non-Bender") {
+			setScore(source, "level", 20, false)
+			source.onScreenDisplay.setTitle("a:reset");
+		} else if (randomChoice === "Avatar") {
+			chooseType(source, randomChoice.toLowerCase());
+			let newSettings = getScore("settings", source).toString();
+			var chars = newSettings.split('');
+			chars[1] = "0";
+			newSettings = chars.join('');
+			source.runCommand(`scoreboard players set avatar:config settings ${newSettings}`);
+			source.runCommand("scoreboard players operation @a settings = avatar:config settings");
+		} else {
+			chooseType(source, randomChoice.toLowerCase());
+		}
+
+		let bendingStyle;
+		if (source.hasTag("air") || source.hasTag("fire") || source.hasTag("earth") || source.hasTag("water")) {
+			bendingStyle = getBendingStyle(source) + "bender";
+		} else {
+			bendingStyle = getBendingStyle(source);
+		}
+		source.sendMessage(`§7You have become a ${bendingStyle}!`);
+		if (SETTINGS.CHOICE_FINAL) source.addTag("alreadyChose");
+		return;
 	}
 
 	// Choose bending menu, which I called choose style
 	let chooseStyle = new ActionFormData();
 	chooseStyle.title("Bending Style Menu");
 	chooseStyle.body("Choose your bending style here! Your level will be reset upon choosing though.");
-	chooseStyle.button("Air", "textures/ui/air");
-	chooseStyle.button("Water", "textures/ui/water");
-	chooseStyle.button("Fire", "textures/ui/fire");
-	chooseStyle.button("Earth", "textures/ui/earth");
-	if (!getScore("avatarSet", source)) {
-		chooseStyle.button("Avatar", "textures/ui/avatar");
-	}
-	chooseStyle.button("Human", "textures/ui/brewing_fuel_empty");
+	chooseStyle.button("Non-Bender", "textures/ui/brewing_fuel_empty");
+	chooseStyle.button("Air", "textures/ui/avatar/air");
+	chooseStyle.button("Water", "textures/ui/avatar/water");
+	chooseStyle.button("Fire", "textures/ui/avatar/fire");
+	chooseStyle.button("Earth", "textures/ui/avatar/earth");
+	if (SETTINGS.AVATAR_OPT === 2) chooseStyle.button("Avatar", "textures/ui/avatar/avatar");
+
+	let selectionList = ["Non-Bender", "Air", "Water", "Fire", "Earth", "Avatar"]
 
 	// Show the menu and respond	
 	chooseStyle.show(source).then((ActionFormResponse) => {
-		if (source.hasTag('bending_off')) { return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cYou need to enable bending to choose!§r"}]}`); }
 		const { selection } = ActionFormResponse;
-		if (selection === undefined) { return }
-		source.runCommandAsync( "scoreboard players set @s moveslot1 0");
-		source.runCommandAsync( "scoreboard players set @s moveslot2 0");
-		source.runCommandAsync( "scoreboard players set @s moveslot3 0");
-		source.runCommandAsync( "scoreboard players set @s moveslot4 0");
-		try { source.runCommandAsync( "tag @s remove air"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove earth"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove fire"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove water"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove avatar"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_projectile"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_spirit"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_metal"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_lava"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_combustion"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_lightning"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_blood"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove sub_healing"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove mobile"); } catch (error) {}
-		try { source.runCommandAsync( "tag @s remove avatar_state"); } catch (error) {}
-		source.runCommandAsync( "scoreboard players set @s level 0");
-		source.runCommandAsync( "scoreboard players set @s sub_level 0");
-		let tags = source.getTags();
-		for (let i = 0; i < tags.length; i++) {
-			if (tags[i].startsWith("Moveset:")) {
-				source.removeTag(tags[i]);
-			}
-		}
-		switch(selection) {
-			case 0:
-				source.runCommandAsync( "event entity @s become_air");
-				source.runCommandAsync( "tag @s add air");
-				source.runCommandAsync( "particle a:choose_air");
-				source.runCommandAsync( "title @s title a:air");
+		if (selection === undefined) return;
+
+		// Reset the tags and scores, then add new ones
+		resetPlayer(source);
+		if (SETTINGS.CHOICE_FINAL) source.addTag("alreadyChose");
+		switch(selectionList[selection]) {
+			case "Non-Bender":
+				setScore(source, "level", 20, false)
+				source.onScreenDisplay.setTitle("a:reset");
 				break;
-			case 1:
-				source.runCommandAsync( "event entity @s become_water");
-				source.runCommandAsync( "tag @s add water");
-				source.runCommandAsync( "particle a:choose_water");
-				source.runCommandAsync( "title @s title a:water");
+			case "Air":
+				chooseType(source, "air");
 				break;
-			case 2:
-				source.runCommandAsync( "event entity @s become_fire");
-				source.runCommandAsync( "tag @s add fire");
-				source.runCommandAsync( "particle a:choose_fire");
-				source.runCommandAsync( "title @s title a:fire");
+			case "Water":
+				chooseType(source, "water");
 				break;
-			case 3:
-				source.runCommandAsync( "event entity @s become_earth");
-				source.runCommandAsync( "tag @s add earth");
-				source.runCommandAsync( "particle a:choose_earth");
-				source.runCommandAsync( "title @s title a:earth");
+			case "Fire":
+				chooseType(source, "fire");
 				break;
-			case 4:
-				if (getScore("avatarSet", source)) {
-					source.runCommandAsync( "scoreboard players set @s level 10")
-					source.runCommandAsync( "event entity @s become_human");
-					source.runCommandAsync( "title @s title a:reset");
-					source.runCommandAsync( "tag @s remove mobileMode");
-					for (let i = 1; i <= 4; i++) {
-						try { source.runCommandAsync( `clear @s a:slot_${i}`) } catch (error) {}
-					}
-				} else {
-					source.runCommandAsync( "event entity @s become_avatar");
-					source.runCommandAsync( "tag @s add avatar");
-					source.runCommandAsync( "particle a:choose_earth");
-					source.runCommandAsync( "particle a:choose_fire");
-					source.runCommandAsync( "particle a:choose_water");
-					source.runCommandAsync( "particle a:choose_air");
-					source.runCommandAsync( "title @s title a:avatar");
-				}
+			case "Earth":
+				chooseType(source, "earth");
 				break;
-			case 5:
-				source.runCommandAsync( "scoreboard players set @s level 10")
-				source.runCommandAsync( "event entity @s become_human");
-				source.runCommandAsync( "title @s title a:reset");
-				source.runCommandAsync( "tag @s remove mobileMode");
-				for (let i = 1; i <= 4; i++) {
-					try { source.runCommandAsync( `clear @s a:slot_${i}`) } catch (error) {}
-				}
+			case "Avatar":
+				chooseType(source, "avatar");
 				break;
 		}
 	})

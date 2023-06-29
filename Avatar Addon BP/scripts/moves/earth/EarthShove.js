@@ -1,8 +1,5 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { MolangVariableMap } from "@minecraft/server";
+import { delayedFunc, createShockwave, setScore, playSound } from "./../../util.js";
 
 const command = {
     name: 'Earth Shove',
@@ -11,15 +8,27 @@ const command = {
     unlockable: 2,
     unlockable_for_avatar: 43,
     cooldown: 'super_fast',
+    damage_factor: 4,
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		player.runCommandAsync("effect @s resistance 1 255 true");
-		if (getScore("ground", player) === 1) {
-			player.runCommandAsync("playsound dig.grass @a[r=10]");
-			player.runCommandAsync("particle a:earth_shockwave ~~~");
-			player.runCommandAsync("camerashake add @s 0.3 0.1 positional");
-			try { player.runCommandAsync(`damage @e[r=6,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 19))} none entity @s`); } catch (error) {}
-		}
+        // Setup
+        setScore(player, "cooldown", 0);
+
+        player.playAnimation("animation.earth.shockwave");
+        player.runCommand("inputpermission set @s movement disabled");
+        
+        // To be executed when the animation is done
+        delayedFunc(player, earthShockwave => {
+            const playerPos = player.location;
+            const map = new MolangVariableMap();
+            playSound(player, "dig.grass", 1, playerPos, 5);
+            createShockwave(player, player.location, 7, 7, this.damage_factor);
+            player.dimension.spawnParticle("a:earth_shockwave", playerPos, map);
+            player.addEffect("resistance", 25, { amplifier: 255, showParticles: false });
+            player.runCommandAsync("camerashake add @a[r=10] 0.3 0.1 positional");
+        }, 10);
+        delayedFunc(player, (removeDirtBlock) => {
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 35);
     }
 }
 

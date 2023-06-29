@@ -1,8 +1,7 @@
-import { world, World } from '@minecraft/server'
-import { getScore } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { getScore, setScore, delayedFunc, playSound, createShockwave } from "./../../util.js";
 
-let startTick;
-let stage = 1;
+const map = new MolangVariableMap();
 
 const command = {
     name: 'Water Blade Boost',
@@ -11,77 +10,35 @@ const command = {
     unlockable: 11,
     unlockable_for_avatar: 35,
     cooldown: 'fast',
-    async execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		await new Promise(resolve => {
-			blast1(player);
-			resolve();
-		});
-		player.runCommandAsync("scoreboard players set @s detect_left 0");
-        let tripleAirTick = world.events.tick.subscribe(async event => {
-			if (!startTick) startTick = event.currentTick;
-			if (stage === 1 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast2(player);
-					resolve();
-				});
-				stage++;
-				player.runCommandAsync("scoreboard players set @s detect_left 0");
-			} else if (stage === 2 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast3(player);
-					resolve();
-				});
-				world.events.tick.unsubscribe(tripleAirTick);
-				stage = 1;
-				startTick = undefined;
-			}
-			if (event.currentTick - startTick > 300 || (getScore("cooldown1", player) > 90 && event.currentTick - startTick > 20)) {
-				world.events.tick.unsubscribe(tripleAirTick);
-				startTick = undefined;
-				stage = 1;
-			}
-		})
+    execute(player) {
+		setScore(player, "cooldown", 0);
+
+		if (getScore("water_loaded", player) < 1) return player.sendMessage("§cYou don't have enough water to do that!")
+		setScore(player, "water_loaded", -1, true);
+
+		waterBladeBoost(player, 1);
+		waterBladeBoost(player, 2);
+		waterBladeBoost(player, 3);
 	}
 }
 
 export default command
 
-async function blast1(player) {
-	return new Promise(resolve => {
-		try { 
-			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
-			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("scoreboard players set @s detect_sneak 0");
-		} catch (error) {}
-	});
-}
+function waterBladeBoost(player, stage) {
+	setScore(player, "cooldown", 0);
+	delayedFunc(player, (animation) => { 
+		// Play animation first
+		stage % 2 == 0 ? player.playAnimation("animation.earth.off_blast") : player.playAnimation("animation.earth.blast");
 
-async function blast2(player) {
-	return new Promise(resolve => {
-		try { 
-			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
-			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("scoreboard players set @s detect_sneak 0");
-		} catch (error) {}
-	});
-}
+		// To be executed when the animation is done
+		delayedFunc(player, (rockBlast) => {
 
-async function blast3(player) {
-	return new Promise(resolve => {
-		try {
-			player.runCommandAsync("summon a:knockback_instant ^^1^-1.5");
-			player.runCommandAsync("particle a:water_slice ~~~");
-			player.runCommandAsync(`damage @e[r=4,type=!item,name=!"${player.name}"] 5 none entity @s`);
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			player.runCommandAsync("scoreboard players set @s detect_sneak 0");
-		} catch (error) {}
-	});
+			// Particle effects and sound
+			createShockwave(player, player.location, 5, 10, 1);
+			const viewDirection = player.getViewDirection();
+			player.applyKnockback(viewDirection.x, viewDirection.z, 15, viewDirection.y * 2);
+			player.dimension.spawnParticle("a:water_slice", player.location, map);
+			playSound(player, 'firework.launch', 1, player.location, 3);
+		}, 12);
+	}, 12 * stage);
 }

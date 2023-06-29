@@ -1,6 +1,5 @@
-import { world, World } from '@minecraft/server'
-
-let startTick;
+import { MolangVariableMap } from "@minecraft/server";
+import { setScore, delayedFunc, playSound, createShockwave } from "./../../util.js";
 
 const command = {
     name: 'Air Push',
@@ -9,22 +8,17 @@ const command = {
     unlockable: 2,
     unlockable_for_avatar: 2,
     cooldown: 'slow',
-    async execute(player) {
-        await player.addTag("kbsafe");
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("particle a:air_push ~~~");
-        player.runCommandAsync("particle minecraft:explosion_manual ~~~");
-        player.runCommandAsync("summon a:knockback_instant ~~~");
-        player.runCommandAsync("playsound random.explode @a[r=5]");
-        try { player.runCommandAsync(`damage @e[r=10,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 8))} none entity @s`); } catch (error) {}
-        let kbTick = world.events.tick.subscribe(event => {
-			if (!startTick) startTick = event.currentTick;        
-			if (event.currentTick - startTick > 10) {
-				world.events.tick.unsubscribe(kbTick);
-				player.removeTag("kbsafe");
-				startTick = undefined;
-			}
-        })
+    execute(player) {
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.push");
+        delayedFunc(player, airPush => {
+            const map = new MolangVariableMap();
+            const playerPos = player.location;
+            createShockwave(player, playerPos, 20, 12, 0);
+            player.dimension.spawnParticle("a:air_push", playerPos, map);
+            player.dimension.spawnParticle("minecraft:explosion_manual", playerPos, map);
+            playSound(player, 'random.explode', 1, playerPos, 5);
+        }, 8);
     }
 }
 

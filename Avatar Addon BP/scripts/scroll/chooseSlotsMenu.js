@@ -1,50 +1,83 @@
 import { ModalFormData } from "@minecraft/server-ui";
-import { getScore, getBendingStyle, getSubBendingStyle } from "./../util.js";
+import { getScore, setScore, getBendingStyle, getSubBendingStyle, parseMoveslot, toCamelCase } from "./../util.js";
 import commands from './../moves/import.js';
 
-let moveList;
 const commandslist = Object.values(commands)
 
 export function chooseSlotsMenu(source) {
-	// SUPER IMPORTANT, in case they don't have a level score yet
-	source.runCommandAsync( `scoreboard players add @s level 0`);
+	setScore(source, "level", 0, true);
 
-	// Some quick checks
-	if (source.hasTag('bending_off')) {
-		return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cYou need to enable bending to choose!§r"}]}`);
-	}
-	if (!source.hasTag("avatar") && !source.hasTag("air") && !source.hasTag("water") && !source.hasTag("fire") && !source.hasTag("earth")) {
-		return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cChoose a bending type first!"}]}`);;
-	}
+	const BENDING_STYLE = getBendingStyle(source);
+	if (BENDING_STYLE == "Non-bender") return source.sendMessage("§cChoose a bending type first!");
 
-	// Slot choice menu
-    let prevscore1 = getScore("moveslot1", source)
-    let prevscore2 = getScore("moveslot2", source)
-    let prevscore3 = getScore("moveslot3", source)
-    let prevscore4 = getScore("moveslot4", source)
-	moveList = ["Leave Empty"]
+	const slotBinding = ["Sneak Twice Fast", "Sneak and Punch", "Right Click Item"]
+	let moveList = ["Leave Empty"]
 	for (let i = 0; i < commandslist.length; i++) {
-		if ((commandslist[i].style === getBendingStyle(source).toLowerCase() || source.hasTag("avatar") && commandslist[i].unlockable_for_avatar <= getScore("level", source)) && commandslist[i].unlockable <= getScore("level", source) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(source))) {
-			moveList.push(`${commandslist[i].name}`);
+		let currentMove = commandslist[i];
+		//BENDING_STYLE.toLowerCase() flter
+
+
+		if (
+			// Error check
+			(currentMove.name.length > 0) &&
+
+			// Check for current type
+			(currentMove.style === BENDING_STYLE.toLowerCase() || source.hasTag("avatar")) &&
+
+			// Basic unlocks
+			((source.hasTag("avatar") && currentMove.unlockable_for_avatar <= getScore("level", source)) || 
+			(!source.hasTag("avatar") && currentMove.unlockable <= getScore("level", source))) &&
+
+			// Skill Tree moves
+			(currentMove.off_tier_required === undefined || currentMove.off_tier_required <= getScore("offTier", source)) &&
+			(currentMove.def_tier_required === undefined || currentMove.def_tier_required <= getScore("defTier", source)) &&
+			(currentMove.uti_tier_required === undefined || currentMove.uti_tier_required <= getScore("utiTier", source)) &&
+			(currentMove.mob_tier_required === undefined || currentMove.mob_tier_required <= getScore("mobTier", source)) &&
+
+			// Sub bending unlocks
+			(!currentMove.sub_bending_required || currentMove.sub_bending_required === getSubBendingStyle(source))) {
+
+			// Actual if statment body
+			moveList.push(`${currentMove.name}`);
 		}
 	}
-	
-	let chooseSlot = new ModalFormData();
-	chooseSlot.title(`Slot Choice Menu: ${getBendingStyle(source)}`);
-	chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #1`, moveList, prevscore1);
-	chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #2`, moveList, prevscore2);
-	chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #3`, moveList, prevscore3);
-	chooseSlot.dropdown(`${getBendingStyle(source)} Move Slot #4`, moveList, prevscore4);
 
-	// Show the menu
+	let slotPrevScores = [];
+	let bindingPrevScores = [];
+	for (let i = 1; i <= 9; i++) {
+		let slotAndBinding = parseMoveslot(getScore(`moveslot${i}`, source));
+		bindingPrevScores.push(slotAndBinding[0] - 1);
+
+		let index = moveList.findIndex(name => name == commandslist[slotAndBinding[1]].name);
+		slotPrevScores.push(index);
+	}
+
+	let chooseSlot = new ModalFormData();
+	chooseSlot.title(`Slot Choice Menu: ${BENDING_STYLE}`);
+	for (let i = 1; i <= 9; i++) {
+		chooseSlot.dropdown(`${BENDING_STYLE} Move Slot #${i}`, moveList, slotPrevScores[i-1]);
+		chooseSlot.dropdown(`Move Slot #${i} Activation Binding`, slotBinding, bindingPrevScores[i-1]);
+	}
+	
 	chooseSlot.show(source).then((ModalFormResponse) => {
 		const { formValues } = ModalFormResponse;
-		if (!formValues) return source.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou exited the menu, so your selection was not saved!"}]}`);
-		let [slotchoice1, slotchoice2, slotchoice3, slotchoice4] = formValues;
-		//console.warn(`chooseSlot : ${slotchoice1} : ${slotchoice2} : ${slotchoice3} : ${slotchoice4}`);
-		source.runCommandAsync( `scoreboard players set @s moveslot1 ${slotchoice1}`);
-		source.runCommandAsync( `scoreboard players set @s moveslot2 ${slotchoice2}`);
-		source.runCommandAsync( `scoreboard players set @s moveslot3 ${slotchoice3}`);
-		source.runCommandAsync( `scoreboard players set @s moveslot4 ${slotchoice4}`);
-	})
+		if (!formValues) return source.sendMessage("§cYou exited the menu, so your selection was not saved!");
+
+		let message = "----------------\n"
+		for (let i = 1; i <= 18; i += 2) {
+			const itemName = toCamelCase(`${moveList[formValues[i-1]]}`);
+			let itemIndex;
+			
+			for (let i = 0; i < Object.keys(commands).length; i++) {
+				if (Object.keys(commands)[i] === itemName) {
+					itemIndex = i;
+					break;
+				}
+			}
+			message += (`§bSlot ${(i+1)/2}:§r ${moveList[formValues[i-1]]}${ moveList[formValues[i-1]] !== "Leave Empty" ? " - " + [slotBinding[formValues[i]]] : ""}\n`)
+
+			setScore(source, `moveslot${(i+1)/2}`, parseInt(`${formValues[i] + 1}${itemIndex}`));
+		}
+		source.sendMessage(message + "----------------");
+	});
 }

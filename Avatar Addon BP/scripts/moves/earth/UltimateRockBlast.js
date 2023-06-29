@@ -1,7 +1,7 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { getScore, setScore, delayedFunc, playSound } from "./../../util.js";
 
-let startTick;
+const map = new MolangVariableMap();
 
 const command = {
 	name: 'Ultimate Rock Blast',
@@ -10,48 +10,33 @@ const command = {
 	unlockable: 11,
 	unlockable_for_avatar: 55,
 	cooldown: 'slow',
-	async execute(player) {
-		let stage = 1;
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		await new Promise(resolve => {
-			blast(player);
-			resolve();
-		});
-	  	let rockBlastTick = world.events.tick.subscribe(async event => {
-			if (!startTick) startTick = event.currentTick;
-			if (stage === 1 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast(player);
-					resolve();
-				});
-				stage++;
-			} else if (stage === 2 && getScore("detect_left", player) === 1) {
-				await new Promise(resolve => {
-					blast(player);
-					resolve();
-				});
-				player.runCommandAsync("tag @e[r=10,type=a:dirt_block_small] add move");
-				world.events.tick.unsubscribe(rockBlastTick);
-				startTick = undefined;
-			}
-			if (event.currentTick - startTick > 300 || (getScore("cooldown1", player) > 90 && event.currentTick - startTick > 20)) {
-				world.events.tick.unsubscribe(rockBlastTick);
-				startTick = undefined;
-			}
-	  	})
+	execute(player) {
+		setScore(player, "cooldown", 0);
+        if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+
+		rockBlast(player, 1);
+		rockBlast(player, 2);
+		rockBlast(player, 3);
 	}
 }
 
-async function blast(player) {
-	return new Promise(resolve => {
-		player.runCommandAsync("playsound dig.grass @a[r=10]");
-		try {
-			player.runCommandAsync("summon a:dirt_block_small ^^2^1.5");
-			player.runCommandAsync("scoreboard players set @s cooldown1 0");
-			player.runCommandAsync("scoreboard players set @s detect_left 0");
-			resolve();
-		} catch (error) {}
-	});
+function rockBlast(player, stage) {
+	setScore(player, "cooldown", 0);
+	delayedFunc(player, (animation) => { 
+		// Play animation first
+		stage % 2 == 0 ? player.playAnimation("animation.earth.off_blast") : player.playAnimation("animation.earth.blast");
+
+		// To be executed when the animation is done
+		delayedFunc(player, (rockBlast) => {
+			player.runCommand("summon a:dirt_block_small ^^2^1.5");
+
+			// Particle effects and sound
+			player.dimension.spawnParticle("a:earth_shockwave_small", player.location, map);
+			playSound(player, 'dig.grass', 1, player.location, 3);
+
+			if (stage == 3) player.runCommand("tag @e[r=10,type=a:dirt_block_small] add move");
+		}, 12);
+	}, 12 * stage);
 }
 
 export default command

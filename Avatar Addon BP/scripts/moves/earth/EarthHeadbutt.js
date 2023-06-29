@@ -1,8 +1,4 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { createShockwave, setScore, getScore, delayedFunc } from "./../../util.js";
 
 const command = {
     name: 'Earth Headbutt',
@@ -12,20 +8,19 @@ const command = {
     unlockable_for_avatar: 46,
     cooldown: 'slow',
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (getScore("ground", player) === 1) {
-			player.runCommandAsync("playsound dig.grass @a[r=10]");
-			let earthThrowTick = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;
-				player.runCommandAsync("effect @s speed 1 2");
-				try { player.runCommandAsync(`damage @e[r=5,type=!item,name=!"${player.name}"] 2 none`); } catch (error) {}
-				try { player.runCommandAsync("fill ~-1~~-1 ~1~2~1 air 0 destroy"); } catch (error) {}
-				if (event.currentTick - startTick > 100) {
-					world.events.tick.unsubscribe(earthThrowTick);
-					startTick = undefined;
-				}
-			})
-		}
+        setScore(player, "cooldown", 0);
+        if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+		player.runCommandAsync("camerashake add @a[r=10] 0.3 0.4 positional");
+		player.playSound('dig.grass', { location: player.location });
+		const viewDirection = player.getViewDirection();
+		player.applyKnockback(viewDirection.x, viewDirection.z, 15, viewDirection.y * 2);
+		createShockwave(player, player.location, 7, 7, 1);
+		delayedFunc(player, (removeDirtBlock) => {
+			createShockwave(player, player.location, 7, 7, 1);
+		}, 10);
+		delayedFunc(player, (removeDirtBlock) => {
+			createShockwave(player, player.location, 7, 7, 1);
+		}, 5);
     }
 }
 

@@ -1,3 +1,6 @@
+import { MolangVariableMap } from '@minecraft/server'
+import { getScore, setScore, delayedFunc, playSound } from "./../../util.js";
+
 const command = {
     name: 'Water Launch',
     description: 'Launch yourself into the air on a blast of water - about 25 blocks!',
@@ -6,10 +9,23 @@ const command = {
     unlockable_for_avatar: 25,
     cooldown: 'super_fast',
     execute(player) {
-        player.runCommandAsync("particle a:water_wave");
-        player.runCommandAsync("effect @s levitation 1 25 true");
-        player.runCommandAsync("playsound firework.launch @s");
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
+        // Set cooldown so they can't spam
+        setScore(player, "cooldown", 0);
+
+        // Check if they have water
+		if (getScore("water_loaded", player) < 1) return player.sendMessage("§cYou don't have enough water to do that!")
+		setScore(player, "water_loaded", -1, true);
+
+        player.addTag("hiddenWater");
+        player.playAnimation("animation.water.jump");
+        delayedFunc(player, (waterLaunch) => {
+            const currentLocation = player.location;
+            player.dimension.spawnParticle("a:water_wave", currentLocation, new MolangVariableMap());
+            playSound(player, 'firework.launch', 1, currentLocation, 2);
+            player.applyKnockback(0, 0, 0, 1.5);
+            player.addEffect("slow_falling", 140, { amplifier: 1, showParticles: false });
+            player.removeTag("hiddenWater");
+        }, 10);
     }
 }
 

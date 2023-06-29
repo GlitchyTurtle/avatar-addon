@@ -17,6 +17,9 @@
 			"minecraft:emitter_lifetime_looping": {
 				"active_time": 1
 			},
+     			"minecraft:emitter_lifetime_once": {
+				"active_time": 2
+			},
 			"minecraft:emitter_shape_sphere": {
 				"offset": [
 					0,

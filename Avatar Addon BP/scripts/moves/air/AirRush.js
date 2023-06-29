@@ -1,8 +1,5 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system } from '@minecraft/server'
+import { setScore, delayedFunc } from "./../../util.js";
 
 const command = {
     name: 'Air Rush',
@@ -12,18 +9,27 @@ const command = {
     unlockable_for_avatar: 7,
     cooldown: 'slow',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        let rushTick = world.events.tick.subscribe(event => {
-            if (!startTick) startTick = event.currentTick;
-            try {
-                player.runCommandAsync("execute as @s at @s run tp @s ^ ^0.2 ^3 true");
-                player.runCommandAsync("execute as @s at @s run particle minecraft:egg_destroy_emitter ~~~");
-            } catch (error) {}
-            if (event.currentTick - startTick > 15) {
-                world.events.tick.unsubscribe(rushTick);
-                startTick = undefined;
-            }
-        })
+        // Setup
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.rush");
+
+        // To be executed when the animation is done
+        delayedFunc(player, (airRush) => {
+            let currentTick = 0;
+            const sched_ID = system.runInterval(function tick() {
+                // Code
+                // In case of errors
+                currentTick++;
+                if (currentTick > 100) return system.clearRun(sched_ID);
+
+                // Apply velocity in the direction the player is looking at
+                const viewDirection = player.getViewDirection();
+                player.applyKnockback(viewDirection.x, viewDirection.z, 2, viewDirection.y);
+
+                // The end of the runtime
+                if (currentTick > 35) return system.clearRun(sched_ID);
+            }, 1);
+        }, 12);
     }
 }
 

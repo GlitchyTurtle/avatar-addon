@@ -1,17 +1,17 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§6Avatar §3Addon! §8[1.19.51] [RP]§r",
-		"description": "Adds the bending seen in avatar the last airbender to minecraft! All credit to GlitchTurtle32!",
-		"uuid": "9c6f785b-e326-e9ff-ee2e-77c6ff93289a",
+		"name": "§6Avatar §3Addon §8[1.20.1] [RP]§r",
+		"description": "Bring Avatar the Last Airbender to Minecraft with this imersive addon! Made by GlitchTurtle32.",
+		"uuid": "dd601b3c-60d1-435e-bd90-5543c7da9faa",
 		"version": [
+			3,
 			1,
-			0,
 			0
 		],
 		"min_engine_version": [
 			1,
-			17,
+			20,
 			0
 		]
 	},

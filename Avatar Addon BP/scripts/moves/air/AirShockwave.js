@@ -1,4 +1,5 @@
-import { getScore } from "./../../util.js";
+import { MolangVariableMap } from "@minecraft/server";
+import { delayedFunc, createShockwave, setScore, playSound } from "./../../util.js";
 
 const command = {
     name: 'Air Shockwave',
@@ -7,11 +8,25 @@ const command = {
     unlockable: 5,
     unlockable_for_avatar: 5,
     cooldown: 'fast',
+    damage_factor: 2,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound random.explode @a[r=3]");
-        player.runCommandAsync("particle a:air_puff");
-        try { player.runCommandAsync(`damage @e[r=15,type=!item,name=!"${player.name}"] ${Math.ceil(Math.min(getScore("level", player)/4, 15))} none entity @s`); } catch (error) {}
+        // Setup
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.air.shockwave");
+        player.runCommand("inputpermission set @s movement disabled");
+
+        // To be executed when the animation is done
+        delayedFunc(player, shockWave => {
+            const playerPos = player.location;
+            const map = new MolangVariableMap();
+            player.dimension.spawnParticle("a:air_shockwave", playerPos, map);
+            playSound(player, 'random.explode', 1, playerPos, 5);
+            createShockwave(player, playerPos, 7, 7, this.damage_factor);
+        }, 5);
+
+        delayedFunc(player, movementReturn => {
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 35)
     }
 }
 

@@ -1,8 +1,5 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system } from '@minecraft/server'
+import { setScore, getScore, playSound } from "./../../util.js";
 
 const command = {
     name: 'Frost Walker',
@@ -12,17 +9,30 @@ const command = {
     unlockable_for_avatar: 28,
     cooldown: 'fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.turtle.swim @a[r=3] ~ ~ ~ 0.9 1");
-        player.runCommandAsync("effect @s speed 4 2 true");
-        let frostTick = world.events.tick.subscribe(event => {
-			if (!startTick) startTick = event.currentTick;
-			try { player.runCommandAsync(`testforblock ~~~ air`); player.runCommandAsync(`fill ~2~-1~2 ~-2~-1~-2 frosted_ice 0 replace water`); } catch (error) {}	 
-			if (event.currentTick - startTick > 100) {
-				world.events.tick.unsubscribe(frostTick);
-				startTick = undefined;
-			}
-        })
+        // Set cooldown so they can't spam
+        setScore(player, "cooldown", 0);
+
+        // Check if they have water
+        if (getScore("water_loaded", player) < 1) return player.sendMessage("§cYou don't have enough water to do that!")
+        setScore(player, "water_loaded", -1, true);
+        
+        player.addTag("hiddenWater");
+        playSound(player, 'mob.turtle.swim', 0.9, player.location, 1);
+        player.addEffect("speed", 80, { amplifier: 1, showParticles: false });
+
+        let currentTick = 0;
+        const sched_ID = system.runInterval(function tick() {
+            // In case of errors
+            currentTick++;
+            if (currentTick > 100) return system.clearRun(sched_ID);
+            //let below = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
+            let feet = player.dimension.getBlock({x: player.location.x, y: player.location.y, z: player.location.z});
+            if (feet.isAir()) player.runCommandAsync(`fill ~2~-1~2 ~-2~-1~-2 frosted_ice replace water`); 
+            if (currentTick > 100) {
+                player.removeTag("hiddenWater");
+                return system.clearRun(sched_ID);
+            }
+        }, 1)
     }
 }
 

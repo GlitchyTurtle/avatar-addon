@@ -1,6 +1,4 @@
-import { world } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
+import { getScore, setScore, delayedFunc, playSound } from "./../../util.js";
 
 const command = {
     name: 'Earth Top',
@@ -9,13 +7,19 @@ const command = {
     unlockable: 7,
     unlockable_for_avatar: 48,
     cooldown: 'super_fast',
-    async execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (getScore("ground", player) === 1) {
-      await player.runCommandAsync("effect @s add resistance 1 255 true");
-			player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
-			player.runCommandAsync("spreadplayers ~~ 0 1 @s");
-		}
+    execute(player) {
+        // Setup
+        setScore(player, "cooldown", 0);
+        if (getScore("ground", player) === 0) return player.sendMessage("§cYou must be on earth to use this move!");
+        player.playAnimation("animation.air.vanish");
+
+        // Main
+        delayedFunc(player, earthTop => {
+            playSound(player, "dig.grass", 1, player.location, 5);
+            player.addEffect("resistance", 25, { amplifier: 255, showParticles: false });
+            player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
+            player.runCommandAsync("spreadplayers ~~ 0 2 @s");
+        }, 20)
     }
 }
 

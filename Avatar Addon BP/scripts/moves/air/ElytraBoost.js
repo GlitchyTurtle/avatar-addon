@@ -1,3 +1,6 @@
+import { MolangVariableMap } from "@minecraft/server";
+import { setScore, playSound } from "./../../util.js";
+
 const command = {
     name: 'Elytra Boost',
     description: 'Speed yourself up in the air, just like a rocket!',
@@ -6,13 +9,19 @@ const command = {
     unlockable_for_avatar: 12,
     cooldown: 'fast',
     execute(player) {
-        try { player.runCommandAsync("testforblock ~~-3~ air"); } catch { return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou need to be in the air!"}]}`); }
-        try { player.runCommandAsync("testforblock ~~-2~ air"); } catch { return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou need to be in the air!"}]}`); }
-        try { player.runCommandAsync("testforblock ~~-1~ air"); } catch { return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou need to be in the air!"}]}`); }
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound random.explode @a[r=3]");
-        player.runCommandAsync("particle a:air_vanish ~~~");
-        player.runCommandAsync("summon a:knockback_instant ^^^-4");
+        // Check that we are in the air
+        let map = new MolangVariableMap();
+        let {x, y, z} = player.location;
+        let ground = player.dimension.getBlock({x: x, y: y - 1, z: z});
+        if (!ground.isAir()) return player.sendMessage("§cYou must be in the air to use this move!");
+        
+        // Add velocity and other effects
+        const viewDirection = player.getViewDirection();
+        player.playAnimation("animation.air.spin");
+        player.applyKnockback(viewDirection.x, viewDirection.z, 4, viewDirection.y);
+        player.dimension.spawnParticle("a:air_leap", player.location, map);
+        setScore(player, "cooldown", 0);
+        playSound(player, 'random.explode', 1, player.location, 3);
     }
 }
 

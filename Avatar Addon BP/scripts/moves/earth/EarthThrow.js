@@ -1,7 +1,5 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system } from "@minecraft/server";
+import { getScore, setScore, playSound, calcVectorOffset } from "./../../util.js";
 
 const command = {
     name: 'Earth Throw',
@@ -11,29 +9,37 @@ const command = {
     unlockable_for_avatar: 47,
     cooldown: 'fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound dig.grass @a[r=10]");
-		player.runCommandAsync("summon a:dirt_block ^^0.3^1");
-		player.runCommandAsync("scoreboard players set @s detect_left 0");
-		player.runCommandAsync(`titleraw @s actionbar {"rawtext":[{"text":"§bPunch to shoot."}]}`);
-        let earthThrowTick = world.events.tick.subscribe(event => {
-			if (!startTick) startTick = event.currentTick;
-			if (event.currentTick - startTick > 50) {
-				try { player.runCommandAsync(`tag @e[r=10,c=1,type=a:dirt_block] add launch`); } catch (error) {}
+        // Set cooldown so they can't spam
+        setScore(player, "cooldown", 0);
+
+        player.playAnimation("animation.earth.pull");
+        player.runCommand("camerashake add @a[r=10] 0.4 0.1 positional");
+        playSound(player, 'dig.gravel', 1, player.location, 2);
+        player.dimension.spawnEntity('a:dirt_block', calcVectorOffset(player, 0, 0.3, 1));
+        setScore(player, "detect_left", 0);
+
+        let currentTick = 0;
+        const sched_ID = system.runInterval(function tick() {
+            // In case of errors
+            currentTick++;
+            if (currentTick > 100) return system.clearRun(sched_ID);
+
+			if (currentTick > 80) {
+				player.runCommand(`tag @e[r=10,c=1,type=a:dirt_block] add launch`); 
 			}
-			try { player.runCommandAsync(`tp @e[c=1,type=a:dirt_block,tag=!launch] ^^0.3^1.5 facing @p`); } catch (error) {}
+			player.runCommand(`tp @e[c=1,type=a:dirt_block,tag=!launch] ^^0.3^1.5 facing @p`); 
 			if (getScore("detect_left", player) === 1) { 
-				player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
-				try { player.runCommandAsync(`tag @e[r=10,c=1,type=a:dirt_block] add launch`); } catch (error) {}
+				player.runCommand(`tag @e[r=10,c=1,type=a:dirt_block] add launch`); 
 			}
-			try {
-				player.runCommandAsync(`execute as @e[c=1,type=a:dirt_block,tag=launch] at @s run tp @s ^^^-1.5`);
-				player.runCommandAsync(`execute as @e[c=1,type=a:dirt_block,tag=launch] at @s run execute as @e[r=2,name=!"${player.name}",type=!a:dirt_block] at @s run event entity @e[r=5,type=a:dirt_block] minecraft:explode`);
-			} catch (error) {}
-			player.runCommandAsync(`testfor @e[type=a:dirt_block,r=50,c=1]`).catch(err=>{
-				world.events.tick.unsubscribe(earthThrowTick);
-				startTick = undefined;
-			})
+
+            player.runCommand(`execute as @e[c=1,type=a:dirt_block,tag=launch] at @s run tp @s ^^^-1`);
+            player.runCommand(`execute as @e[c=1,type=a:dirt_block,tag=launch] at @s run execute as @e[r=2,name=!"${player.name}",type=!a:dirt_block] at @s run event entity @e[r=5,type=a:dirt_block] minecraft:explode`);
+            setScore(player, "cooldown", 0);
+
+            if (currentTick > 100) { 
+                setScore(player, "cooldown", 70);
+                return system.clearRun(sched_ID);
+            }
         })
     }
 }

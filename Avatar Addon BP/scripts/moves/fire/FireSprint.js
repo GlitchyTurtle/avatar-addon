@@ -1,8 +1,5 @@
-import { world, World } from '@minecraft/server'
-import commands from '../import.js';
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system, MinecraftBlockTypes } from '@minecraft/server'
+import { setScore, delayedFunc, playSound } from "./../../util.js";
 
 const command = {
     name: 'Fire Sprint',
@@ -11,22 +8,30 @@ const command = {
     unlockable: 3,
     unlockable_for_avatar: 64,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        player.runCommandAsync("effect @s speed 3 10 true");
-        player.runCommandAsync("particle a:fire_wave");
-        let sprintTick = world.events.tick.subscribe(event => {
-		if (!startTick) startTick = event.currentTick;
-            try {
-				player.runCommandAsync("particle minecraft:mobflame_single ~ ~1 ~"); 
-				player.runCommandAsync("particle a:fire_blast ~~~");
-				player.runCommandAsync("setblock ~~~ fire 0 keep");
-			} catch (error) {}
-			if (event.currentTick - startTick > 40) {
-				world.events.tick.unsubscribe(sprintTick);
-				startTick = undefined;
-			}
-        })
+        // Set cooldown so they can't spam
+        setScore(player, "cooldown", 0);
+        playSound(player, 'firework.blast', 1, player.location, 3);
+        player.addEffect("fire_resistance", 65, { amplifier: 1, showParticles: false });
+        player.addEffect("speed", 40, { amplifier: 10, showParticles: false });
+        player.runCommand("camerashake add @s 0.1 2 positional");
+
+        // To be executed when the animation is done
+        delayedFunc(player, (fireSprint) => {
+            let currentTick = 0;
+            const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 100) return system.clearRun(sched_ID);           
+
+                const block = player.dimension.getBlock(player.location);
+                if (!block.isSolid() && !block.isLiquid()) {
+                    block.setType(MinecraftBlockTypes.fire);
+                }
+
+                // The end of the runtime
+                if (currentTick > 35) return system.clearRun(sched_ID);
+            }, 1);
+        }, 6);
     }
 }
 

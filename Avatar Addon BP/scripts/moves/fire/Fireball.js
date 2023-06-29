@@ -1,3 +1,5 @@
+import { setScore, playSound, calcVectorOffset, delayedFunc } from "../../util.js";
+
 const command = {
     name: 'Fireball',
     description: "Launch a fireball in the direction you're looking!",
@@ -6,10 +8,16 @@ const command = {
     unlockable_for_avatar: 65,
     cooldown: 'super_fast',
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        player.runCommandAsync("summon fireball ^ ^1 ^2");
-        try { player.runCommandAsync("damage @e[r=10,c=1,type=fireball] 1 entity_attack entity @s"); } catch (error) {}
+        // Setup
+        setScore(player, "cooldown", 0);
+        player.playAnimation("animation.fire.blast");
+
+        // After Animation
+        delayedFunc(player, async (fireball) => {
+            playSound(player, 'mob.shulker.shoot', 1, player.location, 3);
+            player.dimension.spawnEntity('minecraft:fireball', calcVectorOffset(player, 0, 1, 2));
+            player.runCommand("damage @e[r=10,c=1,type=fireball] 1 entity_attack entity @s");
+        }, 20);
     }
 }
 

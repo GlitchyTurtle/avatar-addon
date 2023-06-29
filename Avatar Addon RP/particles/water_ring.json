@@ -59,7 +59,8 @@
 						"#FF00DAFF"
 					]
 				}
-			}
+			},
+			"minecraft:particle_appearance_lighting": {}
 		}
 	}
 }

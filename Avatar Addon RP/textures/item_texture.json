@@ -7,39 +7,154 @@
 				"textures/items/bending_scroll"
 			]
 		},
-		"one": {
-			"textures": [
-				"textures/items/one"
-			]
-		},
-		"two": {
-			"textures": [
-				"textures/items/two"
-			]
-		},
-		"three": {
-			"textures": [
-				"textures/items/three"
-			]
-		},
-		"four": {
-			"textures": [
-				"textures/items/four"
-			]
-		},
-		"five": {
-			"textures": [
-				"textures/items/five"
-			]
-		},
-		"six": {
-			"textures": [
-				"textures/items/six"
-			]
-		},
 		"copper_piece": {
 			"textures": [
 				"textures/items/copper_piece"
+			]
+		},
+		"skill_point": {
+			"textures": [
+				"textures/items/skill_point"
+			]
+		},
+		"empty_cup": {
+			"textures": [
+				"textures/items/tea/empty_cup"
+			]
+		},
+		"water_cup": {
+			"textures": [
+				"textures/items/tea/water_cup"
+			]
+		},
+		"black_tea": {
+			"textures": [
+				"textures/items/tea/black_tea"
+			]
+		},
+		"chi_tea": {
+			"textures": [
+				"textures/items/tea/chi_tea"
+			]
+		},
+		"ginger_tea": {
+			"textures": [
+				"textures/items/tea/ginger_tea"
+			]
+		},
+		"ginseng_tea": {
+			"textures": [
+				"textures/items/tea/ginseng_tea"
+			]
+		},
+		"green_tea": {
+			"textures": [
+				"textures/items/tea/green_tea"
+			]
+		},
+		"jasmine_tea": {
+			"textures": [
+				"textures/items/tea/jasmine_tea"
+			]
+		},
+		"lychee_tea": {
+			"textures": [
+				"textures/items/tea/lychee_tea"
+			]
+		},
+		"nomad_tea": {
+			"textures": [
+				"textures/items/tea/nomad_tea"
+			]
+		},
+		"oolong_tea": {
+			"textures": [
+				"textures/items/tea/oolong_tea"
+			]
+		},
+		"red_blooded_nephew_tea": {
+			"textures": [
+				"textures/items/tea/red_blooded_nephew_tea"
+			]
+		},
+		"spirit_tea": {
+			"textures": [
+				"textures/items/tea/spirit_tea"
+			]
+		},
+		"white_dragon_tea": {
+			"textures": [
+				"textures/items/tea/white_dragon_tea"
+			]
+		},
+		"white_jade_tea": {
+			"textures": [
+				"textures/items/tea/white_jade_tea"
+			]
+		},
+		"white_lotus_tea": {
+			"textures": [
+				"textures/items/tea/white_lotus_tea"
+			]
+		},
+		"white_tea": {
+			"textures": [
+				"textures/items/tea/white_tea"
+			]
+		},
+		"raw_meteorite": {
+			"textures": [
+				"textures/items/meteorite/raw_meteorite"
+			]
+		},
+		"refined_meteorite": {
+			"textures": [
+				"textures/items/meteorite/refined_meteorite"
+			]
+		},
+		"meteorite_sword": {
+			"textures": [
+				"textures/items/meteorite/meteorite_sword"
+			]
+		},
+		"meteorite_axe": {
+			"textures": [
+				"textures/items/meteorite/meteorite_axe"
+			]
+		},
+		"meteorite_pickaxe": {
+			"textures": [
+				"textures/items/meteorite/meteorite_pickaxe"
+			]
+		},
+		"meteorite_shovel": {
+			"textures": [
+				"textures/items/meteorite/meteorite_shovel"
+			]
+		},
+		"meteorite_hoe": {
+			"textures": [
+				"textures/items/meteorite/meteorite_hoe"
+			]
+		},
+		"meteorite_helmet": {
+			"textures": [
+				"textures/items/meteorite/meteorite_helmet"
+			]
+		},
+		"meteorite_chestplate": {
+			"textures": [
+				"textures/items/meteorite/meteorite_chestplate"
+			]
+		},
+		"meteorite_leggings": {
+			"textures": [
+				"textures/items/meteorite/meteorite_leggings"
+			]
+		},
+		"meteorite_boots": {
+			"textures": [
+				"textures/items/meteorite/meteorite_boots"
 			]
 		}
 	}

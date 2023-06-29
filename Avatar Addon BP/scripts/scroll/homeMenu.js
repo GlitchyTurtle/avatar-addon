@@ -1,10 +1,10 @@
-import { world, Location } from "@minecraft/server";
+import { world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { getGamemode, getScore } from '../util.js';
 
 export function homeMenu(source) {
 	// Checks if the player is not in combat, and if they are, exit
-	if (getScore("combat", source) > 0) return source.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou are in combat, don't cheat!"}]}`);
+	if (getScore("combat", source) > 0) return source.sendMessage("§cYou are in combat, don't cheat!");
 
 	let homeDelete = new ActionFormData();
     homeDelete.title("Home Menu: Delete");
@@ -19,8 +19,8 @@ export function homeMenu(source) {
     for (let i = 0; i < tags.length; i++) {
 		if (tags[i].startsWith("LocationHome:")) {
 			let current = tags[i].split(" ")
-            homeDelete.button(`${current[0].replace('LocationHome:', '')}`, "textures/ui/delete");
-			homeTeleport.button(`${current[0].replace('LocationHome:', '')}`, "textures/ui/teleport");
+            homeDelete.button(`${current[0].replace('LocationHome:', '')}`, "textures/ui/avatar/delete");
+			homeTeleport.button(`${current[0].replace('LocationHome:', '')}`, "textures/ui/avatar/teleport");
 			test.push(`${tags[i]}`)
 			count = ++count;
         }
@@ -28,10 +28,10 @@ export function homeMenu(source) {
     let homeMain = new ActionFormData();
     homeMain.title("Home Menu: Main");
     homeMain.body("Create a new home you can use, or delete one you have already created!");
-    homeMain.button("Create", "textures/ui/create");
+    homeMain.button("Create", "textures/ui/avatar/create");
 	if (count > 0) {
-		homeMain.button("Teleport", "textures/ui/teleport");
-		homeMain.button("Delete", "textures/ui/delete");
+		homeMain.button("Teleport", "textures/ui/avatar/teleport");
+		homeMain.button("Delete", "textures/ui/avatar/delete");
 	}
 	
 	let homeCreate = new ModalFormData();
@@ -44,12 +44,9 @@ export function homeMenu(source) {
             homeCreate.show(source).then((ModalFormResponse) => {
                 const { formValues } = ModalFormResponse;
                 let [args] = formValues;
-				if (args.includes("/") || args.includes(" ") || args.includes(",") || args.includes(":")) {
-					return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cYou can't use that character!"}]}`);
-				}
-				if (args.length > 20) {
-					return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§cThat's a pretty long name! Please shorten it."}]}`);
-				}
+				if (args.includes("/") || args.includes(" ") || args.includes(",") || args.includes(":")) return source.sendMessage("§cYou can't use that character!");
+				if (args.length > 20) return source.sendMessage("§cThat's a pretty long name! Please shorten it.");
+				
 				// Get current location
 				let {x, y, z} = source.location;
 				let homex = x.toFixed(0);
@@ -62,7 +59,7 @@ export function homeMenu(source) {
 				for (let i = 0; i < tags.length; i++) {
 					if (tags[i].startsWith("Moveset:" + args.toString()) || tags[i].startsWith(args.toString() + " X", 13)) {
 						verify = true;
-						source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§c"},{"text":"You already have a home or moveset named ${args}!"}]}`)
+						source.sendMessage(`§cYou already have a home or moveset named ${args}!`);
 						break;
 					}
 					if (tags[i].startsWith("LocationHome:")) {
@@ -70,7 +67,7 @@ export function homeMenu(source) {
 					}
 					if (counter >= 6 && true) {
 						verify = true;
-						source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§c"},{"text":"You can only have 6 saved locations!"}]}`)
+						source.sendMessage("§cYou can only have 6 saved locations!");
 						break; 
 					}
 				}
@@ -85,11 +82,11 @@ export function homeMenu(source) {
 					currentDimension = "nether"
 				}
 				if (source.dimension.id === "minecraft:the_end") {
-					return source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§c"},{"text":"Not allowed to set home in this dimension!"}]}`)
+					currentDimension = "the_end"
 				}
 				// Store their new home coordinates
 				source.addTag(`LocationHome:${args} X:${homex} Y:${homey} Z:${homez} Dimension:${currentDimension}`);
-				source.runCommandAsync( `tellraw @s {"rawtext":[{"text":"§a"},{"text":"Saved home ${args}!"}]}`)
+				source.sendMessage(`§aSaved home ${args}!`);
 			})
         } else if (selection === 1) {
             homeTeleport.show(source).then((ActionFormResponse) => {
@@ -116,14 +113,13 @@ export function homeMenu(source) {
 						}
 					}
 				} catch (error) {}
-				source.runCommandAsync( `tellraw "${source.nameTag}" {"rawtext":[{"text":"§a"},{"text":"Welcome back ${source.nameTag}!"}]}`);
-				source.teleport(new Location(homex, homey, homez), world.getDimension(dimension), 0, 0);
-				if (getGamemode(source) == "a") source.runCommandAsync( `gamemode s @s`);
+				source.sendMessage(`§aWelcome back ${source.nameTag}!`);
+				source.teleport({ x: homex, y: homey, z: homez }, { dimension: world.getDimension(dimension), keepVelociy: false });
 			})
 		} else if (selection === 2) {
             homeDelete.show(source).then((ActionFormResponse) => {
                 const { selection } = ActionFormResponse;
-				source.runCommandAsync( `tag @s remove "${test[selection]}"`)
+				source.removeTag(test[selection])
 			})
         }
     })

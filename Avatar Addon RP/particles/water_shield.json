@@ -45,10 +45,7 @@
 				"linear_drag_coefficient": 20
 			},
 			"minecraft:particle_appearance_billboard": {
-				"size": [
-					0.3,
-					0.3
-				],
+				"size": ["0.1+variable.particle_random_2/5-v.particle_age/15", "0.1+variable.particle_random_2/5-v.particle_age/15"],
 				"facing_camera_mode": "rotate_xyz",
 				"uv": {
 					"texture_width": 128,
@@ -67,8 +64,8 @@
 				"color": {
 					"interpolant": "variable.water",
 					"gradient": {
-						"0.1": "#FFD8F5FF",
-						"0.79": "#FF4F39E8"
+						"0.5": "#FF00B7FF",
+						"1.0": "#FF2366D9"
 					}
 				}
 			},

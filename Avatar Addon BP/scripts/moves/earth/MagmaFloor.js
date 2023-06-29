@@ -1,7 +1,5 @@
-import { BlockLocation, world } from '@minecraft/server'
-import { checkItemAmount } from "./../../util.js";
-
-let startTick;
+import { MinecraftBlockTypes } from "@minecraft/server";
+import { delayedFunc, getScore, setScore, playSound, checkItemAmount } from "./../../util.js";
 
 const command = {
     name: 'Magma Floor',
@@ -12,32 +10,42 @@ const command = {
     cooldown: 'super_fast',
     sub_bending_required: 'lava',
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		let {x, y, z} = player.location;
-		let verifyDirt = player.dimension.getBlock(new BlockLocation(x, y - 1, z));
-		if (verifyDirt.type.id === "minecraft:grass") {
-			if (checkItemAmount(player, 'minecraft:dirt') < 8) {
-				player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou don't have 8+ dirt to expend for this."}]}`);
-				return;
-			}
-			player.runCommandAsync("clear @s dirt -1 8");
-			player.runCommandAsync("playsound firework.blast @a[r=3]");
-			try { player.runCommandAsync(`fill ~1~-1~1~-1~-1~-1 lava 0 replace grass`); } catch (error) {}
-			try { player.runCommandAsync(`fill ~~-1~2~~-1~-2 lava 0 replace grass`); } catch (error) {}
-			try { player.runCommandAsync(`fill ~2~-1~~-2~-1~ lava 0 replace grass`); } catch (error) {}
-			try { player.runCommandAsync(`fill ~~-1~~~-1~ grass`); } catch (error) {}
-			let {x, y, z} = player.location;
-			let dropTick = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;
-				if (event.currentTick - startTick > 100) {
-					world.events.tick.unsubscribe(dropTick);
-					try { player.runCommandAsync(`execute as @s positioned ${x} ${y} ${z} run fill ~2~-1~2 ~-2~-1~-2 grass 0 replace lava`); } catch (error) {}
-					startTick = undefined;
+		setScore(player, "cooldown", 0);
+		if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+
+		if (checkItemAmount(player, 'minecraft:dirt') < 8) return player.sendMessage("§cYou don't have 8+ dirt to expend for this.");
+		player.runCommand("clear @s dirt -1 8");
+			
+		player.playAnimation("animation.earth.shockwave");
+        player.runCommand("inputpermission set @s movement disabled");
+
+        const { x, y, z } = player.location;
+        const dimension = player.dimension;
+
+        delayedFunc(player, (removeLavaBlock) => {
+            setScore(player, "cooldown", 0);
+            playSound(player, 'dig.grass', 1, player.location, 2);
+			player.addEffect("fire_resistance", 400, { amplifier: 20, showParticles: false });
+
+			const radius = 4;
+			for (let xBlock = x - radius; xBlock <= x + radius; xBlock++) {
+				for (let zBlock = z - radius; zBlock <= z + radius; zBlock++) {
+					if (Math.sqrt(Math.pow(xBlock - x, 2) + Math.pow(zBlock - z, 2)) <= radius && !(Math.floor(xBlock) == Math.floor(x) && Math.floor(zBlock) == Math.floor(z))) {
+						const block = dimension.getBlock({x: xBlock, y: y - 1, z: zBlock })
+						if (!block.isSolid()) continue;
+		
+						const typeOfBlock = block.type;
+						block.setType(MinecraftBlockTypes.lava);
+						delayedFunc(player, (removeDirtBlock) => {
+							block.setType(typeOfBlock)
+						}, Math.random() * 20 + 50);
+					}
 				}
-			})
-		} else {
-			player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou need to be on grass for this to work!"}]}`);
-		}
+			}
+        }, 20);
+        delayedFunc(player, (removeDirtBlock) => {
+            player.runCommand("inputpermission set @s movement enabled");
+        }, 35);
     }
 }
 

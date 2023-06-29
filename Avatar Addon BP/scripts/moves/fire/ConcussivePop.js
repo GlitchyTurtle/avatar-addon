@@ -1,3 +1,6 @@
+import { MolangVariableMap } from "@minecraft/server";
+import { createShockwave, calcVectorOffset, setScore, playSound } from "../../util.js";
+
 const command = {
     name: 'Concussive Pop',
     description: "Shoot enemies away with a small explosion or yourself up into the air!",
@@ -6,11 +9,26 @@ const command = {
     unlockable_for_avatar: 0,
     cooldown: 'super_fast',
     sub_bending_required: 'combustion',
+    damage_factor: 3,
     execute(player) {
-        player.runCommandAsync("scoreboard players set @s cooldown1 0");
-        player.runCommandAsync("playsound mob.shulker.shoot @a[r=3]");
-        player.runCommandAsync("effect @s resistance 1 1 true");
-        player.runCommandAsync("summon a:explosion ^^^1");
+        // Setup
+        setScore(player, "cooldown", 0);
+
+        var currentPos = calcVectorOffset(player, 0, 1, 5);
+        var currentBlock = player.dimension.getBlock(currentPos);
+
+        while (currentBlock.isSolid()) {
+            currentPos = { x: currentPos.x, y: currentPos.y + 1.5, z: currentPos.z }
+            currentBlock = player.dimension.getBlock(currentPos);
+        }
+        
+        const viewDirection = player.getViewDirection();
+        player.applyKnockback(viewDirection.x, viewDirection.z, -3, -viewDirection.y/2);
+
+        const map = new MolangVariableMap();
+        player.dimension.spawnParticle("minecraft:large_explosion", currentPos, map);
+        playSound(player, 'random.explode', 1, currentPos, 5);
+        createShockwave(player, currentPos, 3, 3, this.damage_factor);  
     }
 }
 

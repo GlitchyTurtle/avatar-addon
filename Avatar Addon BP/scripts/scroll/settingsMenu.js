@@ -7,14 +7,15 @@ export function settingsMenu(source) {
 	if (source.hasTag("chatmsgoff")) { settingMenu.toggle("Show Move Messages", false); } else { settingMenu.toggle("Show Move Messages", true); }
 	if (source.hasTag("bending_off")) { settingMenu.toggle("Enable Bending", false); } else { settingMenu.toggle("Enable Bending", true); }
 	if (source.hasTag("hide_stats")) { settingMenu.toggle("Public Stats", false); } else { settingMenu.toggle("Public Stats", true); }
-	if (source.hasTag("avatar")) {
-		if (source.hasTag("avatar_particles")) { settingMenu.toggle("Avatar State Particles", false); } else { settingMenu.toggle("Avatar State Particles", true); }
-	}
+	if (source.hasTag("water") || source.hasTag("avatar")) settingMenu.toggle("Water Particles", !source.hasTag("permHiddenWater"));
+	if (source.hasTag("avatar")) settingMenu.toggle("Avatar State Particles", !source.hasTag("avatar_particles"));
 
 	// Show the menu
 	settingMenu.show(source).then((ModalFormResponse) => {
 		const { formValues } = ModalFormResponse;
-		let [moveMessages, enableBending, publicStats, avatarState] = formValues;
+		if (!formValues) return source.sendMessage("§cYou didn't select anything.");
+
+		let [moveMessages, enableBending, publicStats, hiddenWater, avatarState] = formValues;
 		
 		if (moveMessages) {
 			source.removeTag('chatmsgoff');
@@ -30,6 +31,13 @@ export function settingsMenu(source) {
 			source.removeTag('hide_stats');
 		} else {
 			source.addTag('hide_stats');
+		}
+		if (source.hasTag("water") || source.hasTag("avatar")) {
+			if (hiddenWater) {
+				source.removeTag('permHiddenWater');
+			} else {
+				source.addTag('permHiddenWater');
+			}
 		}
 		if (source.hasTag("avatar")) {
 			if (avatarState) {

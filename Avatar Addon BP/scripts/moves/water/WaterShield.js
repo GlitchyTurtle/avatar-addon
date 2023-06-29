@@ -1,7 +1,5 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system, MolangVariableMap } from '@minecraft/server'
+import { getScore, setScore, delayedFunc, calculateKnockbackVector } from "./../../util.js";
 
 const command = {
     name: 'Water Shield',
@@ -9,21 +7,56 @@ const command = {
     style: 'water',
     unlockable: 3,
     unlockable_for_avatar: 24,
-    cooldown: 'fast',
+    cooldown: 'slow',
     execute(player) {
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
+		// Setup
+		setScore(player, "cooldown", 0);
+
+		// Check if they have water
+		if (getScore("water_loaded", player) < 1) return player.sendMessage("§cYou don't have enough water to do that!")
+		setScore(player, "water_loaded", -1, true);
+
+		player.addEffect("resistance", 25, { amplifier: 255, showParticles: false });
 		player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
-		player.runCommandAsync("particle a:water_shield ~~~");
-		player.runCommandAsync("effect @s resistance 1 255 true");
-		let {x, y, z} = player.location;
-		let waterShieldTick = world.events.tick.subscribe(event => {
-			if (!startTick) startTick = event.currentTick;
-			try { player.runCommandAsync(`execute as @e[x=${x},y=${y},z=${z},name=!"${player.name}",r=4] at @s run tp @s ^^^-1 facing ${x} ${y} ${z}`); } catch (error) {}
-			if (event.currentTick - startTick > 120) {
-				world.events.tick.unsubscribe(waterShieldTick);
-				startTick = undefined;
-			}
-		})
+		player.addTag("hiddenWater");
+		player.playAnimation("animation.water.push");
+
+		delayedFunc(player, (waterShield) => {
+			player.addTag("bendingShield");
+            player.dimension.spawnParticle("a:water_shield", player.location, new MolangVariableMap());
+			let spawnPos = player.location;
+			let currentTick = 0;
+
+			const sched_ID = system.runInterval(function tick() {
+                // In case of errors
+                currentTick++;
+                if (currentTick > 100) return system.clearRun(sched_ID);
+
+				// Get entities
+				const dimension = player.dimension;
+				const entities = [...dimension.getEntities({ location: spawnPos, maxDistance: 6, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
+				const items = [...dimension.getEntities({ location: spawnPos, maxDistance: 6, type: "item" })];
+			
+				// Loop through all nearby entities (not items though)
+				entities.forEach(entity => {
+					const kbVector = calculateKnockbackVector(entity.location, spawnPos, 1);
+					try { entity.clearVelocity() } catch (error) {}
+					try {
+						entity.applyKnockback(kbVector.x, kbVector.z, 1, 0);
+					} catch (error) {
+						entity.applyImpulse(calculateKnockbackVector(entity.location, spawnPos, 0.1));
+					}
+				});
+				items.forEach(item => { item.applyImpulse(calculateKnockbackVector(item.location, spawnPos, 0.3)); });
+
+				// The end of the runtime
+				if (currentTick > 35) {
+					player.removeTag("bendingShield");
+					player.removeTag("hiddenWater");
+					return system.clearRun(sched_ID);
+				}
+			}, 1);
+		}, 10);
     }
 }
 

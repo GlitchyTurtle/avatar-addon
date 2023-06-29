@@ -1,7 +1,5 @@
-import { world } from '@minecraft/server'
-import { getScore } from "./../../util.js";
-
-let startTick;
+import { system, MolangVariableMap } from '@minecraft/server'
+import { getScore, setScore, delayedFunc, calculateKnockbackVector } from "./../../util.js";
 
 const command = {
     name: 'Supercharged Earth Shield',
@@ -11,22 +9,50 @@ const command = {
     unlockable_for_avatar: 100,
     cooldown: 'slow',
     execute(player) {
-		if (!player.hasTag("avatar_state")) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§cYou must be in avatar state to use this move!"}]}`);
-		player.runCommandAsync("scoreboard players set @s cooldown1 0");
-		if (getScore("ground", player) === 1) {
-			player.runCommandAsync("camerashake add @s 0.4 19.1 positional");
-			player.runCommandAsync("particle a:supercharged_earth_shield ~~~");
-			player.runCommandAsync("playsound dig.grass @a[r=10]");
-			let {x, y, z} = player.location;
-			let earthShieldTick = world.events.tick.subscribe(event => {
-				if (!startTick) startTick = event.currentTick;
-				try { player.runCommandAsync(`execute as @e[x=${x},y=${y},z=${z},name=!"${player.name}",r=10] at @s run tp @s ^^^-1 facing ${x} ${y} ${z}`); } catch (error) {}
-				if (event.currentTick - startTick > 350) {
-					world.events.tick.unsubscribe(earthShieldTick);
-					startTick = undefined;
+		// Setup
+        setScore(player, "cooldown", 0);
+        if (!player.hasTag("avatar_state")) return player.sendMessage("§cYou must be in avatar state to use this move!");
+		if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
+
+		player.addEffect("resistance", 25, { amplifier: 255, showParticles: false });
+		player.runCommandAsync("camerashake add @s 0.4 0.1 positional");
+		player.playAnimation("animation.earth.push");
+
+		delayedFunc(player, (waterShield) => {
+			player.addTag("bendingShield");
+            player.dimension.spawnParticle("a:supercharged_earth_shield", player.location, new MolangVariableMap());
+			let spawnPos = player.location;
+			let currentTick = 0;
+
+			const sched_ID = system.runInterval(function tick() {
+				// Code
+				currentTick++;
+
+				// Get entities
+				const dimension = player.dimension;
+				const entities = [...dimension.getEntities({ location: spawnPos, maxDistance: 40, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
+				const items = [...dimension.getEntities({ location: spawnPos, maxDistance: 40, type: "item" })];
+			
+				// Loop through all nearby entities (not items though)
+				entities.forEach(entity => {
+					const kbVector = calculateKnockbackVector(entity.location, spawnPos, 1);
+					try { entity.clearVelocity() } catch (error) {}
+					try {
+						entity.applyKnockback(kbVector.x, kbVector.z, 1, 0);
+					} catch (error) {
+						entity.applyImpulse(calculateKnockbackVector(entity.location, spawnPos, 0.1));
+					}
+				});
+				items.forEach(item => { item.applyImpulse(calculateKnockbackVector(item.location, spawnPos, 0.3)); });
+
+				// The end of the runtime
+				if (currentTick > 35) {
+					setScore(player, "cooldown", 0);
+					player.removeTag("bendingShield");
+					return system.clearRun(sched_ID);
 				}
-			})
-		}
+			}, 1);
+		}, 10);
     }
 }
 
