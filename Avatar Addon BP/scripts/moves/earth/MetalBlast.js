@@ -1,23 +1,19 @@
 import { MolangVariableMap, Player } from "@minecraft/server";
-import { calcVectorOffset, getScore, setScore, playSound, delayedFunc, calcBendingResistance, checkItemAmount } from "./../../util.js";
+import { calcVectorOffset, applyBasicDamage, setScore, playSound, delayedFunc, checkItemAmount } from "./../../util.js";
 
 const command = {
     name: 'Metal Blast',
-    description: 'Shoots a focused beam of metal that does damage (with no max damage cap) and knockback, as long as you have more than 2 iron in your inventory. Almost no cooldown because it consumes iron instead!',
+    description: 'Shoots a focused beam of metal that *does* damage (with no max damage cap). Almost no cooldown because it consumes iron instead!',
     style: 'earth',
-    unlockable: 25,
-    unlockable_for_avatar: 60,
+    unlockable: 0,
+    unlockable_for_avatar: 0,
     cooldown: 'super_fast',
-    sub_bending_required: 'metal',
-    damage_factor: 1,
+    skill_required: "Metal Blast",
     execute(player) {
         // Setup
         setScore(player, "cooldown", 0);
         player.playAnimation("animation.earth.blast");
-
-        if (checkItemAmount(player, 'minecraft:iron_ingot') < 2) return player.sendMessage("§cYou don't have 2+ iron ingots to expend for this.");
-		player.runCommand("clear @s iron_ingot -1 2");
-
+        
         // To be executed when the animation is done
         delayedFunc(player, (airBlast) => {
             const map = new MolangVariableMap();
@@ -28,18 +24,14 @@ const command = {
                 const currentBlock = player.dimension.getBlock(currentPos);
                 
                 // Apply knockback (and a little bit of damage) to the entities
-                const entities = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.2, excludeNames: [player.name], excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] })];
-                let items = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.2, type: "item" })];
-                entities.forEach(entity => {
-                    if (entity.hasTag("permKbSafe") && (entity instanceof Player)) return entity.dimension.spawnParticle("a:air_leap", entity.location, map);
-                    entity.applyKnockback(playerViewDir.x, playerViewDir.z, 1, 0.3)
-                    entity.applyDamage(Math.max(3 - calcBendingResistance(entity), 1));
-                });
+                const entities = [...player.dimension.getEntities({ location: currentPos, maxDistance: 3, excludeNames: [player.name], excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] })];
+                let items = [...player.dimension.getEntities({ location: currentPos, maxDistance: 3, type: "item" })];
+                entities.forEach(entity => applyBasicDamage(player, entity.entity, "super_light", 1));
                 items.forEach(item => { item.applyImpulse(playerViewDir) });
 
                 // Check if we hit a solid block or shield
                 let detectShield = [...player.dimension.getEntities({ location: currentPos, maxDistance: 6, excludeNames: [player.name], tags: ["bendingShield"] })];
-                if (currentBlock.isSolid()) break;
+                if (currentBlock.isSolid) break;
                 if (detectShield[0]) return;
 
                 // Spawn the particle
@@ -47,17 +39,9 @@ const command = {
             }
 
             // Apply full damage and knockback for good aim
-            const playerViewDir = player.getViewDirection()
             const entities = player.getEntitiesFromViewDirection({ maxDistance: 10, excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] });
-            entities.forEach(entity => {
-                try {
-                    if (entity.hasTag("permKbSafe") && (entity instanceof Player)) return entity.dimension.spawnParticle("a:air_leap", entity.location, map);
-                    entity.applyKnockback(playerViewDir.x, playerViewDir.z, 3, 0.3)
+            entities.forEach(eventEntity => applyBasicDamage(player, eventEntity.entity, "normal", 1));
 
-                    const damageDealt = getScore('offTier', player) * this.damage_factor + 2;
-                    entity.applyDamage(Math.max(damageDealt - calcBendingResistance(entity), 1));
-                } catch (error) {}
-            });
 
             // Particle effects and sound
             playSound(player, 'firework.blast', 1, calcVectorOffset(player, -0.2, 1, i/2 - 0.5), 3);

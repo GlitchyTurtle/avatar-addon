@@ -4,8 +4,9 @@ import AirLeap from './air/AirLeap.js';
 import AirPush from './air/AirPush.js';
 import AirPull from './air/AirPull.js';
 import AirLaunch from './air/AirLaunch.js';
+import AirPlume from './air/AirPlume.js';
 import AirShockwave from './air/AirShockwave.js';
-import AirBubble from './air/AirBubble.js';
+import AirScooter from './air/AirScooter.js';
 import AirRush from './air/AirRush.js';
 import AirVanish from './air/AirVanish.js';
 import AirTornado from './air/AirTornado.js';
@@ -17,8 +18,10 @@ import TripleAirBlast from './air/TripleAirBlast.js';
 import AirSpirit from './air/AirSpirit.js';
 import SniperAirBlast from './air/SniperAirBlast.js';
 import AirFinder from './air/AirFinder.js';
-import AirPulse from './air/AirPulse.js';
+import AirPuff from './air/AirPuff.js';
+import AirSlam from './air/AirSlam.js';
 import SensoryBreath from './air/SensoryBreath.js';
+import AirAsphyxiation from './air/AirAsphyxiation.js';
 
 // Water - in order of unlock
 import WaterSpear from './water/WaterSpear.js';
@@ -26,6 +29,7 @@ import WaterWhip from './water/WaterWhip.js';
 import WaterVanish from './water/WaterVanish.js';
 import WaterShield from './water/WaterShield.js';
 import WaterLaunch from './water/WaterLaunch.js';
+import WaterVortex from './water/WaterVortex.js';
 import Jetstream from './water/Jetstream.js';
 import WaterSplash from './water/WaterSplash.js';
 import FrostWalker from './water/FrostWalker.js';
@@ -38,7 +42,9 @@ import HealingCloud from './water/HealingCloud.js';
 import HealingFocus from './water/HealingFocus.js';
 import FrostBreath from './water/FrostBreath.js';
 import HydratedShockwave from './water/HydratedShockwave.js';
-import WaterGrapple from './water/WaterGrapple.js';
+import VineGrapple from './water/VineGrapple.js';
+import VineHook from './water/VineHook.js';
+import PlantSnare from './water/PlantSnare.js';
 
 // Earth - in order of unlock
 import EarthPillar from './earth/EarthPillar.js';
@@ -60,11 +66,12 @@ import MagmaFissure from './earth/MagmaFissure.js';
 import EarthRend from './earth/EarthRend.js';
 import SeismicSense from './earth/SeismicSense.js';
 import EarthSpikeWave from './earth/EarthSpikeWave.js';
+import MetalHook from './earth/MetalHook.js';
 
 // Fire - in order of unlock
 import FireBlast from './fire/FireBlast.js';
 import FireFinder from './fire/FireFinder.js';
-import FireShield from './fire/FireShield.js';
+import FireDodge from './fire/FireDodge.js';
 import FireSprint from './fire/FireSprint.js';
 import Fireball from './fire/Fireball.js';
 import FireCharge from './fire/FireCharge.js';
@@ -79,7 +86,10 @@ import FlameWave from './fire/FlameWave.js';
 import ConcussivePop from './fire/ConcussivePop.js';
 import CombustionBlast from './fire/CombustionBlast.js';
 import LightningStrike from './fire/LightningStrike.js';
-import LightningSmite from './fire/LightningSmite.js';
+import LightningBurst from './fire/LightningBurst.js';
+import LightningDischarge from './fire/LightningDischarge.js';
+import ThunderclapBolt from './fire/ThunderclapBolt.js';
+import DragonOfTheWest from './fire/DragonOfTheWest.js';
 
 // Avatar State Specials
 import AvatarState from './avatar/AvatarState.js' //New!
@@ -98,8 +108,9 @@ const commands = {
     AirPush: AirPush,
     AirPull: AirPull,
     AirLaunch: AirLaunch,
+    AirPlume: AirPlume,
     AirShockwave: AirShockwave,
-    AirBubble: AirBubble,
+    AirScooter: AirScooter,
     AirRush: AirRush,
     AirVanish: AirVanish,
     AirTornado: AirTornado,
@@ -108,17 +119,20 @@ const commands = {
     AirBall: AirBall,
     PurifyingBreath: PurifyingBreath,
     TripleAirBlast: TripleAirBlast,
-    AirSpirit: AirSpirit,
     SniperAirBlast: SniperAirBlast,
     AirFinder: AirFinder,
-    AirPulse: AirPulse,
+    AirPuff: AirPuff,
+    AirSlam: AirSlam,
     SensoryBreath: SensoryBreath,
+    AirAsphyxiation: AirAsphyxiation,
+    AirSpirit: AirSpirit,
     // Water - In the order they unlock and are displayed!
     WaterSpear: WaterSpear,
     WaterWhip: WaterWhip,
     WaterVanish: WaterVanish,
     WaterShield: WaterShield,
     WaterLaunch: WaterLaunch,
+    WaterVortex: WaterVortex,
     Jetstream: Jetstream,
     WaterSplash: WaterSplash,
     FrostWalker: FrostWalker,
@@ -131,7 +145,9 @@ const commands = {
     HealingFocus: HealingFocus,
     FrostBreath: FrostBreath,
     HydratedShockwave: HydratedShockwave,
-    WaterGrapple: WaterGrapple,
+    VineGrapple: VineGrapple,
+    VineHook: VineHook,
+    PlantSnare: PlantSnare,
     // Earth - In the order they unlock and are displayed!
     EarthPillar: EarthPillar,
     EarthBurrow: EarthBurrow,
@@ -152,10 +168,11 @@ const commands = {
     SeismicSense: SeismicSense,
     EarthRend: EarthRend,
     EarthSpikeWave: EarthSpikeWave,
+    MetalHook: MetalHook,
     // Fire - In the order they unlock and are displayed!
     FireBlast: FireBlast,
     FireFinder: FireFinder,
-    FireShield: FireShield,
+    FireDodge: FireDodge,
     FireSprint: FireSprint,
     Fireball: Fireball,
     FireCharge: FireCharge,
@@ -170,7 +187,10 @@ const commands = {
     ConcussivePop: ConcussivePop,
     CombustionBlast: CombustionBlast,
     LightningStrike: LightningStrike,
-    LightningSmite: LightningSmite,
+    LightningBurst: LightningBurst,
+    LightningDischarge: LightningDischarge,
+    ThunderclapBolt: ThunderclapBolt,
+    DragonOfTheWest: DragonOfTheWest,
     // Avatar State!
     AvatarState: AvatarState,
     SuperchargedAirShove: SuperchargedAirShove,

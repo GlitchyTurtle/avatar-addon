@@ -1,0 +1,30 @@
+{
+	"format_version": "1.19.10",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "a:lychee_tea_recipe"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"ingredients": [
+			{
+				"item": "minecraft:sugar"
+			},
+            {
+				"item": "minecraft:slime_ball"
+			},
+            {
+				"item": "minecraft:blaze_powder"
+			},
+			{
+				"item": "a:water_cup"
+			}
+		],
+		"result": [
+			{
+				"item": "a:lychee_tea"
+			}
+		]
+	}
+}

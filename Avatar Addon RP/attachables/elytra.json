@@ -1,0 +1,36 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "minecraft:elytra",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/models/armor/elytra",
+        "enchanted": "textures/misc/enchanted_item_glint",
+        "iron_patron_cape": "textures/capes/iron_patron_cape",
+        "gold_patron_cape": "textures/capes/gold_patron_cape",
+        "emerald_patron_cape": "textures/capes/emerald_patron_cape",
+        "monthly_comp_cape": "textures/capes/monthly_comp_cape",
+        "bending_clash_winner_cape": "textures/capes/bending_clash_winner_cape"
+      },
+      "geometry": {
+        "default": "geometry.elytra",
+        "none": "geometry.no_elytra"
+      },
+      "scripts": {
+        "parent_setup": "variable.chest_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.default_elytra",
+        "controller.render.iron_patron_cape.elytra",
+        "controller.render.gold_patron_cape.elytra",
+        "controller.render.emerald_patron_cape.elytra",
+        "controller.render.monthly_comp_cape.elytra",
+        "controller.render.bending_clash_winner_cape.elytra" 
+      ]
+    }
+  }
+}

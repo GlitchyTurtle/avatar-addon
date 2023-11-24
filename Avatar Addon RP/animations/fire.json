@@ -550,7 +550,7 @@
 			}
 		},
 		"animation.fire.sprint_blue": {
-			"animation_length": 2.75,
+			"animation_length": 1.75,
 			"override_previous_animation": true,
 			"bones": {
 				"body": {

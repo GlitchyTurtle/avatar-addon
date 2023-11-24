@@ -1,15 +1,15 @@
-import { system, MolangVariableMap, MinecraftBlockTypes } from "@minecraft/server";
+import { system, MolangVariableMap } from "@minecraft/server";
 import { calcVectorOffset, createShockwave, setScore, getScore, delayedFunc, checkItemAmount } from "../../util.js";
 
 function findBlock(player, currentPos) {
 	var currentBlock = player.dimension.getBlock(currentPos);
-	while (!currentBlock.isSolid()) {
+	while (!currentBlock.isSolid) {
 		currentPos = { x: currentPos.x, y: currentPos.y - 1, z: currentPos.z }
 		currentBlock = player.dimension.getBlock(currentPos);
 	}
 
     const currentType = currentBlock.type;
-	currentBlock.setType(MinecraftBlockTypes.lava);
+	currentBlock.setType("minecraft:lava");
     delayedFunc(player, (removeDirtBlock) => {
         currentBlock.setType(currentType)
     }, Math.random() * 25 + 100);
@@ -19,18 +19,15 @@ const command = {
     name: 'Magma Fissure',
     description: 'Summons a line of lava directly out in the direction you are looking.',
     style: 'earth',
-    unlockable: 50,
-    unlockable_for_avatar: 50,
-    sub_bending_required: 'lava',
+    unlockable: 0,
+    unlockable_for_avatar: 0,
+    skill_required: "Magma Fissure",
     cooldown: 'super_fast',
     execute(player) {
         // Setup
         setScore(player, "cooldown", 0);
         player.playAnimation("animation.air.blast");
         if (!getScore("ground", player)) return player.sendMessage("§cYou must be grounded to use this move.");
-
-		if (checkItemAmount(player, 'minecraft:dirt') < 8) return player.sendMessage("§cYou don't have 8+ dirt to expend for this.");
-		player.runCommand("clear @s dirt -1 8");
 
         // To be executed when the animation is done
         delayedFunc(player, (airBall) => {
@@ -67,9 +64,9 @@ const command = {
                 if (nearbyEntities[0] != undefined) endRuntime = true;
 
                 // The end of the runtime
-                if (currentTick > 50 || endRuntime) {
+                if (currentTick > 20 || endRuntime) {
                     // Particle effects and sound
-                    createShockwave(player, currentPos, 3, 3, 2);
+                    createShockwave(player, currentPos, "high", 3, 2);
                     return system.clearRun(sched_ID);
                 }
             }, 1);

@@ -5,10 +5,9 @@ const command = {
     name: 'Air Finder',
     description: 'Shoots a blast of air that locks on to the closest entity and shows their location. It doesn\'t do damage, but it looks scary!',
     style: 'air',
-    unlockable: 0,
-    unlockable_for_avatar: 0,
+    unlockable: 8,
+    unlockable_for_avatar: 8,
     cooldown: 'fast',
-    off_tier_required: 1,
     execute(player) {
         // Setup
         setScore(player, "cooldown", 0);
@@ -51,7 +50,7 @@ const command = {
                     const hasHitEntity = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.5, excludeNames: [player.name], excludeFamilies: ["inanimate"], excludeTypes: ["item"], excludeTags: ["bending_dmg_off"] })];
     
                     // Check if we hit a solid block
-                    if (currentBlock.isSolid() || hasHitEntity[0] != undefined) return entities.splice(entities.indexOf(entity), 1);
+                    if (currentBlock.isSolid || hasHitEntity[0] != undefined) return entities.splice(entities.indexOf(entity), 1);
     
                     // Spawn the particle
                     if (!hasHitEntity[0]) player.dimension.spawnParticle("a:air_blast", currentPos, map);

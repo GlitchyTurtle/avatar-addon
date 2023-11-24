@@ -1,0 +1,14 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.player.spectator_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "Texture.cape" ],
+      "part_visibility": [
+        { "cape": false }
+      ]
+    }
+  }
+}

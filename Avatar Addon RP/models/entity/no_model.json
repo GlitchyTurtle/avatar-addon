@@ -1,0 +1,8 @@
+{
+  "format_version": "1.8.0",
+  "geometry.no_elytra": {
+    "texturewidth": 64,
+    "textureheight": 32,
+    "bones": []
+  }
+}

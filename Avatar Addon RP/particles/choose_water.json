@@ -1,4 +1,3 @@
-//bridge-file-version: #3
 {
 	"format_version": "1.10.0",
 	"particle_effect": {
@@ -63,10 +62,11 @@
 			},
 			"minecraft:particle_appearance_tinting": {
 				"color": {
-					"interpolant": "variable.particle_random_1",
+					"interpolant": "v.particle_age / v.particle_lifetime",
 					"gradient": {
-						"0.1": "#ffffffff",
-						"0.79": "#FF485CD6"
+						"0.13": "#FF00B7FF",
+						"0.5": "#FF2366D9",
+						"0.82": "#FFFFFFFF"
 					}
 				}
 			},

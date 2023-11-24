@@ -27,6 +27,31 @@
 		]
 	},
 
+	"hud_actionbar_text1": {
+		"anchor_from": "right_middle",
+		"anchor_to": "right_middle",
+		"type": "image",
+		"size": [ "100%c + 10px", "100%c + 10px" ],
+		"offset": [-3, 0],
+		"texture": "textures/ui/hud_tip_text_background",
+		"alpha": "@hud.anim_actionbar_text_background_alpha_out",
+		"controls": [
+			{
+				"actionbar_message": {
+					"type": "label",
+					"anchor_from": "right",
+					"anchor_to": "right",
+					"color": "$tool_tip_text",
+					"layer": 1,
+					"text": "$actionbar_text",
+					"localize": false,
+					"alpha": "@hud.anim_actionbar_text_alpha_out",
+					"font_scale_factor": 0.9
+				}
+			}
+		]
+	},
+
 	"root_panel": {
 		"modifications": [
 			{

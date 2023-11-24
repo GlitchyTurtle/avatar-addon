@@ -1,6 +1,9 @@
 {
   "ui_defs": [
-    "ui/cooldowns/cooldown_bar.r4ui",
-    "ui/cooldowns/cooldown_bar_uv.r4ui"
+    "ui/cooldowns/cooldown_bar.json",
+    "ui/cooldowns/cooldown_bar_uv.json",
+    "ui/chest_server_form_ui.json",
+    "ui/chess_server_form_ui.json",
+    "ui/skill_tree_server_form_ui.json"
   ]
 }

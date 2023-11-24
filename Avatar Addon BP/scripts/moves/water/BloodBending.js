@@ -1,25 +1,23 @@
 import { system, world } from '@minecraft/server'
-import { setScore, getScore, delayedFunc } from "./../../util.js";
+import { setScore, getScore, delayedFunc } from "../../util.js";
 
 const command = {
     name: 'Blood Bending',
-    description: 'Pick up entities and launch them into the distance! Only works on full moons.',
+    description: 'Pick up entities and launch them into the distance!',
     style: 'water',
-    sub_bending_required: 'blood',
-    unlockable: 12,
+    unlockable: 0,
     unlockable_for_avatar: 0,
     cooldown: 'slow',
+    skill_required: "Blood Bending",
     execute(player) {
         setScore(player, "cooldown", 0);
 
-        const FULL_MOON = ((world.getAbsoluteTime() - world.getTime()) / 24000) % 8 == 0;
-        const NIGHT_TIME = world.getTime() > 12000;
+        const FULL_MOON = false//((world.getAbsoluteTime() - world.getTime()) / 24000) % 8 == 0;
+        const NIGHT_TIME = false//world.getTime() > 12000;
     
-		if ((!FULL_MOON || !NIGHT_TIME) && getScore("level", player) < 100) return player.sendMessage("§cYou need the power of a full moon for this, or an incredibly high mastery - level 100 or more.");
+		if ((!FULL_MOON || !NIGHT_TIME) && getScore("level", player) < 50) return player.sendMessage("§cYou need the power of a full moon for this, or an incredibly high mastery - level 50 or more.");
 		
         player.playAnimation("animation.water.blast");
-        player.runCommand("inputpermission set @s movement disabled");
-        
         delayedFunc(player, (fireSprint) => {
             let currentTick = 0;
             const sched_ID = system.runInterval(function tick() {
@@ -33,7 +31,6 @@ const command = {
 
                 // The end of the runtime
                 if (currentTick > 35) {
-                    player.runCommand("inputpermission set @s movement enabled");
                     return system.clearRun(sched_ID);
                 }
             }, 1);

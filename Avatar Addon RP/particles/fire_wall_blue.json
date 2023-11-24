@@ -22,7 +22,9 @@
 				"surface_only": true,
 				"direction": [0, 1, 0]
 			},
-     			"minecraft:emitter_lifetime_once": {},
+     		"minecraft:emitter_lifetime_once": {
+				"active_time": 2
+			},
 			"minecraft:particle_lifetime_expression": {
 				"max_lifetime": "Math.random(1, 1.4)"
 			},

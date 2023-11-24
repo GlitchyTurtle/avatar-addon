@@ -1,5 +1,5 @@
 import { MolangVariableMap } from "@minecraft/server";
-import { delayedFunc, createShockwave, setScore, playSound } from "./../../util.js";
+import { delayedFunc, createShockwave, setScore, playSound } from "../../util.js";
 
 const command = {
     name: 'Air Shockwave',
@@ -9,7 +9,7 @@ const command = {
     unlockable_for_avatar: 5,
     cooldown: 'fast',
     damage_factor: 2,
-    execute(player) {
+    execute(player, decay) {
         // Setup
         setScore(player, "cooldown", 0);
         player.playAnimation("animation.air.shockwave");
@@ -21,7 +21,7 @@ const command = {
             const map = new MolangVariableMap();
             player.dimension.spawnParticle("a:air_shockwave", playerPos, map);
             playSound(player, 'random.explode', 1, playerPos, 5);
-            createShockwave(player, playerPos, 7, 7, this.damage_factor);
+            createShockwave(player, playerPos, "ultra_heavy", 7, 1);
         }, 5);
 
         delayedFunc(player, movementReturn => {

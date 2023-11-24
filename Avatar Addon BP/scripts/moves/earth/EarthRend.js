@@ -1,11 +1,11 @@
-import { system, MinecraftBlockTypes } from "@minecraft/server";
+import { system } from "@minecraft/server";
 import { calcVectorOffset, getScore, setScore, delayedFunc, playSound } from "../../util.js";
 
 let removeBlocks = [];
 
 function findBlock(player, currentPos) {
 	var currentBlock = player.dimension.getBlock(currentPos);
-	while (!currentBlock.isSolid()) {
+	while (!currentBlock.isSolid) {
 		currentPos = { x: currentPos.x, y: currentPos.y - 1, z: currentPos.z }
 		currentBlock = player.dimension.getBlock(currentPos);
 	}
@@ -14,13 +14,12 @@ function findBlock(player, currentPos) {
     if (alreadyExists || currentBlock.typeId == "minecraft:air") return;
 
     const currentType = currentBlock.type;
-    currentBlock.setType(MinecraftBlockTypes.air);
+    currentBlock.setType("minecraft:air");
 
     removeBlocks.push({
         block: currentBlock,
         type: currentType
     });
-    
 }
 
 function applyAngleTransform(viewVector, angleDegrees) {
@@ -62,9 +61,9 @@ const command = {
     name: 'Earth Rend',
     description: 'Create a fissure in the earth in front of your feet to trap opponents underground.',
     style: 'earth',
-    unlockable: 8,
-    unlockable_for_avatar: 49,
-    off_tier_required: 1,
+    unlockable: 0,
+    unlockable_for_avatar: 0,
+    skill_required: "Earth Rend",
     execute(player) {
         // Possible memory leak fix
         if (removeBlocks.length > 40) removeBlocks = [];

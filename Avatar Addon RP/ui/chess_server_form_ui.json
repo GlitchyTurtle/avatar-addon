@@ -1,0 +1,283 @@
+{
+    "namespace": "chess_ui",
+    "chess_title_label": {
+        "type": "label",
+        "font_scale_factor": 1.5,
+        "layer": 1,
+        "offset": [
+            10.5,
+            9
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "default",
+            40
+        ],
+        "color": "$main_header_text_color",
+        "text": "$text_name",
+        "shadow": false,
+        "property_bag": {
+            "#tts_dialog_title": "$text_name"
+        },
+        "$title_binding_condition": "none",
+        "bindings": [
+            {
+                "binding_type": "$title_text_binding_type",
+                "binding_condition": "$title_binding_condition",
+                "binding_name": "$text_name",
+                "binding_name_override": "$text_name"
+            },
+            {
+                "binding_type": "global",
+                "binding_condition": "once",
+                "binding_name": "#tts_dialog_title"
+            }
+        ]
+    },
+    "chess_panel": {
+        "type": "panel",
+        "$text_name": "#title_text",
+        "$title_text_binding_type": "none",
+        "size": [
+            "100%c",
+            "100%c"
+        ],
+        "controls": [
+            {
+                "large_chess_grid_image": {
+                    "type": "image",
+                    "size": [
+                        363,//242//*2,
+                        231//*2
+                    ],
+                    "texture": "textures/ui/avatar/pai_sho/pai_sho_board",
+                    "$large_chess_flag": "§b§b§b",
+                    "layer": 0,
+                    "controls": [
+                        {
+                            "title_label@chess_ui.chess_title_label": {}
+                        },
+                        {
+                            "close_button@common.compact_close_button": {
+                                "$close_button_offset": [
+                                    -1.5,
+                                    4.5
+                                ]
+                            }
+                        },
+                        {
+                            "large_chess_grid": {
+                                "type": "grid",
+                                "grid_dimensions": [
+                                    8,
+                                    8
+                                ],
+                                "size": [
+                                    "192px",//"128px", // 162
+                                    "192px" // 108
+                                ],
+                                "offset": [
+                                    10.5,
+                                    29.25
+                                ],
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "grid_item_template": "chess_ui.inventory_item",
+                                "collection_name": "form_buttons",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name": "#form_button_length",
+                                        "binding_name_override": "#maximum_grid_items"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label_offset_panel": {
+                                "type": "panel",
+                                "size": [
+                                    "35%",
+                                    "100%c"
+                                ],
+                                "controls": [
+                                    {
+                                        "main_label": {
+                                            "type": "label",
+                                            "offset": [
+                                                105,
+                                                3
+                                            ],
+                                            "font_scale_factor": 1.5,
+                                            "color": "$main_header_text_color",
+                                            "size": [
+                                                "100%",
+                                                "default"
+                                            ],
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "top_right",
+                                            "text": "#form_text"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "#title_text"
+                        },
+                        {
+                            "binding_type": "view",
+                            "source_property_name": "(not ((#title_text - $large_chess_flag) = #title_text))",
+                            "target_property_name": "#visible"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "inventory_button@common.button": {
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "$texture_bindings": [
+            {
+                "binding_name": "#form_button_texture",
+                "binding_name_override": "#texture",
+                "binding_type": "collection",
+                "binding_collection_name": "form_buttons"
+            },
+            {
+                "binding_name": "#form_button_texture_file_system",
+                "binding_name_override": "#texture_file_system",
+                "binding_type": "collection",
+                "binding_collection_name": "form_buttons"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+                "target_property_name": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "size": [
+                        "100%c",
+                        "100%c"
+                    ],
+                    "layer": 3,
+                    "controls": [
+                        {
+                            "item_texture": {
+                                "type": "image",
+                                "size": [
+                                    24,
+                                    24
+                                ],
+                                "bindings": "$texture_bindings"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "size": [
+                        "100%c",
+                        "100%c"
+                    ],
+                    "controls": [
+                        {
+                            "hovering_image": {
+                                "type": "panel",
+                                "size": [
+                                    24,
+                                    24
+                                ],
+                                "controls": [
+                                    {
+                                        "item_texture": {
+                                            "type": "image",
+                                            "size": [
+                                                24,
+                                                24
+                                            ],
+                                            "layer": 2,
+                                            "bindings": "$texture_bindings"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "size": [
+                        "100%c",
+                        "100%c"
+                    ],
+                    "controls": [
+                        {
+                            "item_texture": {
+                                "type": "image",
+                                "size": [
+                                    24,
+                                    24
+                                ],
+                                "layer": 2,
+                                "offset": [
+                                    -5,
+                                    -5
+                                ],
+                                "bindings": "$texture_bindings"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "bindings": [
+            {
+                "binding_type": "collection",
+                "binding_condition": "none",
+                "binding_collection_name": "form_buttons"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "form_buttons"
+            },
+            {
+                "binding_name": "#form_button_text",
+                "binding_type": "collection",
+                "binding_collection_name": "form_buttons"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(not (#form_button_text = ''))",
+                "target_property_name": "#visible"
+            }
+        ],
+        "$pressed_button_name": "button.form_button_click"
+    },
+    "inventory_item": {
+        "type": "stack_panel",
+        "size": [
+            24,
+            24
+        ],
+        "layer": 2,
+        "controls": [
+            {
+                "inventory_button@chess_ui.inventory_button": {}
+            }
+        ]
+    }
+}

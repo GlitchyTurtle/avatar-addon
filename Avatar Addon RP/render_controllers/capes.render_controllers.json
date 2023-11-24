@@ -1,0 +1,64 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.player.default_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    },
+
+    "controller.render.player.iron_patron_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "!query.has_cape ? Texture.iron_patron_cape : Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    },
+
+    "controller.render.player.gold_patron_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "!query.has_cape ? Texture.gold_patron_cape : Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    },
+
+    "controller.render.player.emerald_patron_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "!query.has_cape ? Texture.emerald_patron_cape : Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    },
+
+    "controller.render.player.monthly_comp_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "!query.has_cape ? Texture.monthly_comp_cape : Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    },
+
+    "controller.render.player.bending_clash_winner_cape": {
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.cape",
+      "materials": [ { "*": "Material.cape" } ],
+      "textures": [ "!query.has_cape ? Texture.bending_clash_winner_cape : Texture.cape" ],
+      "part_visibility": [
+        { "cape": "(query.armor_texture_slot(1) != 5) && (!variable.is_first_person || variable.is_paperdoll) && (!variable.map_face_icon)" }
+      ]
+    }
+  }
+}

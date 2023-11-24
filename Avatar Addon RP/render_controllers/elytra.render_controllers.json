@@ -1,0 +1,58 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.default_elytra": {
+      "geometry": "query.mark_variant == 0 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "Texture.default",
+        "Texture.enchanted"
+      ]
+    },
+
+    "controller.render.iron_patron_cape.elytra": {
+      "geometry": "query.mark_variant == 1 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "!query.has_cape ? Texture.iron_patron_cape : Texture.default",
+        "Texture.enchanted"
+      ]
+    },
+
+    "controller.render.gold_patron_cape.elytra": {
+      "geometry": "query.mark_variant == 2 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "!query.has_cape ? Texture.gold_patron_cape : Texture.default",
+        "Texture.enchanted"
+      ]
+    },
+
+    "controller.render.emerald_patron_cape.elytra": {
+      "geometry": "query.mark_variant == 3 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "!query.has_cape ? Texture.emerald_patron_cape : Texture.default",
+        "Texture.enchanted"
+      ]
+    },
+
+    "controller.render.monthly_comp_cape.elytra": {
+      "geometry": "query.mark_variant == 4 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "!query.has_cape ? Texture.monthly_comp_cape : Texture.default",
+        "Texture.enchanted"
+      ]
+    },
+
+    "controller.render.bending_clash_winner_cape.elytra": {
+      "geometry": "query.mark_variant == 5 ? Geometry.default : Geometry.none",
+      "materials": [ { "*": "variable.is_enchanted ? Material.enchanted : Material.default" } ],
+      "textures": [
+        "!query.has_cape ? Texture.bending_clash_winner_cape : Texture.default",
+        "Texture.enchanted"
+      ]
+    }
+  }
+}

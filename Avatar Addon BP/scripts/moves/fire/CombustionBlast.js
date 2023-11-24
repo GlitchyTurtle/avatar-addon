@@ -1,5 +1,5 @@
 import { MolangVariableMap } from "@minecraft/server";
-import { calcVectorOffset, getScore, setScore, playSound, delayedFunc, calcBendingResistance } from "../../util.js";
+import { calcVectorOffset, applyBasicDamage, setScore, playSound, delayedFunc } from "../../util.js";
 
 const map = new MolangVariableMap();
 
@@ -7,43 +7,45 @@ const command = {
     name: 'Combustion Blast',
     description: 'Shoots out a beam that explodes when it hits either players or blocks!',
     style: 'fire',
-    unlockable: 20,
-    unlockable_for_avatar: 80,
-    sub_bending_required: 'combustion',
-    damage_factor: 3,
+    unlockable: 0,
+    unlockable_for_avatar: 0,
+    skill_required: 'Combustion Blast',
+    cooldown: 'fast',
     execute(player) {
         setScore(player, "cooldown", 0);
         player.playAnimation("animation.fire.blast");
 
         delayedFunc(player, (combustionBlast) => {
-            for (var i = 1; i < 150; i++) {
+            for (var i = 1; i < 250; i++) {
                 // Create the needed variables for kb and pos
-                const currentPos = calcVectorOffset(player, -0.2, 1, i/2);
+                const currentPos = calcVectorOffset(player, -0.2, 1, i/3);
                 const currentBlock = player.dimension.getBlock(currentPos);
-                const entities = [...player.dimension.getEntities({ location: currentPos, maxDistance: 1.2, excludeNames: [player.name], excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] })];
-
-                // Check if we hit an entity
-                if (entities[0] && i < 10) return player.sendMessage("§cThat's a bit too close, so damage cannot be dealt. Try 5+ blocks.");
+                const entities = [...player.dimension.getEntities({ location: currentPos, maxDistance: 3.2, excludeNames: [player.name], excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] })];
 
                 // Check if we hit a solid block
-                if (currentBlock.isSolid()) break;
+                if (!currentBlock.isAir || entities[0]) break;
+
+                entities.forEach(entity => {
+                    applyBasicDamage(player, entity, "ultra_heavy", 1);
+                });
+
+                if (i % 25 == 0) {
+                    const entityViewDir = player.getViewDirection();
+                    const angleMap = new MolangVariableMap();
+                    angleMap.setVector3("variable.plane", entityViewDir);
+                    player.dimension.spawnParticle("a:block_indicator", currentPos, angleMap);
+                }
 
                 // Spawn the particle
-                player.dimension.spawnParticle("minecraft:large_explosion", currentPos, map);
+                player.dimension.spawnParticle("a:air_blast_small", currentPos, map);
             }
 
-            // Apply full damage and knockback for good aim
-            const playerViewDir = player.getViewDirection()
-            const entities = player.getEntitiesFromViewDirection({ maxDistance: 75, excludeTypes: ["item"], excludeFamilies: ["inanimate"], excludeTags: ["bending_dmg_off"] });
-            entities.forEach(entity => {
-                entity.applyKnockback(playerViewDir.x, playerViewDir.z, 3, 0.3)
-                const damageDealt = getScore('offTier', player) * this.damage_factor + 2;
-                entity.applyDamage(Math.max(damageDealt - calcBendingResistance(entity), 1));
-            });
-
             // Particle effects and sound
-            player.dimension.spawnParticle("minecraft:huge_explosion_emitter", calcVectorOffset(player, -0.2, 1, i/2 - 0.5), map);
-            playSound(player, 'firework.blast', 1, calcVectorOffset(player, -0.2, 1, i/2 - 0.5), 3);
+            const finalPos = calcVectorOffset(player, -0.2, 1, (i)/3);
+            player.dimension.spawnParticle("minecraft:huge_explosion_emitter", finalPos, map);
+            playSound(player, 'firework.blast', 1, finalPos, 3);
+            player.dimension.spawnEntity('a:explosion', {x: finalPos.x, y: finalPos.y + 3, z: finalPos.z});
+            console.warn("As")
         }, 12);
     }
 }

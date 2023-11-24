@@ -10,7 +10,7 @@
 		},
 		"components": {
 			"minecraft:emitter_initialization": {
-				"creation_expression": "variable.size = 0.2;"
+				"creation_expression": "variable.size = 0.6;"
 			},
 			"minecraft:emitter_local_space": {
 				"position": true,

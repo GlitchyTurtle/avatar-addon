@@ -18,10 +18,9 @@
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
 			},
-     			"minecraft:emitter_lifetime_once": {},
 			"minecraft:emitter_shape_disc": {
 				"offset": [0, 0.4, 0],
-				"radius": 0.2,
+				"radius": 0.4,
 				"direction": "outwards"
 			},
 			"minecraft:particle_lifetime_expression": {

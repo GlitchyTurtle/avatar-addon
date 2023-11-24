@@ -1,0 +1,181 @@
+{
+  "namespace": "avatar_cooldown_bar",
+  "image_uv": {
+    "anim_type": "uv",
+    "$set_image_uv|default": [ 0, 0 ],
+    "duration": "$set_fps",
+    "from": "$set_image_uv",
+    "to": "$set_image_uv",
+    "easing": "linear",
+    "next": "$set_image_uv_next"
+  },
+
+  "enter_by_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.1,
+    "from": 0.0,
+    "to": 1.0
+  },
+  "stay_by_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.1,
+    "from": 1.0,
+    "to": 1.0
+  },
+  "destroy_by_alpha": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.2,
+    "from": 1.0,
+    "to": 0.0,
+    "destroy_at_end": "cooldown_bar_image"
+  },
+
+  "cooldown_bar_image": {
+    "$set_alpha|default": 0.0,
+    "$cooldown_uv|default": "base_full",
+    "$cooldown_texture|default": "textures/ui/empty",
+
+    "type": "image",
+    "size": [ 84.30, 12 ],
+    "uv_size": [ 82, 8 ],
+    "uv": "('@avatar_cooldown_bar_uv.image_uv_' + $cooldown_uv)",
+    "texture": "('textures/cooldown/' + $cooldown_texture)",
+    "alpha": "$set_alpha",
+    "layer": 0
+  },
+
+  "cooldown_bar_stack_panel": {
+    "type": "stack_panel",
+    "size": [ 84.30, "100%c" ],
+    "controls": [
+      {
+        "avatar_cooldown@avatar_cooldown_bar.cooldown_bar_image": {
+          "variables": [
+	{ "requires": "(not (($title_text - 'water_slow') = $title_text))", "$cooldown_uv": "base_slow", "$cooldown_texture": "water", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'water') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "water", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'water_fast') = $title_text))", "$cooldown_uv": "base_fast", "$cooldown_texture": "water", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'water_super_fast') = $title_text))", "$cooldown_uv": "base_super_fast", "$cooldown_texture": "water", "$set_alpha": 1.0 },
+
+	{ "requires": "(not (($title_text - 'fire_slow') = $title_text))", "$cooldown_uv": "base_slow", "$cooldown_texture": "fire", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'fire') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "fire", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'fire_fast') = $title_text))", "$cooldown_uv": "base_fast", "$cooldown_texture": "fire", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'fire_super_fast') = $title_text))", "$cooldown_uv": "base_super_fast", "$cooldown_texture": "fire", "$set_alpha": 1.0 },
+
+	{ "requires": "(not (($title_text - 'earth_slow') = $title_text))", "$cooldown_uv": "base_slow", "$cooldown_texture": "earth", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'earth') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "earth", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'earth_fast') = $title_text))", "$cooldown_uv": "base_fast", "$cooldown_texture": "earth", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'earth_super_fast') = $title_text))", "$cooldown_uv": "base_super_fast", "$cooldown_texture": "earth", "$set_alpha": 1.0 },
+
+	{ "requires": "(not (($title_text - 'air_slow') = $title_text))", "$cooldown_uv": "base_slow", "$cooldown_texture": "air", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'air_normal') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "air", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'air_fast') = $title_text))", "$cooldown_uv": "base_fast", "$cooldown_texture": "air", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'air_super_fast') = $title_text))", "$cooldown_uv": "base_super_fast", "$cooldown_texture": "air", "$set_alpha": 1.0 },
+
+	{ "requires": "(not (($title_text - 'avatar') = $title_text))", "$cooldown_uv": "base_slow", "$cooldown_texture": "avatar", "$set_alpha": 1.0 },
+        { "requires": "(not (($title_text - 'avatar') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "avatar", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'avatar_fast') = $title_text))", "$cooldown_uv": "base_fast", "$cooldown_texture": "avatar", "$set_alpha": 1.0 },
+	{ "requires": "(not (($title_text - 'avatar_super_fast') = $title_text))", "$cooldown_uv": "base_super_fast", "$cooldown_texture": "avatar", "$set_alpha": 1.0 },
+
+            { "requires": "(not (($title_text - 'reset') = $title_text))", "$cooldown_uv": "base_full", "$cooldown_texture": "empty", "$set_alpha": 0.0 }
+
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#is_riding",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#is_not_riding",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#is_creative_mode",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not #is_creative_mode)",
+        "target_property_name": "#is_not_creative_mode"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "$visible_binding",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  
+  "cooldown_bar_offset_control_default": {
+    "type": "panel",
+    "controls": [
+      {
+        "survival_default@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ 49.75, -40 ],
+          "$visible_binding": "(#is_not_riding and #is_not_creative_mode)"
+        }
+      },
+      {
+        "survival_riding@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ 49.75, -50 ],
+          "$visible_binding": "(#is_riding and #is_not_creative_mode)"
+        }
+      },
+      {
+        "creative_default@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ 0, -25 ],
+          "$visible_binding": "(#is_not_riding and #is_creative_mode)"
+        }
+      },
+      {
+        "creative_riding@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ -50, -25 ],
+          "$visible_binding": "(#is_riding and #is_creative_mode)"
+        }
+      }
+    ]
+  },
+
+  "cooldown_bar_offset_control_perf": {
+    "type": "panel",
+    "controls": [
+      {
+        "survival_default@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ 49.75, -54 ],
+          "$visible_binding": "(#is_creative_mode or #is_not_creative_mode)",
+          "ignored": "(not (($title_text - 'riding') = $title_text))"
+        }
+      },
+      {
+        "survival_riding@avatar_cooldown_bar.cooldown_bar_stack_panel": {
+          "offset": [ 49.75, -75 ],
+          "$visible_binding": "(#is_creative_mode or #is_not_creative_mode)",
+          "ignored": "(($title_text - 'riding') = $title_text)"
+        }
+      }
+    ]
+  },
+
+  "cooldown_bar_offset_control@common.empty_panel": {
+    "anchor_from": "center",
+    "anchor_to": "top_middle",
+    "offset": [ 0, -6 ],
+    "controls": [
+      {
+        "default@avatar_cooldown_bar.cooldown_bar_offset_control_default": {
+          "ignored": "$console_edition"
+        }
+      },
+      {
+        "perf@avatar_cooldown_bar.cooldown_bar_offset_control_perf": {
+          "ignored": "(not $console_edition)"
+        }
+      }
+    ]
+  }
+}

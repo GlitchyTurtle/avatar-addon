@@ -1,5 +1,6 @@
 import { MolangVariableMap } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui"
+import { refreshSidebar } from './../runtimes/main.js';
 import { setScore, getScore, parseSettings, getBendingStyle } from "./../util.js";
 
 // To spawn particles
@@ -23,6 +24,26 @@ const removeTags = [
 	"chi_blocked",
 	"permKbSafe",
 	"double_jump",
+	
+	// Carried
+	"passive_regen",
+
+    // Air
+    "wind_dash",
+    "double_jump",
+    "passive_mobility",
+    "sub_projectile",
+    "permKbSafe",
+    
+    // Earth
+    "pillar_pound",
+    "earth_sprint",
+
+    // Fire
+    "nether_buff",
+    "passive_mobility",
+    "village_hero",
+    "hot_blood",
 ];
 
 // Events that reset other skill tree events
@@ -41,10 +62,6 @@ const resetScores = [
 	"level",
 	"sub_level",
 	"skill_points",
-	"defTier",
-	"offTier",
-	"utiTier",
-	"mobTier",
 	"moveslot1",
 	"moveslot2",
 	"moveslot3",
@@ -57,6 +74,11 @@ const resetScores = [
 ]
 
 export function resetPlayer(player) {
+	setScore(player, "skill_tree", 1, false);
+	
+	player.runCommand("clear @s a:skill_point -1");
+	player.runCommand("effect @s clear");
+
 	// Remove tags
 	const tags = player.getTags();
 	for (const tag of removeTags) {
@@ -77,12 +99,14 @@ export function resetPlayer(player) {
 	for (const score of resetScores) {
 		setScore(player, score, 0);
 	}
+
+	refreshSidebar(player);
 }
 
 export function chooseType(player, typeName) {
 	player.addTag(typeName)
 	player.dimension.spawnParticle(`a:choose_${typeName}`, player.location, map);
-	player.onScreenDisplay.setTitle(`a:${typeName}`);
+	player.onScreenDisplay.setTitle(`a:${typeName}_super_fast`);
 }
 
 export function chooseBendingMenu(source) {

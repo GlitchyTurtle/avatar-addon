@@ -1,9 +1,9 @@
 import { world } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
-import { getScore, getBendingStyle, getSubBendingStyle, parseMoveslot } from "./../util.js";
+import { getScore, getBendingStyle, parseMoveslot } from "./../util.js";
 import commands from './../moves/import.js';
+import { playerHasSkill } from "./skillTreeMenu.js";
 
-let moveList;
 const commandslist = Object.values(commands)
 
 export function statsMenu(source) {
@@ -43,14 +43,33 @@ export function statsMenu(source) {
 }
 
 export function showStats(source, member) {
-	moveList = ["Empty"]
+	const moveList = ["Empty"]
+	const BENDING_STYLE = getBendingStyle(member);
 	for (let i = 0; i < commandslist.length; i++) {
-		if (commandslist[i].style === getBendingStyle(member).toLowerCase() && commandslist[i].unlockable <= getScore("level", member) || (member.hasTag("avatar") && commandslist[i].unlockable_for_avatar <= getScore("level", member)) && (!commandslist[i].sub_bending_required || commandslist[i].sub_bending_required === getSubBendingStyle(member))) {
-			moveList.push(`${commandslist[i].name}`);
+		let currentMove = commandslist[i];
+		//BENDING_STYLE.toLowerCase() flter
+
+		if (
+			// Error check
+			(currentMove.name.length > 0) &&
+
+			// Check for current type
+			(currentMove.style === BENDING_STYLE.toLowerCase() || member.hasTag("avatar")) &&
+
+			// Basic unlocks
+			((member.hasTag("avatar") && currentMove.unlockable_for_avatar <= getScore("level", member)) || 
+			(!member.hasTag("avatar") && currentMove.unlockable <= getScore("level", member))) &&
+
+			// Skill Tree now!
+			(currentMove.skill_required === undefined || playerHasSkill(member, currentMove.skill_required)) 
+			) {
+
+			// Actual if statment body
+			moveList.push(`${currentMove.name}`);
 		}
 	}
 		
-	let tags = source.getTags();
+	let tags = member.getTags();
 	let counterHome = 0;
 	let counterMoveset = 0;
 	for (let i = 0; i < tags.length; i++) {
@@ -76,5 +95,5 @@ export function showStats(source, member) {
 		build += (`§bSlot ${i}:§r ${currentMove.name}\n`)	
 	}
 
-	source.sendMessage(`----------------\n§b${member.nameTag}§r is a level §b${getScore("level", member)}§r ${bendingStyle}.\nThey have §c${getScore("deaths", member)}§r deaths, and §a${getScore("kills", member)}§r kills.\nTheir subbending style is §b${getSubBendingStyle(member)}§r.\nThey have §a${counterHome}§r saved home locations and §a${counterMoveset}§r saved movesets.\nTheir build is: §r${build}----------------`);
+	source.sendMessage(`----------------\n§b${member.nameTag}§r is a level §b${getScore("level", member)}§r ${bendingStyle}.\nThey have §c${getScore("deaths", member)}§r deaths, and §a${getScore("kills", member)}§r kills.\nThey have §a${counterHome}§r saved home locations and §a${counterMoveset}§r saved movesets.\nTheir build is: §r${build}----------------`);
 }

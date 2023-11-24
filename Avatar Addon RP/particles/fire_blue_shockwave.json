@@ -18,7 +18,6 @@
 			"minecraft:emitter_lifetime_once": {
 				"active_time": 1
 			},
-     			"minecraft:emitter_lifetime_once": {},
 			"minecraft:emitter_shape_disc": {
 				"radius": 0.8,
 				"surface_only": true,

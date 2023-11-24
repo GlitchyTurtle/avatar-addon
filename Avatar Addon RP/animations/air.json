@@ -39,6 +39,27 @@
 				}
 			}
 		},
+		"animation.air.scooter" : {
+			"animation_length": 1.2,
+			"override_previous_animation": true,
+			"loop" : true,
+			"bones" : {
+				"leftleg" : {
+					"rotation" : {
+						"0.0": [ "-72.0 - this", "-18.0 - this", "-this" ],
+						"1.1": [ "-72.0 - this", "-18.0 - this", "-this" ],
+						"1.2": [0, 0, 0]
+					}
+				},
+				"rightleg" : {
+					"rotation" : {
+						"0.0": [ "-72.0 - this", "18.0 - this", "-this" ],
+						"1.1": [ "-72.0 - this", "18.0 - this", "-this" ],
+						"1.2": [0, 0, 0]
+					}
+				}
+			}
+		},
 		"animation.air.pull": {
 			"animation_length": 1.2,
 			"override_previous_animation": true,

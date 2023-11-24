@@ -1,0 +1,30 @@
+{
+	"format_version": "1.19.10",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "a:oolong_tea_recipe"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"ingredients": [
+			{
+				"item": "minecraft:beetroot"
+			},
+            {
+				"item": "minecraft:melon_seeds"
+			},
+            {
+				"item": "minecraft:blaze_powder"
+			},
+			{
+				"item": "a:water_cup"
+			}
+		],
+		"result": [
+			{
+				"item": "a:oolong_tea"
+			}
+		]
+	}
+}
