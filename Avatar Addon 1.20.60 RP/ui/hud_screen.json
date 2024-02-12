@@ -1,0 +1,212 @@
+{
+	"hud_title_text": {
+		"ignored": "((not (($title_text - 'a:') = $title_text)) or (not (($title_text - '}') = $title_text)))"
+	},
+	
+	"right_sidebar2": {
+		"anchor_from": "right_middle",
+		"anchor_to": "right_middle",
+		"type": "image",
+		"size": [ "100%c + 13px", "100%c + 13px" ],
+		"offset": [-4, 0],
+		"texture": "textures/ui/effect_background",
+		"alpha": 0.7,
+		"controls": [
+			{
+				"actionbar_message": {
+					"$update_string": "}",   // title must include this string to update the element
+					"type": "label",
+					"anchor_from": "right",
+					"anchor_to": "right",
+					"color": "$tool_tip_text",
+					"layer": 1,
+					"text": "#text",
+					"localize": false,
+					"alpha": 1.0,
+					"font_scale_factor": 1.0,
+					"controls": [
+						{
+							"data_control": {
+								"type": "panel",
+								"size": [ 0, 0 ],
+								"bindings": [
+									{
+										"binding_name": "#hud_title_text_string"      // reads in the current title string
+									},
+									{
+										"binding_name": "#hud_title_text_string",
+										"binding_name_override": "#preserved_text",   // updates #preserved_text when visibility of this element changes
+										"binding_condition": "visibility_changed"
+									},
+									// element becomes visible then immediately turns invisible when a title containing the update string is passed
+									{
+										"binding_type": "view",
+										"source_property_name": "(not (#hud_title_text_string = #preserved_text) and not ((#hud_title_text_string - $update_string) = #hud_title_text_string))",
+										"target_property_name": "#visible"
+									}
+								]
+							}
+						}
+						
+					],
+					"bindings": [
+						{
+							"binding_type": "view",
+							"source_control_name": "data_control",   						// reads bindings from the "data_control" child element
+							"resolve_sibling_scope": true,		 						// required if "data_control" is a sibling of the element that pulls the binding
+							"source_property_name": "(#preserved_text - $update_string)",   // remove string update text from the text to be displayed
+							"target_property_name": "#text"
+						}
+					]
+				}
+			}
+		]
+	},
+
+	"right_sidebar": {
+		"$update_string": "}",   // title must include this string to update the element
+		"anchor_from": "right_middle",
+		"anchor_to": "right_middle",
+		"type": "image",
+		"size": [ "100%c + 13px", "100%c + 13px" ],
+		"offset": [-4, 0],
+		"texture": "textures/ui/effect_background",
+		"alpha": 0.7,
+		"visible": "#visible",
+		"controls": [		
+			{
+				"data_control": {
+					"type": "panel",
+					"size": [ 0, 0 ],
+					"bindings": [
+						{
+							"binding_name": "#hud_title_text_string"      // reads in the current title string
+						},
+						{
+							"binding_name": "#hud_title_text_string",
+							"binding_name_override": "#preserved_text",   // updates #preserved_text when visibility of this element changes
+							"binding_condition": "visibility_changed"
+						},
+						// element becomes visible then immediately turns invisible when a title containing the update string is passed
+						{
+							"binding_type": "view",
+							"source_property_name": "(not (#hud_title_text_string = #preserved_text) and not ((#hud_title_text_string - $update_string) = #hud_title_text_string))",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			},
+			{
+				"actionbar_message": {
+					"type": "label",
+					"anchor_from": "right",
+					"anchor_to": "right",
+					"color": "$tool_tip_text",
+					"layer": 1,
+					"text": "#text",
+					"localize": false,
+					"alpha": 1.0,
+					"font_scale_factor": 1.0,
+					"bindings": [
+						{
+							"binding_type": "view",
+							"source_control_name": "data_control",   						// reads bindings from the "data_control" child element
+							"resolve_sibling_scope": true,		 						// required if "data_control" is a sibling of the element that pulls the binding
+							"source_property_name": "(#preserved_text - $update_string)",   // remove string update text from the text to be displayed
+							"target_property_name": "#text"
+						}
+					]
+				}
+			}
+		],
+		"bindings": [
+			{
+				"binding_name": "#hud_title_text_string"
+			  },
+			  {
+				"binding_type": "view",
+				"source_property_name": "(not ((#hud_title_text_string - 'a:') = #hud_title_text_string) and ( ( (#hud_title_text_string - 'reset') = #hud_title_text_string ))",
+				"target_property_name": "#visible"
+			  }
+		]
+	},
+
+	"hud_actionbar_text": {
+		"anchor_from": "bottom_middle",
+		"anchor_to": "bottom_right",
+		"type": "image",
+		"size": [ "100%c + 18px", "100%c + 8px" ],
+		"offset": [-105, -4],
+		"texture": "textures/ui/effect_background",
+		"alpha": 0.7,
+		"controls": [
+			{
+				"actionbar_message": {
+					"type": "label",
+					"anchor_from": "center",
+					"anchor_to": "center",
+					"color": "$tool_tip_text",
+					"layer": 1,
+					"text": "$actionbar_text",
+					"localize": false,
+					"alpha": 1
+				}
+			}
+		]
+	},
+
+	"hud_actionbar_text1": {
+		"anchor_from": "right_middle",
+		"anchor_to": "right_middle",
+		"type": "image",
+		"size": [ "100%c + 10px", "100%c + 10px" ],
+		"offset": [-3, 0],
+		"texture": "textures/ui/hud_tip_text_background",
+		"alpha": "@hud.anim_actionbar_text_background_alpha_out",
+		"controls": [
+			{
+				"actionbar_message": {
+					"type": "label",
+					"anchor_from": "right",
+					"anchor_to": "right",
+					"color": "$tool_tip_text",
+					"layer": 1,
+					"text": "$actionbar_text",
+					"localize": false,
+					"alpha": "@hud.anim_actionbar_text_alpha_out",
+					"font_scale_factor": 0.9
+				}
+			}
+		]
+	},
+
+	"root_panel": {
+		"modifications": [
+			{
+				"array_name": "controls",
+				"operation": "insert_front",
+				"value": [
+					{
+						"hud_title_text@right_sidebar": {}
+					},
+					{
+						"avatar_cooldown_bar": {
+							"type": "panel",
+							"factory": {
+								"name": "hud_title_text_factory",
+								"control_ids": {
+									"hud_title_text": "panel_control@avatar_cooldown_bar.cooldown_bar_offset_control"
+								}
+							}
+						}
+					}
+				]
+			}
+		]
+	},
+
+	"hud_screen@common.base_screen": {
+		"cache_screen": true,
+		"low_frequency_rendering": true
+	}
+}

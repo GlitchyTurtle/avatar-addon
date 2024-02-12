@@ -1,0 +1,681 @@
+{
+	"format_version": "1.17.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+ 			"runtime_identifier": "minecraft:player",
+			"is_summonable": false,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"main",
+					"left",
+					"sneak",
+					"jump",
+					"sprint",
+					"water",
+					"offhand"
+				]
+			},
+			"animations": {
+				"main": "animation.main",
+				"left": "controller.animation.left",
+				"sneak": "controller.animation.sneak",
+				"jump": "controller.animation.jump",
+				"sprint": "controller.animation.sprint",
+				"water": "controller.animation.water",
+				"offhand": "controller.animation.offhand"
+			}
+		},
+		"component_groups": {
+			"a:health_normal": {
+				"minecraft:health": {
+					"value": 20,
+					"max": 20
+				}
+			},
+			"a:health_15": {
+				"minecraft:health": {
+					"value": 30,
+					"max": 30
+				}
+			},
+			"a:health_20": {
+				"minecraft:health": {
+					"value": 40,
+					"max": 40
+				}
+			},
+			"a:health_25": {
+				"minecraft:health": {
+					"value": 50,
+					"max": 50
+				}
+			},
+			"a:breath_water": {
+				"minecraft:breathable": {
+					"breathes_water": true,
+					"breathes_air": true
+				}
+			},
+			"a:breath_earth": {
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand"
+					]
+				}
+			},
+			"a:breath_avatar": {
+				"minecraft:breathable": {
+					"breathes_water": true,
+					"breathes_air": true,
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand"
+					]
+				}
+			},
+			"a:breath_normal": {
+				"minecraft:breathable": {
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false,
+					"breathe_blocks": [
+						"minecraft:stone",
+						"minecraft:air",
+						"minecraft:dirt",
+						"minecraft:grass",
+						"minecraft:cobblestone",
+						"minecraft:gravel",
+						"minecraft:sand"
+					]
+				}
+			},
+			"a:base_damage_normal": {
+				"minecraft:attack": {
+					"damage": 1
+				}
+			},
+			"a:base_damage_2": {
+				"minecraft:attack": {
+					"damage": 2
+				}
+			},
+			"a:base_damage_3": {
+				"minecraft:attack": {
+					"damage": 3
+				}
+			},
+			"a:base_damage_4": {
+				"minecraft:attack": {
+					"damage": 4
+				}
+			},
+			"a:base_damage_5": {
+				"minecraft:attack": {
+					"damage": 5
+				}
+			},
+			"a:no_hunger": {
+				"minecraft:player.exhaustion": {
+					"max": 0
+				}
+			},
+			"a:normal_hunger": {
+				"minecraft:player.exhaustion": {
+					"max": 20
+				}
+			},
+			"a:no_mob_agro": {
+				"minecraft:type_family": {
+					"family": []
+				}
+			},
+			"a:mob_agro": {
+				"minecraft:type_family": {
+					"family": [
+						"player"
+					]
+				}
+			},
+			"a:contact_damage_off": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "contact",
+							"deals_damage": false
+						},
+						{
+							"cause": "magma",
+							"deals_damage": false
+						}
+					]
+				}
+			},
+			"a:fall_damage_special": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"damage_multiplier": 0.3,
+							"on_damage": {
+								"event": "a:spawn_ground_particle"
+							}
+						},
+						{
+							"cause": "contact",
+							"deals_damage": false
+						},
+						{
+							"cause": "magma",
+							"deals_damage": false
+						}
+					]
+				}
+			},
+			"a:contact_fall_damage_off": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "contact",
+							"deals_damage": false
+						},
+						{
+							"cause": "magma",
+							"deals_damage": false
+						},
+						{
+							"cause": "fall",
+							"deals_damage": false
+						}
+					]
+				}
+			},
+			"a:reset_damage_sensor": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "contact",
+							"deals_damage": true
+						},
+						{
+							"cause": "magma",
+							"deals_damage": true
+						},
+						{
+							"cause": "fall",
+							"deals_damage": true
+						}
+					]
+				}
+			},
+			"a:will_trigger_skulk_off": {
+				"minecraft:vibration_damper": {}
+			},
+			"a:no_cape": {
+				"minecraft:mark_variant": {
+					"value": 0
+				}
+			},
+			"a:iron_patron_cape": {
+				"minecraft:mark_variant": {
+					"value": 1
+				}
+			},
+			"a:gold_patron_cape": {
+				"minecraft:mark_variant": {
+					"value": 2
+				}
+			},
+			"a:emerald_patron_cape": {
+				"minecraft:mark_variant": {
+					"value": 3
+				}
+			},
+			"a:monthly_comp_cape": {
+				"minecraft:mark_variant": {
+					"value": 4
+				}
+			},
+			"a:bending_clash_winner_cape": {
+				"minecraft:mark_variant": {
+					"value": 5
+				}
+			}
+		},
+		"components": {
+			"minecraft:experience_reward": {
+				"on_death": "Math.ceil(query.player_level * 7)"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:can_climb": {},
+			"minecraft:scaffolding_climber": {},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 1
+			},
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 0,
+				"max": 4
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": -1,
+				"inhale_time": 3.75,
+				"generates_bubbles": false
+			},
+			"minecraft:nameable": {
+				"always_show": true,
+				"allow_name_tag_renaming": false
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:insomnia": {
+				"days_until_insomnia": 3
+			},
+			"minecraft:rideable": {
+				"seat_count": 2,
+				"family_types": [
+					"parrot_tame"
+				],
+				"pull_in_entities": true,
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 0,
+						"max_rider_count": 0,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							-0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 1,
+						"max_rider_count": 2,
+						"lock_rider_rotation": 0
+					}
+				]
+			},
+			"minecraft:health": {
+				"max": 20
+			},
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_mob_effect",
+									"subject": "self",
+									"value": "bad_omen"
+								},
+								{
+									"test": "is_in_village",
+									"subject": "self",
+									"value": true
+								}
+							]
+						},
+						"event": "minecraft:trigger_raid"
+					}
+				]
+			}
+		},
+		"events": {
+			"a:set_health_normal": {
+				"add": {
+					"component_groups": [
+						"a:health_normal"
+					]
+				}
+			},
+			"a:set_health_15": {
+				"add": {
+					"component_groups": [
+						"a:health_15"
+					]
+				}
+			},
+			"a:set_health_20": {
+				"add": {
+					"component_groups": [
+						"a:health_20"
+					]
+				}
+			},
+			"a:set_health_25": {
+				"add": {
+					"component_groups": [
+						"a:health_25"
+					]
+				}
+			},
+			"a:set_breath_water": {
+				"add": {
+					"component_groups": [
+						"a:breath_water"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_earth",
+						"a:breath_avatar",
+						"a:breath_normal"
+					]
+				}
+			},
+			"a:set_breath_earth": {
+				"add": {
+					"component_groups": [
+						"a:breath_earth"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_water",
+						"a:breath_avatar",
+						"a:breath_normal"
+					]
+				}
+			},
+			"a:set_breath_avatar": {
+				"add": {
+					"component_groups": [
+						"a:breath_avatar"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_water",
+						"a:breath_earth",
+						"a:breath_normal"
+					]
+				}
+			},
+			"a:set_breath_normal": {
+				"add": {
+					"component_groups": [
+						"a:breath_normal"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:breath_water",
+						"a:breath_avatar",
+						"a:breath_earth"
+					]
+				}
+			},
+			"a:set_base_damage_normal": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_normal"
+					]
+				}	
+			},
+			"a:set_base_damage_2": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_2"
+					]
+				}	
+			},
+			"a:set_base_damage_3": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_3"
+					]
+				}	
+			},
+			"a:set_base_damage_4": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_4"
+					]
+				}	
+			},
+			"a:set_base_damage_5": {
+				"add": {
+					"component_groups": [
+						"a:base_damage_5"
+					]
+				}	
+			},
+			"a:no_hunger": {
+				"add": {
+					"component_groups": [
+						"a:no_hunger"
+					]
+				}
+			},
+			"a:normal_hunger": {
+				"add": {
+					"component_groups": [
+						"a:normal_hunger"
+					]
+				}
+			},
+			"a:no_mob_agro": {
+				"add": {
+					"component_groups": [
+						"a:no_mob_agro"
+					]
+				}
+			},
+			"a:mob_agro": {
+				"add": {
+					"component_groups": [
+						"a:mob_agro"
+					]
+				}
+			},
+			"a:reset_damage_sensor": {
+				"add": {
+					"component_groups": [
+						"a:reset_damage_sensor"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"a:fall_damage_off",
+						"a:fall_damage_on",
+						"contact_damage_on",
+						"contact_damage_off"
+					]
+				}
+			},
+			"a:set_contact_damage_off": {
+				"add": {
+					"component_groups": [
+						"a:contact_damage_off"
+					]
+				}	
+			},
+			"a:set_fall_damage_off": {
+				"add": {
+					"component_groups": [
+						"a:contact_fall_damage_off"
+					]
+				}	
+			},
+			"a:set_trigger_skulk_off": {
+				"add": {
+					"component_groups": [
+						"a:will_trigger_skulk_off",
+						"a:contact_damage_off"
+					]
+				}
+			},
+			"a:set_trigger_skulk_on": {
+				"remove": {
+					"component_groups": [
+						"a:will_trigger_skulk_off",
+						"a:contact_damage_off"
+					]
+				}
+			},
+			"a:set_special_fall_damage": {
+				"add": {
+					"component_groups": [
+						"a:fall_damage_special"
+					]
+				}
+			},
+			"a:spawn_ground_particle": {
+				"run_command": {
+					"command": [
+						"execute if entity @s[tag=water] run particle a:water_blast_pop ~~0.3~",
+						"execute if entity @s[tag=earth] run particle a:earth_shockwave ~~0.1~",
+						"execute if entity @s[tag=earth] run damage @e[r=10,rm=0.4] 5",
+						"execute if entity @s[tag=earth] run playanimation @s animation.earth.landing",
+						"execute if entity @s[tag=earth] run camerashake add @a[r=5] 0.4 0.3 positional"
+					]
+				}
+			},
+			"a:remove_all_capes": {
+				"add": {
+					"component_groups": [
+						"a:no_cape"
+					]
+				}
+			},
+			"a:equip_iron_patron_cape": {
+				"add": {
+					"component_groups": [
+						"a:iron_patron_cape"
+					]
+				}
+			},
+			"a:equip_gold_patron_cape": {
+				"add": {
+					"component_groups": [
+						"a:gold_patron_cape"
+					]
+				}
+			},
+			"a:equip_emerald_patron_cape": {
+				"add": {
+					"component_groups": [
+						"a:emerald_patron_cape"
+					]
+				}
+			},
+			"a:equip_monthly_comp_cape": {
+				"add": {
+					"component_groups": [
+						"a:monthly_comp_cape"
+					]
+				}
+			},
+			"a:equip_bending_clash_winner_cape": {
+				"add": {
+					"component_groups": [
+						"a:bending_clash_winner_cape"
+					]
+				}
+			},
+			"minecraft:gain_bad_omen": {
+				"add": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				}
+			},
+			"minecraft:clear_add_bad_omen": {
+				"remove": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:clear_bad_omen_spell_effect"
+					]
+				}
+			},
+			"minecraft:trigger_raid": {
+				"add": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"minecraft:remove_raid_trigger": {
+				"remove": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			}
+		}
+	}
+}

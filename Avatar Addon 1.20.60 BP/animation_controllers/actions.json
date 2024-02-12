@@ -1,0 +1,169 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.left": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"left": "variable.attack_time"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_left 0"
+					]
+				},
+				"left": {
+					"transitions": [
+						{
+							"default": "!variable.attack_time"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_left 1"
+					]
+				}
+			}
+		},
+		"controller.animation.sneak": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"sneak": "query.is_sneaking"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s sneak_time 0",
+						"/scoreboard players set @s detect_sneak 0",
+						"/scoreboard players set @s detect_dsneak 0"
+					]
+				},
+				"sneak": {
+					"transitions": [
+						{
+							"default": "!query.is_sneaking"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_sneak 1",
+						"/scoreboard players set @s[scores={detect_sneak=1, detect_sneakTemp=1..}] detect_dsneak 1",
+						"/scoreboard players set @s[scores={detect_dsneak=1}] detect_sneakTemp 0",
+						"/execute as @s[scores={detect_sneak=1,detect_dsneak=0}] run scoreboard players operation @s detect_sneakTemp = @s detect_dsneakSet",
+						"/execute if entity @s[tag=wind_dash] if block ~~-1~ air run scriptevent a:dash"
+					]
+				}
+			}
+		},
+		"controller.animation.jump": {
+			"states": {
+			  "default": {
+				"transitions": [
+				  	{
+						"jump1":"!q.is_on_ground"
+					}
+				],
+				"on_entry":[
+				"v.jump=0;",
+				"/tag @s remove dash"
+			  ]
+			  },
+			  "jump1": {
+				"transitions": [
+				  {"default":"q.is_on_ground"},
+				  {"jump2":"!q.is_jumping"}
+				]
+			  },
+			  "jump2": {
+				"transitions": [
+				  {"default":"q.is_on_ground"},
+				  {"jump3":"q.is_jumping"}
+				]
+			  },
+			  "jump3": {
+				"transitions": [
+				  {"default":"v.jump=v.jump??0; v.jump=v.jump+1; return v.jump>=2 && q.is_on_ground;"}
+				],
+				"on_entry": [
+				  "/execute if entity @s[tag=double_jump] run scriptevent a:double_jump"
+				]
+			  }
+			}
+		},
+		"controller.animation.sprint": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"sprint": "query.is_sprinting"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_sprint 0"
+					]
+				},
+				"sprint": {
+					"transitions": [
+						{
+							"default": "!query.is_sprinting"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_sprint 1"
+					]
+				}
+			}
+		},
+		"controller.animation.water": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"move": "query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_water 0"
+					]
+				},
+				"move": {
+					"transitions": [
+						{
+							"default": "!query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"/scoreboard players set @s detect_water 1",
+						"/scoreboard players set @s water_loaded 8"
+					]
+				}
+			}
+		},
+		"controller.animation.offhand": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"arrows": "query.is_item_name_any('slot.weapon.offhand',0,'minecraft:arrow')"
+						}
+					],
+					"on_entry": [
+						"/tag @s remove bending_off",
+						"/tellraw @s {\"rawtext\":[{\"text\":\"§7You have your bending now! (arrows not in offhand)§f\"}]}"
+					]
+				},
+				"arrows": {
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.offhand',0,'minecraft:arrow')"
+						}
+					],
+					"on_entry": [
+						"/tag @s add bending_off",
+						"/tellraw @s {\"rawtext\":[{\"text\":\"§7You no longer have your bending! (arrows in offhand)§f\"}]}"
+					]
+				}
+			}
+		}
+	}
+}
